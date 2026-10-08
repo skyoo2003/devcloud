@@ -36,8 +36,7 @@ func deriveOTPHash(otp string, salt []byte) string {
 func verifyOTPHash(storedHash, otp string) bool {
 	saltHex, keyHex, ok := strings.Cut(storedHash, ":")
 	if !ok {
-		h := sha256.Sum256([]byte(otp))
-		return subtle.ConstantTimeCompare([]byte(storedHash), []byte(hex.EncodeToString(h[:]))) == 1
+		return false
 	}
 	salt, err := hex.DecodeString(saltHex)
 	if err != nil {
