@@ -133,6 +133,15 @@ UNSENDABLE_PROBES: dict[tuple[str, str], str] = {
         "does not descend into nested members: LockConfiguration.UnlockDelay."
         "UnlockDelayValue has a minimum of 7 and the stub sends 1"
     ),
+    ("qbusiness", "Chat"): (
+        "botocore does not expose client.chat because Chat is an event-streamed "
+        "operation; it raises AttributeError on getattr(client, 'chat')"
+    ),
+    ("elasticloadbalancing", "ConfigureHealthCheck"): (
+        "the stub builder sends 1 for numeric fields, but botocore validates "
+        "Interval (min 5), Timeout (min 2), UnhealthyThreshold (min 2), and "
+        "HealthyThreshold (min 2)"
+    ),
 }
 
 

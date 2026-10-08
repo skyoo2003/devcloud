@@ -174,6 +174,21 @@ func TestMatchPrefersConstrainedRoutes(t *testing.T) {
 	}
 }
 
+func TestMatchPrefersNonGreedyRoutes(t *testing.T) {
+	routes := []Route{
+		// Alphabetical by operation: DeletePortal comes before ExpireSession.
+		{Method: "DELETE", Pattern: "/portals/{portalArn+}", Operation: "DeletePortal"},
+		{Method: "DELETE", Pattern: "/portals/{portalId}/sessions/{sessionId}", Operation: "ExpireSession"},
+	}
+
+	if op, _ := Match(routes, "DELETE", "/portals/p1/sessions/s1"); op != "ExpireSession" {
+		t.Errorf("greedy route shadowed the more specific sub-resource route: got %q", op)
+	}
+	if op, _ := Match(routes, "DELETE", "/portals/p1"); op != "DeletePortal" {
+		t.Errorf("greedy route did not match its own path: got %q", op)
+	}
+}
+
 func TestMatchMethodAndMiss(t *testing.T) {
 	routes := []Route{
 		{Method: "GET", Pattern: "/2020-05-31/distribution/{Id}", Operation: "GetDistribution"},

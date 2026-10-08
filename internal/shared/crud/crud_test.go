@@ -751,6 +751,55 @@ func TestRegisterRoutesIsNotServing(t *testing.T) {
 	}
 }
 
+func TestEngineRelateAndToggle(t *testing.T) {
+	const svc = "relatetogglesvc"
+	Register(svc, map[string]OpMeta{
+		"AssociateProfile": {Verb: "Relate", Resource: "Profile", OutputItemKey: "ProfileAssociation"},
+		"EnableFeature":    {Verb: "Toggle", Resource: "Feature"},
+		"StartInstances":   {Verb: "Toggle", Resource: "Instance", OutputListKey: "StartingInstances"},
+		"GetProfile":       {Verb: "Get", Resource: "Profile", OutputItemKey: "Profile"},
+	})
+
+	// Relate with OutputItemKey
+	r, err := handleJSON(t, svc, "AssociateProfile", map[string]any{"ProfileId": "p-123", "Target": "t-456"})
+	if err != nil || r.Status != 200 {
+		t.Fatalf("relate: status=%d err=%v", statusOf(r), err)
+	}
+	assoc := decode(t, r)
+	inner, ok := assoc["ProfileAssociation"].(map[string]any)
+	if !ok {
+		t.Fatalf("missing ProfileAssociation in response: %v", assoc)
+	}
+	if inner["ProfileId"] != "p-123" || inner["Status"] != "ACTIVE" || inner["Return"] != true {
+		t.Errorf("unexpected relate response: %v", inner)
+	}
+
+	// Toggle with flat echo
+	r, err = handleJSON(t, svc, "EnableFeature", map[string]any{"FeatureName": "f-1"})
+	if err != nil || r.Status != 200 {
+		t.Fatalf("toggle: status=%d err=%v", statusOf(r), err)
+	}
+	feat := decode(t, r)
+	if feat["FeatureName"] != "f-1" || feat["State"] != "ENABLED" {
+		t.Errorf("unexpected toggle response: %v", feat)
+	}
+
+	// Toggle with OutputListKey
+	r, err = handleJSON(t, svc, "StartInstances", map[string]any{"InstanceId": "i-abc"})
+	if err != nil || r.Status != 200 {
+		t.Fatalf("toggle list: status=%d err=%v", statusOf(r), err)
+	}
+	instResp := decode(t, r)
+	list, ok := instResp["StartingInstances"].([]any)
+	if !ok || len(list) != 1 {
+		t.Fatalf("unexpected list response: %v", instResp)
+	}
+	instItem := list[0].(map[string]any)
+	if instItem["InstanceId"] != "i-abc" {
+		t.Errorf("unexpected instance item: %v", instItem)
+	}
+}
+
 func statusOf(r *Result) int {
 	if r == nil {
 		return 0
