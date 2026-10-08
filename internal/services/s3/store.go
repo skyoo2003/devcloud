@@ -3,9 +3,11 @@
 package s3
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 )
 
@@ -167,4 +169,109 @@ func (fs *FileStore) ObjectExists(accountID, bucket, key string) bool {
 	}
 	_, err = os.Stat(path)
 	return err == nil
+}
+
+// multipartDir returns the directory used to store parts for an upload.
+func (fs *FileStore) multipartDir(uploadID string) (string, error) {
+	if err := validPathComponent(uploadID); err != nil {
+		return "", err
+	}
+	return fs.safePath("_multipart", uploadID)
+}
+
+// partPath returns the path to a specific part file.
+func (fs *FileStore) partPath(uploadID string, partNumber int) (string, error) {
+	if partNumber < 1 {
+		return "", fmt.Errorf("invalid part number")
+	}
+	if err := validPathComponent(uploadID); err != nil {
+		return "", err
+	}
+	partStr := strconv.Itoa(partNumber)
+	if err := validPathComponent(partStr); err != nil {
+		return "", err
+	}
+	return fs.safePath("_multipart", uploadID, partStr)
+}
+
+// ReadMultipartPart reads the bytes of a stored part file. If the file does not exist,
+// it returns nil, false, nil.
+func (fs *FileStore) ReadMultipartPart(uploadID string, partNumber int) ([]byte, bool, error) {
+	path, err := fs.partPath(uploadID, partNumber)
+	if err != nil {
+		return nil, false, err
+	}
+	data, err := os.ReadFile(path)
+	if errors.Is(err, os.ErrNotExist) {
+		return nil, false, nil
+	}
+	if err != nil {
+		return nil, false, err
+	}
+	return data, true, nil
+}
+
+func writeAtomicFile(path string, data []byte) error {
+	dir := filepath.Dir(path)
+	if err := os.MkdirAll(dir, 0o755); err != nil {
+		return err
+	}
+	f, err := os.CreateTemp(dir, ".tmp-*")
+	if err != nil {
+		return err
+	}
+	defer func() { _ = f.Close(); _ = os.Remove(f.Name()) }()
+	if err = f.Chmod(0o644); err != nil {
+		return err
+	}
+	if _, err = f.Write(data); err != nil {
+		return err
+	}
+	if err = f.Close(); err != nil {
+		return err
+	}
+	return os.Rename(f.Name(), path)
+}
+
+// ReadObject reads and returns the data for the given object, along with whether it existed.
+func (fs *FileStore) ReadObject(accountID, bucket, key string) ([]byte, bool, error) {
+	path, err := fs.objectPath(accountID, bucket, key)
+	if err != nil {
+		return nil, false, err
+	}
+	data, err := os.ReadFile(path)
+	if errors.Is(err, os.ErrNotExist) {
+		return nil, false, nil
+	}
+	if err != nil {
+		return nil, false, err
+	}
+	return data, true, nil
+}
+
+// WriteObjectAtomic safely and atomically writes object data to disk using a temporary file.
+func (fs *FileStore) WriteObjectAtomic(accountID, bucket, key string, data []byte) error {
+	path, err := fs.objectPath(accountID, bucket, key)
+	if err != nil {
+		return err
+	}
+	return writeAtomicFile(path, data)
+}
+
+// WriteMultipartPartAtomic safely and atomically writes part data to disk using a temporary file.
+func (fs *FileStore) WriteMultipartPartAtomic(uploadID string, partNumber int, data []byte) error {
+	path, err := fs.partPath(uploadID, partNumber)
+	if err != nil {
+		return err
+	}
+	return writeAtomicFile(path, data)
+}
+
+// DeleteMultipartPart removes a specific part file.
+func (fs *FileStore) DeleteMultipartPart(uploadID string, partNumber int) error {
+	path, err := fs.partPath(uploadID, partNumber)
+	if err != nil {
+		return err
+	}
+	return os.Remove(path)
 }

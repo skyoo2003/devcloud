@@ -11,7 +11,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -193,16 +192,11 @@ func (p *S3Provider) storeMultipartPart(uploadID string, number int, data []byte
 	if _, err := p.metaStore.GetMultipartUpload(uploadID); err != nil {
 		return "", err
 	}
-	path, err := p.partPath(uploadID, number)
+	previous, existed, err := p.fileStore.ReadMultipartPart(uploadID, number)
 	if err != nil {
 		return "", err
 	}
-	previous, err := os.ReadFile(path)
-	existed := err == nil
-	if err != nil && !errors.Is(err, os.ErrNotExist) {
-		return "", err
-	}
-	if err = writeMultipartPartFile(path, data); err != nil {
+	if err = p.fileStore.WriteMultipartPartAtomic(uploadID, number, data); err != nil {
 		return "", err
 	}
 	sum := md5.Sum(data)
@@ -210,29 +204,11 @@ func (p *S3Provider) storeMultipartPart(uploadID string, number int, data []byte
 	if err = p.metaStore.PutUploadPart(UploadPartInfo{UploadID: uploadID, PartNumber: number, ETag: etag, Size: int64(len(data))}); err != nil {
 		var restore error
 		if existed {
-			restore = writeMultipartPartFile(path, previous)
+			restore = p.fileStore.WriteMultipartPartAtomic(uploadID, number, previous)
 		} else {
-			restore = os.Remove(path)
+			restore = p.fileStore.DeleteMultipartPart(uploadID, number)
 		}
 		return "", errors.Join(err, restore)
 	}
 	return etag, nil
-}
-
-func writeMultipartPartFile(path string, data []byte) error {
-	f, err := os.CreateTemp(filepath.Dir(path), ".part-*")
-	if err != nil {
-		return err
-	}
-	defer func() { _ = f.Close(); _ = os.Remove(f.Name()) }()
-	if err = f.Chmod(0o644); err != nil {
-		return err
-	}
-	if _, err = f.Write(data); err != nil {
-		return err
-	}
-	if err = f.Close(); err != nil {
-		return err
-	}
-	return os.Rename(f.Name(), path)
 }

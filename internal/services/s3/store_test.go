@@ -97,3 +97,37 @@ func TestFileStore_KeyCannotEscapeItsAccount(t *testing.T) {
 	_, err = store.GetObject("000000000000", "victim", "secret.txt")
 	require.NoError(t, err, "victim object should still exist")
 }
+
+func TestFileStore_MultipartOperations(t *testing.T) {
+	store := NewFileStore(t.TempDir())
+	uploadID := "0123456789abcdef0123456789abcdef"
+
+	// Non-existent read
+	data, existed, err := store.ReadMultipartPart(uploadID, 1)
+	require.NoError(t, err)
+	assert.False(t, existed)
+	assert.Nil(t, data)
+
+	// Write part atomically
+	payload := []byte("part-1-content")
+	require.NoError(t, store.WriteMultipartPartAtomic(uploadID, 1, payload))
+
+	// Read back
+	data, existed, err = store.ReadMultipartPart(uploadID, 1)
+	require.NoError(t, err)
+	assert.True(t, existed)
+	assert.Equal(t, payload, data)
+
+	// Delete part
+	require.NoError(t, store.DeleteMultipartPart(uploadID, 1))
+	data, existed, err = store.ReadMultipartPart(uploadID, 1)
+	require.NoError(t, err)
+	assert.False(t, existed)
+	assert.Nil(t, data)
+
+	// Traversal checks
+	assert.Error(t, store.WriteMultipartPartAtomic("../escape", 1, payload))
+	assert.Error(t, store.WriteMultipartPartAtomic("valid", 0, payload))
+	_, _, err = store.ReadMultipartPart("..", 1)
+	assert.Error(t, err)
+}

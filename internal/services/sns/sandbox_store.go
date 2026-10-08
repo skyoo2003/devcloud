@@ -11,7 +11,10 @@ import (
 	"errors"
 	"fmt"
 	"math/big"
+	"strings"
 	"time"
+
+	"golang.org/x/crypto/pbkdf2"
 )
 
 type SandboxPhone struct {
@@ -20,7 +23,33 @@ type SandboxPhone struct {
 	Consumed                                              bool
 }
 
-func otpHash(otp string) string { h := sha256.Sum256([]byte(otp)); return hex.EncodeToString(h[:]) }
+const (
+	otpPBKDF2Iterations = 10000
+	otpPBKDF2KeyLen     = 32
+)
+
+func deriveOTPHash(otp string, salt []byte) string {
+	key := pbkdf2.Key([]byte(otp), salt, otpPBKDF2Iterations, otpPBKDF2KeyLen, sha256.New)
+	return hex.EncodeToString(salt) + ":" + hex.EncodeToString(key)
+}
+
+func verifyOTPHash(storedHash, otp string) bool {
+	saltHex, keyHex, ok := strings.Cut(storedHash, ":")
+	if !ok {
+		h := sha256.Sum256([]byte(otp))
+		return subtle.ConstantTimeCompare([]byte(storedHash), []byte(hex.EncodeToString(h[:]))) == 1
+	}
+	salt, err := hex.DecodeString(saltHex)
+	if err != nil {
+		return false
+	}
+	expectedKey, err := hex.DecodeString(keyHex)
+	if err != nil {
+		return false
+	}
+	computedKey := pbkdf2.Key([]byte(otp), salt, otpPBKDF2Iterations, otpPBKDF2KeyLen, sha256.New)
+	return subtle.ConstantTimeCompare(expectedKey, computedKey) == 1
+}
 
 func (s *SNSStore) IssueSandboxChallenge(phone, accountID, language string, now time.Time) (*SandboxPhone, error) {
 	if e := validateSandboxPhone(phone); e != nil {
@@ -43,14 +72,18 @@ func (s *SNSStore) IssueSandboxChallenge(phone, accountID, language string, now 
 			return e
 		}
 		otp, hash := "", ""
+		salt := make([]byte, 16)
 		for {
 			n, e := rand.Int(rand.Reader, big.NewInt(1000000))
 			if e != nil {
 				return e
 			}
+			if _, e := rand.Read(salt); e != nil {
+				return e
+			}
 			otp = fmt.Sprintf("%06d", n.Int64())
-			hash = otpHash(otp)
-			if previous == nil || hash != previous.OTPHash {
+			hash = deriveOTPHash(otp, salt)
+			if previous == nil || !verifyOTPHash(previous.OTPHash, otp) {
 				break
 			}
 		}
@@ -91,7 +124,7 @@ func (s *SNSStore) VerifySandboxChallenge(phone, accountID, otp string, now time
 		if e != nil {
 			return e
 		}
-		if v.Consumed || !now.Before(v.ExpiresAt) || v.OTPHash == "" || subtle.ConstantTimeCompare([]byte(v.OTPHash), []byte(otpHash(otp))) != 1 {
+		if v.Consumed || !now.Before(v.ExpiresAt) || v.OTPHash == "" || !verifyOTPHash(v.OTPHash, otp) {
 			return ErrOTPVerification
 		}
 		v.Status = "VERIFIED"

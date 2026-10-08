@@ -593,23 +593,15 @@ func (p *S3Provider) multipartDir(uploadID string) (string, error) {
 	if !shared.ValidateUploadID(uploadID) {
 		return "", fmt.Errorf("invalid upload id")
 	}
-	dir := filepath.Join(p.fileStore.baseDir, "_multipart", uploadID)
-	if !shared.IsWithinDir(dir, p.fileStore.baseDir) {
-		return "", fmt.Errorf("path traversal detected in multipart dir")
-	}
-	return filepath.Clean(dir), nil
+	return p.fileStore.multipartDir(uploadID)
 }
 
 // partPath returns the path to a specific part file.
 func (p *S3Provider) partPath(uploadID string, partNumber int) (string, error) {
-	if partNumber < 1 {
-		return "", fmt.Errorf("invalid part number")
+	if !shared.ValidateUploadID(uploadID) {
+		return "", fmt.Errorf("invalid upload id")
 	}
-	dir, err := p.multipartDir(uploadID)
-	if err != nil {
-		return "", err
-	}
-	return filepath.Join(dir, strconv.Itoa(partNumber)), nil
+	return p.fileStore.partPath(uploadID, partNumber)
 }
 
 // --- S3 operation implementations ---
