@@ -163,8 +163,8 @@ func classifyOps(model *ir.Model) []crudOpData {
 // matches it by the Action field of the form body instead. It is admitted here
 // because that is a place the operation name genuinely is, not a guess.
 //
-// ec2-query stays out. It is form-encoded like query but not interchangeable
-// with it, and the only service that speaks it has a hand-written provider.
+// ec2-query is form-encoded like query and admitted here so that EC2's
+// unhandled operations can fall back to the CRUD engine.
 //
 // This is deliberately the same question crud.Servable answers at runtime. The
 // two must agree: a protocol classified here but refused there registers
@@ -172,7 +172,8 @@ func classifyOps(model *ir.Model) []crudOpData {
 // auto-crud.
 func engineServable(protocol string) bool {
 	return strings.HasPrefix(protocol, "json") ||
-		protocol == "rest-json" || protocol == "rest-xml" || protocol == "query"
+		protocol == "rest-json" || protocol == "rest-xml" || protocol == "query" ||
+		protocol == "ec2-query"
 }
 
 // ServiceCRUDData classifies an engine-servable model's CRUD operations. It

@@ -185,7 +185,7 @@ func extractOperationName(r *http.Request, protocol string) string {
 			return target[idx+1:]
 		}
 		return target
-	case protocol == "query":
+	case protocol == "query" || protocol == "ec2-query":
 		// Only check URL query params — do NOT call r.FormValue() which
 		// consumes the request body. The service provider will parse the
 		// form body itself and extract the Action.
@@ -215,6 +215,18 @@ type awsQueryError struct {
 	Message string   `xml:"Error>Message"`
 }
 
+// awsEC2QueryError is the EC2 Query-protocol error envelope.
+type awsEC2QueryError struct {
+	XMLName xml.Name `xml:"Response"`
+	Errors  struct {
+		Error struct {
+			Code    string `xml:"Code"`
+			Message string `xml:"Message"`
+		} `xml:"Error"`
+	} `xml:"Errors"`
+	RequestID string `xml:"RequestID,omitempty"`
+}
+
 // awsJSONError is the envelope for a JSON-format AWS error response.
 type awsJSONError struct {
 	Code    string `json:"__type"`
@@ -239,12 +251,20 @@ func writeAWSError(w http.ResponseWriter, protocol string, status int, code, mes
 	}
 
 	var body []byte
-	if protocol == "query" {
+	ct := "application/xml"
+	switch protocol {
+	case "query":
 		body, _ = xml.Marshal(awsQueryError{Type: "Sender", Code: code, Message: message})
-	} else {
+	case "ec2-query":
+		e := awsEC2QueryError{RequestID: "req-err"}
+		e.Errors.Error.Code = code
+		e.Errors.Error.Message = message
+		body, _ = xml.Marshal(e)
+		ct = "text/xml"
+	default:
 		body, _ = xml.Marshal(awsXMLError{Code: code, Message: message})
 	}
-	w.Header().Set("Content-Type", "application/xml")
+	w.Header().Set("Content-Type", ct)
 	w.WriteHeader(status)
 	_, _ = w.Write([]byte(xml.Header))
 	_, _ = w.Write(body)

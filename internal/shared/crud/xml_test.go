@@ -10,17 +10,17 @@ import (
 
 // requestIDPattern strips the synthesized RequestId so envelope assertions can
 // compare a fixed string.
-var requestIDPattern = regexp.MustCompile(`<RequestId>[0-9a-f]+</RequestId>`)
+var requestIDPattern = regexp.MustCompile(`<(RequestId|requestId)>[0-9a-f]+</(RequestId|requestId)>`)
 
 func normalize(b []byte) string {
-	s := requestIDPattern.ReplaceAllString(string(b), "<RequestId>ID</RequestId>")
+	s := requestIDPattern.ReplaceAllString(string(b), "<$1>ID</$2>")
 	return strings.TrimPrefix(s, xmlHeader)
 }
 
-// TestEncodeXMLEnvelopes pins the two dialects apart. botocore's query parser
+// TestEncodeXMLEnvelopes pins the three XML dialects apart. botocore's query parser
 // looks for <OperationResult> inside <OperationResponse>; its rest-xml parser
 // maps the root element's children straight onto the output shape and ignores
-// the root's name.
+// the root's name; ec2-query wraps in <OperationResponse> with root children and item lists.
 func TestEncodeXMLEnvelopes(t *testing.T) {
 	body := map[string]any{"DNSName": "lb-1.example.com"}
 
@@ -37,6 +37,29 @@ func TestEncodeXMLEnvelopes(t *testing.T) {
 	want = "<CreateAccessPointResult><DNSName>lb-1.example.com</DNSName></CreateAccessPointResult>"
 	if got != want {
 		t.Errorf("rest-xml envelope:\n got %s\nwant %s", got, want)
+	}
+
+	got = normalize(encodeXML(protocolEC2Query, "CreateRoute", body))
+	want = "<CreateRouteResponse xmlns=\"http://ec2.amazonaws.com/doc/2016-11-15/\">" +
+		"<requestId>ID</requestId>" +
+		"<DNSName>lb-1.example.com</DNSName>" +
+		"</CreateRouteResponse>"
+	if got != want {
+		t.Errorf("ec2-query envelope:\n got %s\nwant %s", got, want)
+	}
+}
+
+func TestEncodeXMLEC2ListUsesItem(t *testing.T) {
+	body := map[string]any{"SecurityGroups": []map[string]any{
+		{"GroupId": "sg-1"}, {"GroupId": "sg-2"},
+	}}
+	got := normalize(encodeXML(protocolEC2Query, "DescribeSecurityGroups", body))
+	want := "<DescribeSecurityGroupsResponse xmlns=\"http://ec2.amazonaws.com/doc/2016-11-15/\">" +
+		"<requestId>ID</requestId>" +
+		"<SecurityGroups><item><GroupId>sg-1</GroupId></item><item><GroupId>sg-2</GroupId></item></SecurityGroups>" +
+		"</DescribeSecurityGroupsResponse>"
+	if got != want {
+		t.Errorf("ec2-query list:\n got %s\nwant %s", got, want)
 	}
 }
 
