@@ -1,5 +1,0 @@
-kind: Fixed
-body: Validate Lambda ZIP paths before deriving filesystem paths and omit SQS response bodies and headers from SNS delivery failure logs.
-time: 2026-10-05T23:33:06.807123+09:00
-custom:
-    Issue: "178"

@@ -1,3 +1,0 @@
-kind: Added
-body: Implement Phase 1E non-CRUD data planes with SQLite-backed execution for RDS Data API (ExecuteStatement, BatchExecuteStatement, BeginTransaction, CommitTransaction, RollbackTransaction, ExecuteSql) and mock inference runtimes for SageMaker Runtime and SageMaker Runtime HTTP/2 (InvokeEndpoint, InvokeEndpointAsync, InvokeEndpointWithResponseStream, InvokeEndpointWithBidirectionalStream), reducing the registered-only service count to 1 and promoting 10 operations to hand-verified.
-time: 2026-10-09T09:05:00.000000+09:00

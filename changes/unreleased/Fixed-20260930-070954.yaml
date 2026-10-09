@@ -1,5 +1,0 @@
-kind: Fixed
-body: Route unhandled S3 bucket subresources through the CRUD fallback and report failed service resets.
-time: 2026-09-30T07:09:54.167849+09:00
-custom:
-    Issue: "174"

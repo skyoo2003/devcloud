@@ -1,3 +1,0 @@
-kind: Added
-body: Expand CloudFormation engine with native resource provisioning for Lambda EventSourceMapping, EventBridge Rule, SSM Parameter, and SecretsManager Secret; normalize Lambda function ARNs in event source mappings; and align documentation and metrics in roadmap.md and coverage.md.
-time: 2026-10-09T21:35:00.000000+09:00
