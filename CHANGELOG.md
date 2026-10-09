@@ -1,4 +1,17 @@
-## [v1.2.0](https://github.com/skyoo2003/devcloud/releases/tag/v1.2.0) - 2026-09-13
+## [v1.3.0](https://github.com/skyoo2003/devcloud/releases/tag/v1.3.0) - 2026-10-09
+### Added
+* Execute Python and Node.js Lambda handlers in Docker and deliver SNS, S3, SQS, Streams and EventBridge events with preserved payloads and failure handling. ([#178](https://github.com/skyoo2003/devcloud/issues/178))
+* Add native EventBridge lifecycle, SNS batch/mobile/SMS state, and S3 conditional rename, directory sessions and multipart copying backed by local persisted state. ([#179](https://github.com/skyoo2003/devcloud/issues/179))
+* Add native operations across S3, DynamoDB PartiQL, Lambda layers and streaming, and CloudFormation drift and scans to complete Phase 1A core integrations. ([#181](https://github.com/skyoo2003/devcloud/issues/181))
+* Add native identity operations for IAM MFA devices, certificates, and simulation, alongside STS WebIdentity, SAML, and federation tokens for Phase 1B. ([#182](https://github.com/skyoo2003/devcloud/issues/182))
+* Add ec2Query protocol detection, XML response support, and fallback CRUD routing to promote 498 EC2 operations to auto-crud for Phase 1C. ([#183](https://github.com/skyoo2003/devcloud/issues/183))
+* Expand generic CRUD verb classification for lifecycle, association, toggle, and batch actions across the fleet, promoting 2,014 operations to auto-crud. ([#184](https://github.com/skyoo2003/devcloud/issues/184))
+* Implement SQLite-backed query execution for RDS Data API and mock inference backends for SageMaker Runtime, promoting 10 operations to hand-verified. ([#185](https://github.com/skyoo2003/devcloud/issues/185))
+* Add CBOR encoding, rpcv2Cbor protocol detection, and RPC-v2 routing to activate all 431 registered AWS services and eliminate registered-only stubs. ([#186](https://github.com/skyoo2003/devcloud/issues/186))
+* Expand CloudFormation engine with native provisioning for Lambda event mappings, EventBridge rules, SSM parameters, and Secrets Manager secrets. ([#187](https://github.com/skyoo2003/devcloud/issues/187))
+### Fixed
+* Route unhandled S3 bucket subresources through the CRUD fallback and report failed service resets. ([#174](https://github.com/skyoo2003/devcloud/issues/174))
+* Validate Lambda ZIP paths before deriving filesystem paths and omit SQS response bodies and headers from SNS delivery failure logs. ([#178](https://github.com/skyoo2003/devcloud/issues/178))## [v1.2.0](https://github.com/skyoo2003/devcloud/releases/tag/v1.2.0) - 2026-09-13
 ### Added
 * The 226 AWS services DevCloud does not register now have their Smithy models vendored, so codegen covers all 420 models. No service is registered yet and every published coverage figure is unchanged ([#160](https://github.com/skyoo2003/devcloud/issues/160))
 * Eight AWS services the generic CRUD engine cannot classify now have hand-written providers, taking coverage to 213 registered and 209 serving ([#161](https://github.com/skyoo2003/devcloud/issues/161))
@@ -11,7 +24,8 @@
 * The CRUD engine no longer answers an operation it cannot classify with a broader sibling's route — chime's AssociatePhoneNumberWithUser was returning UpdateUser's 200 — and now declines it cleanly ([#162](https://github.com/skyoo2003/devcloud/issues/162))
 ### Documentation
 * The coverage page states routing and depth as two targets — 431 of 431 registered, depth still the 205 services the demand study settled — so a service count no longer reads as a fidelity promise ([#163](https://github.com/skyoo2003/devcloud/issues/163))
-* The five per-service pages now list the operations DevCloud actually serves, derived from the fidelity manifest rather than from memory — S3 had documented 8 of 37, IAM 6 of 58 ([#167](https://github.com/skyoo2003/devcloud/issues/167))## [v1.1.1](https://github.com/skyoo2003/devcloud/releases/tag/v1.1.1) - 2026-09-07
+* The five per-service pages now list the operations DevCloud actually serves, derived from the fidelity manifest rather than from memory — S3 had documented 8 of 37, IAM 6 of 58 ([#167](https://github.com/skyoo2003/devcloud/issues/167))
+## [v1.1.1](https://github.com/skyoo2003/devcloud/releases/tag/v1.1.1) - 2026-09-07
 ### Security
 * An S3 object key can no longer leave the bucket that owns it — a key such as `../victim/secret.txt` stayed under the store base directory and so passed the old containment check, letting one tenant read, overwrite and delete another tenant's objects — because every user-controlled path component is now guarded with `filepath.IsLocal` ([#155](https://github.com/skyoo2003/devcloud/issues/155))
 ### Documentation
