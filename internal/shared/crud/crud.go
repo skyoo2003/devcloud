@@ -273,12 +273,8 @@ func JSONProtocol(protocol string) bool {
 // Each protocol says which operation it means in a different place, and the
 // engine now reads all three: the JSON protocols put it in an X-Amz-Target
 // header; rest-json and rest-xml bind every operation to a method and URI
-// template, which the route table turns back into a name; query puts it in the
-// Action field of a form body.
-//
-// ec2-query is the one left out. It is form-encoded like query but not
-// interchangeable with it, and no registered service speaks it except EC2,
-// whose provider is hand-written and never reaches the engine.
+// template, which the route table turns back into a name; query and ec2-query put it in
+// the Action field of a form body.
 //
 // This is deliberately the same question codegen's engineServable answers. The
 // two must agree: a protocol admitted there but refused here registers
@@ -286,7 +282,8 @@ func JSONProtocol(protocol string) bool {
 // auto-crud.
 func Servable(protocol string) bool {
 	return JSONProtocol(protocol) || protocol == protocolRESTJSON ||
-		protocol == protocolRESTXML || protocol == protocolQuery
+		protocol == protocolRESTXML || protocol == protocolQuery ||
+		protocol == protocolEC2Query
 }
 
 // NeedsBody reports whether the gateway must buffer the request body before
@@ -300,10 +297,11 @@ func Servable(protocol string) bool {
 // CRUD-shaped S3 Control operation addresses its resource with a path label or
 // a query term, so the engine has what it needs without the body.
 //
-// query is the mirror image: servable, and unservable without the body, because
-// the operation name itself is a field in it.
+// query and ec2-query are the mirror image: servable, and unservable without the body,
+// because the operation name itself is a field in it.
 func NeedsBody(protocol string) bool {
-	return JSONProtocol(protocol) || protocol == protocolRESTJSON || protocol == protocolQuery
+	return JSONProtocol(protocol) || protocol == protocolRESTJSON ||
+		protocol == protocolQuery || protocol == protocolEC2Query
 }
 
 // Handle attempts to serve a call from the service's registered operations. It
@@ -318,13 +316,13 @@ func Handle(c Call) (*Result, error) {
 	switch {
 	case JSONProtocol(c.Protocol):
 		// The operation name arrived in X-Amz-Target; nothing to resolve.
-	case c.Protocol == protocolQuery:
-		// query names its operation in neither a header nor a path: Action is
-		// a field of the form body, which is why it outlived the two REST
-		// protocols as a gap. An absent or empty Action is not a request this
-		// engine can classify — the other fields describe a resource, not an
-		// operation, and picking one from them would be a guess.
+	case c.Protocol == protocolQuery || c.Protocol == protocolEC2Query:
+		// query and ec2-query name their operation in neither a header nor a path:
+		// Action is a field of the form body.
 		op, form = parseQueryForm(c.Body)
+		if op == "" {
+			op = c.Op
+		}
 		if op == "" {
 			return nil, ErrUnclassified
 		}
@@ -365,7 +363,7 @@ func Handle(c Call) (*Result, error) {
 		maps.Copy(params, queryParams(c.URI))
 	}
 	switch {
-	case c.Protocol == protocolQuery:
+	case c.Protocol == protocolQuery || c.Protocol == protocolEC2Query:
 		// Already decoded above. A query body is form-encoded, not JSON, so it
 		// must not reach the branch below — parsing it as JSON fails, and
 		// reporting that as a SerializationException would decline every query
@@ -442,10 +440,10 @@ func queryParams(uri string) map[string]any {
 }
 
 // xmlProtocol reports whether a protocol's bodies are XML. It is the
-// serialization question, not the routing one: query and rest-xml resolve their
+// serialization question, not the routing one: query, ec2-query, and rest-xml resolve their
 // operation in completely different ways but write the same kind of body.
 func xmlProtocol(protocol string) bool {
-	return protocol == protocolRESTXML || protocol == protocolQuery
+	return protocol == protocolRESTXML || protocol == protocolQuery || protocol == protocolEC2Query
 }
 
 // withContentType stamps the protocol-appropriate content type so a json-1.0
@@ -460,6 +458,8 @@ func withContentType(res *Result, protocol string) *Result {
 		res.ContentType = "application/x-amz-json-1.0"
 	case protocolRESTJSON:
 		res.ContentType = restJSONType
+	case protocolEC2Query:
+		res.ContentType = "text/xml"
 	}
 	return res
 }
@@ -679,7 +679,11 @@ func list(service, resource string) ([]map[string]any, error) {
 // encodeXML, which needs the operation name to build its envelope.
 func okBody(protocol, op string, v map[string]any) (*Result, error) {
 	if xmlProtocol(protocol) {
-		return &Result{Status: 200, Body: encodeXML(protocol, op, v), ContentType: xmlContentType}, nil
+		ct := xmlContentType
+		if protocol == protocolEC2Query {
+			ct = "text/xml"
+		}
+		return &Result{Status: 200, Body: encodeXML(protocol, op, v), ContentType: ct}, nil
 	}
 	b, err := json.Marshal(v)
 	if err != nil {
@@ -705,13 +709,21 @@ func serializationError(protocol string) *Result {
 func errorResult(protocol, code, message string) *Result {
 	if xmlProtocol(protocol) {
 		body := xmlHeader
-		if protocol == protocolQuery {
+		switch protocol {
+		case protocolQuery:
 			body += "<ErrorResponse><Error><Type>Sender</Type><Code>" + code +
 				"</Code><Message>" + message + "</Message></Error></ErrorResponse>"
-		} else {
+		case protocolEC2Query:
+			body += "<Response><Errors><Error><Code>" + code +
+				"</Code><Message>" + message + "</Message></Error></Errors><RequestID>" + randHex(8) + "</RequestID></Response>"
+		default:
 			body += "<Error><Code>" + code + "</Code><Message>" + message + "</Message></Error>"
 		}
-		return &Result{Status: 400, Body: []byte(body), ContentType: xmlContentType}
+		ct := xmlContentType
+		if protocol == protocolEC2Query {
+			ct = "text/xml"
+		}
+		return &Result{Status: 400, Body: []byte(body), ContentType: ct}
 	}
 	b, _ := json.Marshal(map[string]string{"__type": code, "message": message})
 	return &Result{Status: 400, Body: b, ContentType: jsonContentType}

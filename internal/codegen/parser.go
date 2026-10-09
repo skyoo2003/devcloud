@@ -450,6 +450,9 @@ func detectProtocol(s *rawShape) string {
 	if _, ok := s.Traits["aws.protocols#awsQuery"]; ok {
 		return "query"
 	}
+	if _, ok := s.Traits["aws.protocols#ec2Query"]; ok {
+		return "ec2-query"
+	}
 	if _, ok := s.Traits["aws.protocols#restJson1"]; ok {
 		return "rest-json"
 	}

@@ -123,9 +123,8 @@ func TestEngineUnclassified(t *testing.T) {
 	if _, err := handleJSON(t, svc, "SomeCustomOp", nil); err != ErrUnclassified {
 		t.Fatalf("unknown op: want ErrUnclassified, got %v", err)
 	}
-	// ec2-query is the protocol still outside the engine: unlike query, it is
-	// not form-encoded with an Action field the engine can read.
-	if _, err := Handle(Call{Service: svc, Protocol: "ec2-query", Op: "CreateWidget", Body: []byte("{}")}); err != ErrUnclassified {
+	// An unknown protocol returns ErrUnclassified.
+	if _, err := Handle(Call{Service: svc, Protocol: "nonsense", Op: "CreateWidget", Body: []byte("{}")}); err != ErrUnclassified {
 		t.Fatalf("unservable protocol: want ErrUnclassified, got %v", err)
 	}
 	if _, err := handleJSON(t, "unregistered", "CreateThing", nil); err != ErrUnclassified {
@@ -513,7 +512,7 @@ func TestServableAndNeedsBody(t *testing.T) {
 		// The mirror image: servable, and its operation name is in the body, so
 		// it must be buffered before it can be read.
 		{"query", true, true},
-		{"ec2-query", false, false},
+		{"ec2-query", true, true},
 		{"nonsense", false, false},
 	}
 	for _, c := range cases {
@@ -525,6 +524,51 @@ func TestServableAndNeedsBody(t *testing.T) {
 				t.Errorf("NeedsBody(%q) = %v, want %v", c.protocol, got, c.needsBody)
 			}
 		})
+	}
+}
+
+func handleEC2Query(t *testing.T, service string, form url.Values) (*Result, error) {
+	t.Helper()
+	return Handle(Call{
+		Service: service, Protocol: "ec2-query",
+		Method: "POST", URI: "/", Body: []byte(form.Encode()),
+	})
+}
+
+func TestEngineEC2QueryRoundTrip(t *testing.T) {
+	const svc = "ec2test"
+	Register(svc, map[string]OpMeta{
+		"CreateRoute":    {Verb: "Create", Resource: "Route"},
+		"DescribeRoutes": {Verb: "Get", Resource: "Route", OutputListKey: "RouteSet"},
+		"DeleteRoute":    {Verb: "Delete", Resource: "Route"},
+	})
+
+	r, err := handleEC2Query(t, svc, url.Values{
+		"Action":               {"CreateRoute"},
+		"Version":              {"2016-11-15"},
+		"DestinationCidrBlock": {"10.0.0.0/16"},
+	})
+	if err != nil || r.Status != 200 {
+		t.Fatalf("create route: status=%d err=%v", statusOf(r), err)
+	}
+	if r.ContentType != "text/xml" {
+		t.Errorf("content type = %q, want text/xml", r.ContentType)
+	}
+	body := string(r.Body)
+	if !strings.Contains(body, "<CreateRouteResponse") || !strings.Contains(body, "<requestId>") {
+		t.Fatalf("not an ec2 query envelope: %s", body)
+	}
+
+	r, err = handleEC2Query(t, svc, url.Values{
+		"Action":  {"DescribeRoutes"},
+		"Version": {"2016-11-15"},
+	})
+	if err != nil || r.Status != 200 {
+		t.Fatalf("describe routes: status=%d err=%v", statusOf(r), err)
+	}
+	body = string(r.Body)
+	if !strings.Contains(body, "<DescribeRoutesResponse") || !strings.Contains(body, "<RouteSet>") {
+		t.Fatalf("not an ec2 query list envelope: %s", body)
 	}
 }
 

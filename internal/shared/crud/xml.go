@@ -12,22 +12,17 @@ import (
 const xmlHeader = `<?xml version="1.0" encoding="UTF-8"?>`
 
 const (
-	protocolQuery   = "query"
-	protocolRESTXML = "rest-xml"
+	protocolQuery    = "query"
+	protocolRESTXML  = "rest-xml"
+	protocolEC2Query = "ec2-query"
 )
 
 // encodeXML renders an engine response as an AWS XML body.
 //
-// The two dialects differ only in the envelope. botocore's query parser looks
-// for <OperationResult> nested inside <OperationResponse> and returns a result
-// with nothing in it when the nesting is absent; its rest-xml parser maps the
-// root element's children straight onto the output shape and ignores the root's
-// name. So query gets both wrappers and rest-xml gets one.
-//
-// No xmlns is emitted. botocore strips the namespace from every element before
-// matching it, so declaring one would be bytes on the wire that nothing reads.
-// If that ever stops being true the namespace belongs on OpMeta, from the
-// model's xmlNamespace trait, rather than guessed at here.
+// The dialects differ in the envelope:
+// - query: <OperationResponse><OperationResult>...</OperationResult><ResponseMetadata><RequestId>...</RequestId></ResponseMetadata></OperationResponse>
+// - rest-xml: <OperationResult>...</OperationResult> (botocore maps root children directly)
+// - ec2-query: <OperationResponse xmlns="http://ec2.amazonaws.com/doc/2016-11-15/"><requestId>...</requestId>...</OperationResponse>
 //
 // This is the same "plausible, not faithful" contract as the JSON path: the
 // body echoes what the caller stored, in the shape an SDK can parse. It is not
@@ -37,51 +32,57 @@ func encodeXML(protocol, op string, v map[string]any) []byte {
 	var b strings.Builder
 	b.WriteString(xmlHeader)
 
-	if protocol == protocolQuery {
+	switch protocol {
+	case protocolEC2Query:
+		b.WriteString("<" + op + "Response xmlns=\"http://ec2.amazonaws.com/doc/2016-11-15/\">")
+		b.WriteString("<requestId>" + randHex(8) + "</requestId>")
+		writeValue(&b, protocol, v)
+		b.WriteString("</" + op + "Response>")
+	case protocolQuery:
 		b.WriteString("<" + op + "Response>")
-	}
-	writeElement(&b, op+"Result", v)
-	if protocol == protocolQuery {
-		// RequestId is not optional: botocore's query parser reads
-		// ResponseMetadata into every response's metadata, and an SDK that logs
-		// or retries on it gets an empty string otherwise.
+		writeElement(&b, protocol, op+"Result", v)
 		b.WriteString("<ResponseMetadata><RequestId>" + randHex(8) + "</RequestId></ResponseMetadata>")
 		b.WriteString("</" + op + "Response>")
+	default:
+		writeElement(&b, protocol, op+"Result", v)
 	}
 	return []byte(b.String())
 }
 
 // writeElement writes one <name>…</name> element whose content is value.
-func writeElement(b *strings.Builder, name string, value any) {
+func writeElement(b *strings.Builder, protocol, name string, value any) {
 	b.WriteString("<" + name + ">")
-	writeValue(b, value)
+	writeValue(b, protocol, value)
 	b.WriteString("</" + name + ">")
 }
 
 // writeValue writes the content of an element: nested elements for a map,
-// <member> entries for a list, escaped text for anything else.
-func writeValue(b *strings.Builder, value any) {
+// <item> (for ec2-query) or <member> (for query/rest-xml) entries for a list, escaped text for anything else.
+func writeValue(b *strings.Builder, protocol string, value any) {
 	switch val := value.(type) {
 	case nil:
 
 	case map[string]any:
 		for _, k := range sortedKeys(val) {
-			writeElement(b, k, val[k])
+			writeElement(b, protocol, k, val[k])
 		}
 
 	case []map[string]any:
-		// AWS wraps list entries in <member> for both dialects unless the model
-		// flattens the list. The engine has no flattening information, so it
-		// emits the default rather than guessing per service.
+		listElem := "member"
+		if protocol == protocolEC2Query {
+			listElem = "item"
+		}
 		for _, item := range val {
-			writeElement(b, "member", item)
+			writeElement(b, protocol, listElem, item)
 		}
 
 	case []any:
-		// The engine's own list() produces []map[string]any, but a list echoed
-		// back from a caller's JSON body arrives as []any.
+		listElem := "member"
+		if protocol == protocolEC2Query {
+			listElem = "item"
+		}
 		for _, item := range val {
-			writeElement(b, "member", item)
+			writeElement(b, protocol, listElem, item)
 		}
 
 	case string:

@@ -138,16 +138,24 @@ func TestServiceCRUDDataAdmitsQuery(t *testing.T) {
 	assert.Empty(t, ops["DescribeLoadBalancers"].URI)
 }
 
-// TestServiceCRUDDataRejectsEC2Query holds the remaining boundary. ec2Query is
-// form-encoded like query but not interchangeable with it, and the only service
-// that speaks it has a hand-written provider that never reaches the engine.
-func TestServiceCRUDDataRejectsEC2Query(t *testing.T) {
+// TestServiceCRUDDataAdmitsEC2Query verifies that ec2-query is engine-servable.
+// Like query, it has no HTTP binding so it contributes no REST routes, but its
+// operations can be served by the fallback engine.
+func TestServiceCRUDDataAdmitsEC2Query(t *testing.T) {
 	model := crudModel("ec2-query",
 		ir.Operation{Name: "DescribeInstances", OutputName: "DescribeInstancesOutput"},
 	)
 
-	_, ok := ServiceCRUDData(model)
-	assert.False(t, ok, "ec2-query must not be engine-servable")
+	data, ok := ServiceCRUDData(model)
+	require.True(t, ok, "ec2-query must be engine-servable")
+
+	ops := map[string]crudOpData{}
+	for _, op := range data.Ops {
+		ops[op.Op] = op
+	}
+	assert.Empty(t, ops["DescribeInstances"].Method)
+	assert.Empty(t, ops["DescribeInstances"].URI)
+	assert.Equal(t, "Get", ops["DescribeInstances"].Verb)
 }
 
 // TestServiceCRUDDataSkipsUnclassifiableService is the rds-data case: a
