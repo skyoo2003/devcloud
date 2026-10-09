@@ -186,33 +186,59 @@ func TestServiceCRUDDataSkipsUnclassifiableService(t *testing.T) {
 // engine returns UpdateUser's 200 for an operation nothing implements. That is
 // a fabricated success, the one thing docs/coverage.md calls absolute.
 func TestClassifyOpsRecordsUnclassifiableRESTRoutes(t *testing.T) {
-	const associatePath = "/accounts/{AccountId}/users/{UserId}?operation=associate-phone-number"
+	const executePath = "/accounts/{AccountId}/users/{UserId}?operation=execute-statement"
 	model := crudModel("rest-json",
 		ir.Operation{Name: "UpdateUser", OutputName: "GetGraphOutput",
 			HTTPMethod: "POST", HTTPUri: "/accounts/{AccountId}/users/{UserId}"},
-		// No verb prefix matches "Associate", so canonicalVerb refuses it.
-		ir.Operation{Name: "AssociatePhoneNumberWithUser",
-			HTTPMethod: "POST", HTTPUri: associatePath},
+		// No verb prefix matches "Execute", so canonicalVerb refuses it.
+		ir.Operation{Name: "ExecuteStatementOnUser",
+			HTTPMethod: "POST", HTTPUri: executePath},
 		// Same refusal, but json-shaped: no REST binding, so no route to hold
 		// and nothing to record. Registering it would put an entry in the
 		// registry that no path can reach and no verb can serve.
-		ir.Operation{Name: "AssociateSigninDelegateGroups"},
+		ir.Operation{Name: "ExecuteSpecialCommand"},
 	)
 
 	data, ok := ServiceCRUDData(model)
 	require.True(t, ok, "a service with one classified operation is still servable")
 
 	ops := opsOf(data)
-	require.Contains(t, ops, "AssociatePhoneNumberWithUser",
+	require.Contains(t, ops, "ExecuteStatementOnUser",
 		"an unclassifiable REST operation must still carry its route, or a "+
 			"broader sibling's route answers for its path")
-	assert.Empty(t, ops["AssociatePhoneNumberWithUser"].Verb,
+	assert.Empty(t, ops["ExecuteStatementOnUser"].Verb,
 		"a route-only entry must stay unservable — Handle declines on the Verb check")
-	assert.Equal(t, "POST", ops["AssociatePhoneNumberWithUser"].Method)
-	assert.Equal(t, associatePath, ops["AssociatePhoneNumberWithUser"].URI)
+	assert.Equal(t, "POST", ops["ExecuteStatementOnUser"].Method)
+	assert.Equal(t, executePath, ops["ExecuteStatementOnUser"].URI)
 
-	assert.NotContains(t, ops, "AssociateSigninDelegateGroups",
+	assert.NotContains(t, ops, "ExecuteSpecialCommand",
 		"an unclassifiable operation with no REST binding has no route to hold")
 	assert.Equal(t, "Update", ops["UpdateUser"].Verb,
 		"recording the unclassifiable ones must not disturb the classified ones")
+}
+
+func TestClassifyOpsSemanticVerbs(t *testing.T) {
+	model := crudModel("json-1.1",
+		ir.Operation{Name: "AssociateRouteTable"},
+		ir.Operation{Name: "DisassociateRouteTable"},
+		ir.Operation{Name: "EnableAddressTransfer"},
+		ir.Operation{Name: "DisableAddressTransfer"},
+		ir.Operation{Name: "StartInstances"},
+		ir.Operation{Name: "StopInstances"},
+		ir.Operation{Name: "SearchRoutes"},
+		ir.Operation{Name: "BatchCreateRecords"},
+	)
+
+	data, ok := ServiceCRUDData(model)
+	require.True(t, ok)
+
+	ops := opsOf(data)
+	assert.Equal(t, "Relate", ops["AssociateRouteTable"].Verb)
+	assert.Equal(t, "Relate", ops["DisassociateRouteTable"].Verb)
+	assert.Equal(t, "Toggle", ops["EnableAddressTransfer"].Verb)
+	assert.Equal(t, "Toggle", ops["DisableAddressTransfer"].Verb)
+	assert.Equal(t, "Toggle", ops["StartInstances"].Verb)
+	assert.Equal(t, "Toggle", ops["StopInstances"].Verb)
+	assert.Equal(t, "List", ops["SearchRoutes"].Verb)
+	assert.Equal(t, "Create", ops["BatchCreateRecords"].Verb)
 }

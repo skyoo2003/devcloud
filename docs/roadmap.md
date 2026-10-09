@@ -57,7 +57,10 @@ Phase 1C Compute & Network added `aws.protocols#ec2Query` protocol detection,
 CRUD engine XML response support (`<requestId>`, item list tags), gateway error routing,
 and wired EC2 unhandled operations into the fallback CRUD engine, promoting 498 EC2
 operations into `auto-crud`.
-The original 3,085-operation unimplemented baseline has **2,511 remaining**;
+Phase 1D Generic CRUD Engine Semantic Verb Expansion added comprehensive
+classification for lifecycle and association verbs (Relate, Toggle, Lifecycle, Batch)
+across the entire fleet, promoting 2,014 operations into `auto-crud`.
+The original 3,085-operation unimplemented baseline has **497 remaining**;
 complete AWS operation support is still in progress across subsequent bundles. See
 [EventBridge](services/eventbridge.md), [SNS](services/sns.md), [S3](services/s3.md) and
 [IAM/STS](services/iam-sts.md) for local limits.

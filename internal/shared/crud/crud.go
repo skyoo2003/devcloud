@@ -537,9 +537,22 @@ func dispatch(service, protocol, op string, m OpMeta, params map[string]any) (*R
 		}
 		return okBody(protocol, op, wrapItem(m, item))
 
-	case "Tag", "Untag", "Relate", "Toggle":
-		// Relationship / tag / status flips: acknowledge without modelling state.
+	case "Tag", "Untag":
 		return okBody(protocol, op, map[string]any{})
+
+	case "Relate", "Toggle":
+		id := resourceID(m.Resource, params)
+		item := maps.Clone(params)
+		stamp(item, service, m.Resource, id)
+		setIfAbsent(item, "Status", "ACTIVE")
+		setIfAbsent(item, "State", "ENABLED")
+		setIfAbsent(item, "Return", true)
+		setIfAbsent(item, "return", true)
+		_ = put(service, m.Resource, id, item)
+		if m.OutputItemKey == "" && m.OutputListKey != "" {
+			return okBody(protocol, op, map[string]any{m.OutputListKey: []map[string]any{item}})
+		}
+		return okBody(protocol, op, wrapItem(m, item))
 
 	default:
 		return nil, ErrUnclassified

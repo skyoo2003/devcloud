@@ -17,7 +17,7 @@ operation carries is in the [fidelity manifest](fidelity-manifest.md).
 
 | Piece | Where | What it does |
 |---|---|---|
-| Engine | [`internal/shared/crud`](../internal/shared/crud/crud.go) | In-memory resource store plus verb dispatch (Create/Get/List/Delete/Update/…) |
+| Engine | [`internal/shared/crud`](../internal/shared/crud/crud.go) | In-memory resource store plus verb dispatch (Create/Get/List/Delete/Update/Tag/Untag/Relate/Toggle) |
 | Classification | `internal/codegen/gen_crud_meta.go` | Inspects each operation's name and output shape, emits `internal/generated/crudregistry/registry_gen.go` whose `init()` registers every classifiable operation |
 | Integration | [`internal/gateway/router.go`](../internal/gateway/router.go) | Calls the engine when a provider returns `plugin.ErrUnhandledOp`; returns `InvalidAction` if the engine cannot classify the operation |
 
@@ -36,12 +36,12 @@ The engine has to know which operation a request is for before it can classify i
 | `rest-json` | method + path, matched against the model's URI templates (`internal/shared/httproute`) | yes |
 | `rest-xml` | the same — every `restXml` operation binds to a method and URI | yes |
 | `query` | the `Action` field of the form body | yes |
-| `ec2-query` | — | no |
+| `ec2-query` | the `Action` field of the form body or query parameter | yes |
 
 Every protocol DevCloud registers is readable, so a service that serves nothing
 does so because none of its operations is CRUD-shaped, not because of how it
-talks. `ec2-query` is the one exception and not a gap in practice: only EC2 speaks
-it, and EC2's provider is hand-written and never reaches the engine.
+talks. `ec2-query` is form-encoded with an `Action` parameter and returns EC2-compliant
+XML responses with `<requestId>` and `<item>` list elements.
 
 ### Where parameters come from
 

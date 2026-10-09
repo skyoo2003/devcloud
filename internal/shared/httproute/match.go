@@ -33,17 +33,24 @@ type Route struct {
 // distinguished only by a query string (".../tagging?Operation=Tag"), and a
 // bare path can never satisfy those routes.
 func Match(routes []Route, method, uri string) (string, Params) {
-	// Two passes. A route that constrains the query is more specific than one
-	// that does not, and route tables are ordered by operation name rather
-	// than specificity — so trying constrained routes first keeps
-	// ".../distribution" from shadowing ".../distribution?WithTags".
+	// A route that constrains the query is more specific than one that does not,
+	// and a non-greedy route is more specific than a greedy route ({Label+}).
+	// Route tables are ordered by operation name rather than specificity —
+	// so trying constrained and non-greedy routes first keeps broader patterns
+	// from shadowing more specific ones (e.g. DeletePortal "/portals/{portalArn+}"
+	// shadowing ExpireSession "/portals/{portalId}/sessions/{sessionId}").
 	for _, constrained := range []bool{true, false} {
-		for _, route := range routes {
-			if route.Method != method || strings.Contains(route.Pattern, "?") != constrained {
-				continue
-			}
-			if params, ok := MatchURI(route.Pattern, uri); ok {
-				return route.Operation, params
+		for _, greedy := range []bool{false, true} {
+			for _, route := range routes {
+				if route.Method != method || strings.Contains(route.Pattern, "?") != constrained {
+					continue
+				}
+				if strings.Contains(route.Pattern, "+}") != greedy {
+					continue
+				}
+				if params, ok := MatchURI(route.Pattern, uri); ok {
+					return route.Operation, params
+				}
 			}
 		}
 	}

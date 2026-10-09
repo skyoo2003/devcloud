@@ -55,7 +55,7 @@ func TestContestedDataPlanesResolveToThemselves(t *testing.T) {
 // binary actually ships rather than a synthetic one.
 //
 // Both operations below bind to a path a classified sibling also claims,
-// separated only by a query constraint: chime's AssociatePhoneNumberWithUser
+// separated only by a query constraint: chime's LogoutUser
 // against UpdateUser, apigateway's ImportRestApi against CreateRestApi. While
 // the registry held only classified operations, httproute.Match had no route
 // specific enough to prefer, so the sibling answered 200 for an operation
@@ -68,8 +68,8 @@ func TestContestedDataPlanesResolveToThemselves(t *testing.T) {
 // Describe/List/Get, and "Import" is excluded as mutating outright.
 func TestUnclassifiableRouteDeclinesInsteadOfAnsweringAsASibling(t *testing.T) {
 	cases := []struct{ name, service, method, uri string }{
-		{"chime_associate_phone_number", "chime", "POST",
-			"/accounts/a1/users/u1?operation=associate-phone-number"},
+		{"chime_logout_user", "chime", "POST",
+			"/accounts/a1/users/u1?operation=logout"},
 		{"apigateway_import_rest_api", "apigateway", "POST", "/restapis?mode=import"},
 	}
 	for _, c := range cases {
