@@ -656,9 +656,10 @@ func (p *LambdaProvider) createEventSourceMapping(req *http.Request) (*plugin.Re
 		return lambdaError("InvalidParameterValueException", "invalid StartingPosition", 400), nil
 	}
 	id := newUUID()
+	funcName := extractFunctionName(body.FunctionName)
 	m := &EventSourceMapping{
 		UUID:             id,
-		FunctionName:     body.FunctionName,
+		FunctionName:     funcName,
 		EventSourceARN:   body.EventSourceArn,
 		BatchSize:        batchSize,
 		Enabled:          enabled && (!isDynamoDBStreamArn(body.EventSourceArn) || body.StartingPosition != "LATEST"),
@@ -730,7 +731,7 @@ func (p *LambdaProvider) deleteEventSourceMapping(uuid string) (*plugin.Response
 }
 
 func (p *LambdaProvider) listEventSourceMappings(req *http.Request) (*plugin.Response, error) {
-	functionName := req.URL.Query().Get("FunctionName")
+	functionName := extractFunctionName(req.URL.Query().Get("FunctionName"))
 	mappings, err := p.store.ListEventSourceMappings(defaultAccountID, functionName)
 	if err != nil {
 		return nil, err
@@ -856,10 +857,21 @@ func (p *LambdaProvider) getPolicy(functionName string) (*plugin.Response, error
 	})
 }
 
-// --- helpers ---
+func extractFunctionName(nameOrArn string) string {
+	if strings.HasPrefix(nameOrArn, "arn:aws:lambda:") {
+		parts := strings.Split(nameOrArn, ":")
+		if len(parts) >= 7 && parts[5] == "function" {
+			return parts[6]
+		}
+	}
+	return nameOrArn
+}
 
 // functionARN builds a Lambda function ARN for the default region and account.
 func functionARN(name string) string {
+	if strings.HasPrefix(name, "arn:aws:lambda:") {
+		return name
+	}
 	return fmt.Sprintf("arn:aws:lambda:%s:%s:function:%s", defaultRegion, defaultAccountID, name)
 }
 

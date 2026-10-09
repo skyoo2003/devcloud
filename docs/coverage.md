@@ -62,8 +62,9 @@ the parser does not read.
 | `json-1.0` | 48 | the `X-Amz-Target` header |
 | `query` | 15 | the `Action` form field |
 | `rest-xml` | 4 | HTTP method + path |
+| `ec2Query` | 1 | the `Action` form field (`ec2`) |
+| `rpcv2Cbor` | 1 | the path / RPC-v2 routing (`partnercentralrevenuemeasurement`) |
 | no in-tree model | 11 | n/a — hand-written providers |
-| unrecognised protocol | 2 | n/a — `ec2` is `ec2Query`, `partnercentralrevenuemeasurement` is `rpcv2Cbor` |
 
 **The operation is not CRUD-shaped.** `GetThing`, `ListThings` and `CreateThing`
 map onto a generic store. `ExecuteStatement`, `InvokeEndpoint` and
@@ -72,19 +73,9 @@ answer. This applies to four services: `forecastquery`, the two SageMaker Runtim
 variants `sagemaker-runtime` and `sagemakerruntimehttp2`, and `rds-data`. No
 protocol change reaches them.
 
-**The protocol is one the parser does not read.** This applies to two services,
-and it is a different failure from the four above. `ec2` speaks
-`aws.protocols#ec2Query` and `partnercentralrevenuemeasurement` speaks
-`smithy.protocols#rpcv2Cbor`; `internal/codegen/parser.go` recognises neither, so
-*none* of their operations is classified — not because their names are unshaped,
-but because the model never reached the classifier. Teaching the parser those two
-protocols would reach them; no amount of CRUD-shaping would.
-
-EC2 is the one case where this costs depth rather than service: it is registered
-and served by a hand-written provider, so it is not in the registered-only five.
-What it loses is the engine — its model-declared long tail stays `unimplemented`
-instead of falling back to `auto-crud`, which is what `EngineWired: false` on its
-[fidelity manifest](fidelity-manifest.md) entry records.
+EC2 (`ec2Query`) and Partner Central Revenue Measurement (`rpcv2Cbor`) originally had
+protocols the parser did not read; both protocols and native CBOR serialization are now
+supported, bringing the entire registered AWS fleet to serving $\ge 1$ operation.
 
 Registering a service the engine cannot serve is deliberate. The alternative is
 worse: an *unregistered* service is not routed, so the SDK call leaves the
@@ -98,13 +89,13 @@ when a provider returns `plugin.ErrUnhandledOp`, so a hand-written provider that
 refuses unknown operations itself (`apigatewayv2`, `xray`) never reaches it. The
 manifest records this per service as `EngineWired`.
 
-## Why compatibility-tested is 426, not 431
+## Why compatibility-tested is 427, not 431
 
 `test/compatibility/test_service_smoke.py` parametrises over the generated
 service list rather than a hand-written one, so a service cannot be registered
 and quietly go untested — which is what 31 of them were until this was measured.
 
-Five are excluded, and they are not a backlog. In every one it is botocore, not
+Four are excluded, and they are not a backlog. In every one it is botocore, not
 DevCloud, that stops the request, so no answer DevCloud could give would change
 the outcome. Each stays registered: the call is still answered locally instead
 of reaching a billed AWS account.
@@ -113,16 +104,13 @@ of reaching a billed AWS account.
 `transcribestreaming` (`sagemaker-runtime` and `transcribe` are different clients
 with different APIs). No boto3 test can exist for a client that does not exist.
 
-**The client exists but cannot be pointed at localhost** (3). `codecatalyst`
+**The client exists but cannot be pointed at localhost** (2). `codecatalyst`
 authenticates with a bearer token rather than SigV4, so botocore raises
 `NoAuthTokenError` before the request is built. `cloudfront-keyvaluestore`
 resolves its endpoint from a KVS ARN and so never honours `endpoint_url`.
-`partnercentralrevenuemeasurement` decodes every reply with botocore's CBOR
-parser, and DevCloud has no CBOR encoder, so even a clean decline reads as a
-corrupt frame — see the protocol table above.
 
 Both sets are pinned in `test/compatibility/_coverage.py` and asserted, so
-adding a sixth is a deliberate edit that moves this figure with it.
+adding a fifth is a deliberate edit that moves this figure with it.
 
 ## Contested signing names
 

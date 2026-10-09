@@ -172,3 +172,102 @@ Resources:
     cloudformation_client.delete_stack(StackName="prov-teardown")
     names_after = [b["Name"] for b in s3_client.list_buckets()["Buckets"]]
     assert "cfn-teardown-bucket" not in names_after
+
+
+SSM_RULE_TEMPLATE = """
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  MyParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /cfn/test-param
+      Type: String
+      Value: hello-from-cfn
+  MyRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: cfn-event-rule
+      ScheduleExpression: rate(10 minutes)
+      State: ENABLED
+  MySecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: cfn-test-secret
+      SecretString: super-secret-val
+"""
+
+
+def test_create_stack_provisions_ssm_events_secrets(
+    cloudformation_client, ssm_client, events_client, secretsmanager_client
+):
+    """CreateStack must provision real SSM parameters, EventBridge rules, and SecretsManager secrets."""
+    cloudformation_client.create_stack(
+        StackName="prov-extended-stack", TemplateBody=SSM_RULE_TEMPLATE
+    )
+
+    # 1. SSM parameter
+    param = ssm_client.get_parameter(Name="/cfn/test-param")
+    assert param["Parameter"]["Value"] == "hello-from-cfn"
+
+    # 2. EventBridge rule
+    rule = events_client.describe_rule(Name="cfn-event-rule")
+    assert rule["ScheduleExpression"] == "rate(10 minutes)"
+    assert rule["State"] == "ENABLED"
+
+    # 3. Secrets Manager secret
+    secret = secretsmanager_client.get_secret_value(SecretId="cfn-test-secret")
+    assert secret["SecretString"] == "super-secret-val"
+
+    # Clean up
+    cloudformation_client.delete_stack(StackName="prov-extended-stack")
+
+
+CFN_ESM_TEMPLATE = """
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  MyQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: cfn-esm-queue
+  MyFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: cfn-esm-func
+      Runtime: python3.12
+      Handler: index.handler
+      Role: arn:aws:iam::000000000000:role/role
+      Code:
+        ZipFile: UEsFBgAAAAAAAAAAAAAAAAAAAAAAAA==
+  MyMapping:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      FunctionName:
+        Fn::GetAtt: [MyFunction, Arn]
+      EventSourceArn:
+        Fn::GetAtt: [MyQueue, Arn]
+      BatchSize: 7
+"""
+
+
+def test_create_stack_provisions_lambda_esm(
+    cloudformation_client, lambda_client, sqs_client
+):
+    """CreateStack must provision real Lambda EventSourceMapping wired to SQS."""
+    cloudformation_client.create_stack(
+        StackName="prov-esm-stack", TemplateBody=CFN_ESM_TEMPLATE
+    )
+
+    mappings = lambda_client.list_event_source_mappings(FunctionName="cfn-esm-func")[
+        "EventSourceMappings"
+    ]
+    assert len(mappings) == 1
+    m = mappings[0]
+    assert m["FunctionArn"].endswith(":cfn-esm-func")
+    assert m["EventSourceArn"].endswith(":cfn-esm-queue")
+    assert m["BatchSize"] == 7
+
+    cloudformation_client.delete_stack(StackName="prov-esm-stack")
+    mappings_after = lambda_client.list_event_source_mappings(
+        FunctionName="cfn-esm-func"
+    )["EventSourceMappings"]
+    assert len(mappings_after) == 0

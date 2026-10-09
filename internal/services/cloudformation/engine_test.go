@@ -213,3 +213,68 @@ func TestEngine_PortHandling(t *testing.T) {
 		})
 	}
 }
+
+func TestProvisionNewResourceTypes(t *testing.T) {
+	p := &Provider{}
+	require.NoError(t, p.Init(plugin.PluginConfig{DataDir: t.TempDir()}))
+	t.Cleanup(func() { _ = p.Shutdown(context.Background()) })
+
+	body := `{
+	  "AWSTemplateFormatVersion": "2010-09-09",
+	  "Resources": {
+	    "MyRule": {
+	      "Type": "AWS::Events::Rule",
+	      "Properties": {
+	        "Name": "my-cron-rule",
+	        "ScheduleExpression": "rate(5 minutes)"
+	      }
+	    },
+	    "MyParam": {
+	      "Type": "AWS::SSM::Parameter",
+	      "Properties": {
+	        "Name": "/config/env",
+	        "Type": "String",
+	        "Value": "local"
+	      }
+	    },
+	    "MySecret": {
+	      "Type": "AWS::SecretsManager::Secret",
+	      "Properties": {
+	        "Name": "app-secret",
+	        "SecretString": "supersecret"
+	      }
+	    },
+	    "MyESM": {
+	      "Type": "AWS::Lambda::EventSourceMapping",
+	      "Properties": {
+	        "FunctionName": "my-func",
+	        "EventSourceArn": "arn:aws:sqs:us-east-1:000000000000:my-queue",
+	        "BatchSize": 5
+	      }
+	    }
+	  }
+	}`
+	tmpl, err := ParseTemplate(body)
+	require.NoError(t, err)
+
+	_, err = p.store.CreateStack("new-res-stack", "id-res", "arn-res", "", "[]", "[]", "[]", "", "", false)
+	require.NoError(t, err)
+
+	err = p.engine.ProvisionStack(context.Background(), "new-res-stack", tmpl, nil)
+	require.NoError(t, err)
+
+	resources, err := p.store.ListStackResources("new-res-stack")
+	require.NoError(t, err)
+	assert.Len(t, resources, 4)
+
+	resMap := make(map[string]StackResource)
+	for _, r := range resources {
+		resMap[r.LogicalID] = r
+		assert.Equal(t, "CREATE_COMPLETE", r.Status)
+	}
+
+	assert.Equal(t, "my-cron-rule", resMap["MyRule"].PhysicalID)
+	assert.Equal(t, "/config/env", resMap["MyParam"].PhysicalID)
+	assert.Equal(t, "app-secret", resMap["MySecret"].PhysicalID)
+	assert.NotEmpty(t, resMap["MyESM"].PhysicalID)
+}
