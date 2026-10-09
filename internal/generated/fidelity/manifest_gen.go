@@ -15437,12 +15437,12 @@ var Services = map[string]Service{
 		"SwitchoverReadReplica":                      TierAutoCRUD,
 	}},
 	"rdsdata": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
-		"BatchExecuteStatement": TierUnimplemented,
-		"BeginTransaction":      TierUnimplemented,
-		"CommitTransaction":     TierUnimplemented,
-		"ExecuteSql":            TierUnimplemented,
-		"ExecuteStatement":      TierUnimplemented,
-		"RollbackTransaction":   TierUnimplemented,
+		"BatchExecuteStatement": TierHandVerified,
+		"BeginTransaction":      TierHandVerified,
+		"CommitTransaction":     TierHandVerified,
+		"ExecuteSql":            TierHandVerified,
+		"ExecuteStatement":      TierHandVerified,
+		"RollbackTransaction":   TierHandVerified,
 	}},
 	"redshift": {Protocol: "query", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
 		"AcceptReservedNodeExchange":                  TierAutoCRUD,
@@ -17123,12 +17123,12 @@ var Services = map[string]Service{
 		"BatchPutMetrics": TierAutoCRUD,
 	}},
 	"sagemakerruntime": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
-		"InvokeEndpoint":                   TierUnimplemented,
-		"InvokeEndpointAsync":              TierUnimplemented,
-		"InvokeEndpointWithResponseStream": TierUnimplemented,
+		"InvokeEndpoint":                   TierHandVerified,
+		"InvokeEndpointAsync":              TierHandVerified,
+		"InvokeEndpointWithResponseStream": TierHandVerified,
 	}},
 	"sagemakerruntimehttp2": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
-		"InvokeEndpointWithBidirectionalStream": TierUnimplemented,
+		"InvokeEndpointWithBidirectionalStream": TierHandVerified,
 	}},
 	"savingsplans": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
 		"CreateSavingsPlan":                 TierAutoCRUD,

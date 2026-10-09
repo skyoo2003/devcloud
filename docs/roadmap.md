@@ -60,7 +60,13 @@ operations into `auto-crud`.
 Phase 1D Generic CRUD Engine Semantic Verb Expansion added comprehensive
 classification for lifecycle and association verbs (Relate, Toggle, Lifecycle, Batch)
 across the entire fleet, promoting 2,014 operations into `auto-crud`.
-The original 3,085-operation unimplemented baseline has **497 remaining**;
+Phase 1E Non-CRUD Data Planes implemented SQLite-backed query execution for `rdsdata`
+(`ExecuteStatement`, `BatchExecuteStatement`, `BeginTransaction`, `CommitTransaction`,
+`RollbackTransaction`, `ExecuteSql`) and dedicated mock inference backends for
+`sagemakerruntime` and `sagemakerruntimehttp2` (`InvokeEndpoint`, `InvokeEndpointAsync`,
+`InvokeEndpointWithResponseStream`, `InvokeEndpointWithBidirectionalStream`), promoting
+10 operations to `hand-verified` and leaving only 1 registered-only service in the fleet.
+The original 3,085-operation unimplemented baseline has **487 remaining**;
 complete AWS operation support is still in progress across subsequent bundles. See
 [EventBridge](services/eventbridge.md), [SNS](services/sns.md), [S3](services/s3.md) and
 [IAM/STS](services/iam-sts.md) for local limits.

@@ -15935,7 +15935,14 @@
   },
   "rdsdata": {
     "protocol": "rest-json",
-    "servedOps": []
+    "servedOps": [
+      "BatchExecuteStatement",
+      "BeginTransaction",
+      "CommitTransaction",
+      "ExecuteSql",
+      "ExecuteStatement",
+      "RollbackTransaction"
+    ]
   },
   "redshift": {
     "protocol": "query",
@@ -17676,11 +17683,17 @@
   },
   "sagemakerruntime": {
     "protocol": "rest-json",
-    "servedOps": []
+    "servedOps": [
+      "InvokeEndpoint",
+      "InvokeEndpointAsync",
+      "InvokeEndpointWithResponseStream"
+    ]
   },
   "sagemakerruntimehttp2": {
     "protocol": "rest-json",
-    "servedOps": []
+    "servedOps": [
+      "InvokeEndpointWithBidirectionalStream"
+    ]
   },
   "savingsplans": {
     "protocol": "rest-json",

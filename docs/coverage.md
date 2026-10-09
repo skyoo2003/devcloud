@@ -7,8 +7,8 @@ alone.
 | Number | What it means | Today |
 |---|---|---|
 | **Registered** | The gateway routes the service, so the call reaches DevCloud instead of real AWS. | **431** |
-| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer. | **427** |
-| **Registered-only** | Routed, but every operation declines with a clean AWS error. | **4** |
+| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer. | **430** |
+| **Registered-only** | Routed, but every operation declines with a clean AWS error. | **1** |
 | **Compatibility-tested** | A boto3 test exercises the service in CI and passes. | **426** |
 
 Per operation, from the [fidelity manifest](fidelity-manifest.md). Two
@@ -16,11 +16,11 @@ denominators, because [routing and depth are two targets](#the-target):
 
 | Tier | Serving target | All registered |
 |---|---|---|
-| `hand-verified` | 4,601 | 4,632 |
+| `hand-verified` | 4,611 | 4,642 |
 | `auto-crud` | 7,529 | 14,064 |
-| `unimplemented` | 277 | 505 |
+| `unimplemented` | 267 | 495 |
 | **total known** | **12,407** | **19,201** |
-| **hand-verified share** | **37.1%** | **24.1%** |
+| **hand-verified share** | **37.2%** | **24.2%** |
 
 The **serving target** column is the depth promise: every registered service
 except the 226 the [demand study](demand.md) found nobody building. The **all
