@@ -1,9 +1,29 @@
 # EventBridge
 
+## Overview
 DevCloud supports EventBridge rules and local SQS, SNS and Lambda targets, partner
 event sources, reusable connections and event bus resource policies. Requests use
 the standard boto3 `events` client against the DevCloud endpoint. The local
 account is `000000000000`.
+
+## Supported APIs
+
+These 45 operations are `hand-verified` — implemented by the provider, not by the CRUD engine.
+
+| Operation | Description |
+|-----------|-------------|
+| CreateEventBus / DeleteEventBus / ListEventBuses / DescribeEventBus | Manage custom event buses |
+| PutPermission / RemovePermission | Resource-based policies for event buses |
+| PutRule / DescribeRule / DeleteRule / ListRules / EnableRule / DisableRule | Event routing rules |
+| PutTargets / RemoveTargets / ListTargetsByRule | Manage rule targets (supports local SQS, SNS, and Lambda targets) |
+| PutEvents | Dispatch custom events |
+| CreatePartnerEventSource / DeletePartnerEventSource / DescribePartnerEventSource / ListPartnerEventSources / ListPartnerEventSourceAccounts / DescribeEventSource / ListEventSources / ActivateEventSource / DeactivateEventSource | Manage partner event sources |
+| PutPartnerEvents | Dispatch events from partner sources |
+| CreateConnection / DescribeConnection / ListConnections / UpdateConnection / DeleteConnection / DeauthorizeConnection | API destination connection configurations |
+| CreateArchive / DescribeArchive / ListArchives / UpdateArchive / DeleteArchive | Event archive lifecycle management |
+| StartReplay / DescribeReplay / ListReplays / CancelReplay | Event replay lifecycle |
+| TagResource / UntagResource / ListTagsForResource | Resource tagging |
+| TestEventPattern | Evaluate event patterns against payloads |
 
 ## Partner event sources
 
@@ -81,3 +101,41 @@ The boto3 compatibility suite verifies all four newly supported operations,
 typed dates, empty Unit responses, connection reuse and real partner delivery to
 SQS with Unicode and punctuation intact. See [Coverage](../coverage.md) for the
 whole AWS surface and [Lambda](lambda.md) for Docker runtime requirements.
+
+
+## boto3 Examples
+
+```python
+import boto3
+
+client = boto3.client('events', endpoint_url='http://localhost:4747', region_name='us-east-1')
+
+# Create an event bus and rule
+client.create_event_bus(Name='my-bus')
+client.put_rule(Name='my-rule', EventBusName='my-bus', EventPattern='{"source": ["my.app"]}')
+client.put_targets(
+    Rule='my-rule',
+    EventBusName='my-bus',
+    Targets=[{'Id': '1', 'Arn': 'arn:aws:sqs:us-east-1:000000000000:my-queue'}]
+)
+
+# Dispatch an event
+client.put_events(Entries=[{
+    'Source': 'my.app',
+    'DetailType': 'test',
+    'Detail': '{"key": "value"}',
+    'EventBusName': 'my-bus'
+}])
+```
+
+## AWS CLI Examples
+
+```bash
+aws --endpoint-url=http://localhost:4747 events create-event-bus --name my-bus
+aws --endpoint-url=http://localhost:4747 events put-events --entries '[{"Source": "my.app", "DetailType": "test", "Detail": "{\"key\": \"value\"}", "EventBusName": "my-bus"}]'
+```
+
+## Known Limitations
+- **External targets are not supported**: Target delivery is restricted to DevCloud's own SQS, SNS, and Lambda services.
+- **Connection credentials (`OAuth`)**: Credentials are stored but not actively authorized with external identity providers.
+- **Bus policies**: Policies are stored for round-trip compatibility but not actively evaluated by IAM.

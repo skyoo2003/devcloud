@@ -57,8 +57,8 @@ curl -s 'localhost:4747/devcloud/api/fidelity?service=s3' # per-operation, one s
 {
   "s3": {
     "modelBacked": true,
-    "counts": {"hand-verified": 37, "unimplemented": 70},
-    "operations": {"PutObject": "hand-verified", "SelectObjectContent": "unimplemented"}
+    "counts": {"hand-verified": 43, "auto-crud": 64, "unimplemented": 0},
+    "operations": {"PutObject": "hand-verified", "SelectObjectContent": "hand-verified"}
   }
 }
 ```

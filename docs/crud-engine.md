@@ -37,6 +37,7 @@ The engine has to know which operation a request is for before it can classify i
 | `rest-xml` | the same — every `restXml` operation binds to a method and URI | yes |
 | `query` | the `Action` field of the form body | yes |
 | `ec2-query` | the `Action` field of the form body or query parameter | yes |
+| `rpcv2-cbor` | the path — RPC-v2 routes by service and operation name segments | yes |
 
 Every protocol DevCloud registers is readable, so a service that serves nothing
 does so because none of its operations is CRUD-shaped, not because of how it

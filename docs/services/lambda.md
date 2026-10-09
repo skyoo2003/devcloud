@@ -29,7 +29,7 @@ and `us-east-1`. Explicit function environment values may override these default
 
 ## Supported APIs
 
-These 25 operations are hand verified at the scope exercised by the compatibility
+These 35 operations are hand verified at the scope exercised by the compatibility
 suite. Unlisted operations use the documented fidelity tiers.
 
 | Operation | Behaviour |
@@ -103,7 +103,7 @@ preserve version/alias references and log delivery failures.
 
 ## Limits and verification
 
-No layers, function URLs, reserved/provisioned concurrency, policy enforcement,
+No runtime layer mounting (layers can be managed, but not attached to function execution), function URLs, reserved/provisioned concurrency, policy enforcement,
 SQS partial batch responses, FIFO/DLQ parity or exactly-once delivery are promised.
 ZIP extraction rejects traversal, symlinks, special files and reserved adapter
 names; limits are 10,000 entries and 250 MiB uncompressed.
@@ -119,3 +119,6 @@ Opt-in requires both images and a reachable daemon; missing dependencies fail
 instead of skipping. Native Colima test runs can set
 `DEVCLOUD_LAMBDA_CALLBACK_HOST=host.lima.internal`. Skipped runtime tests are not
 execution evidence.
+
+- **Streaming invocations** do not use binary EventStream frames; they run synchronously and return the full JSON payload at once with chunked headers.
+- **Durable executions** track state in SQLite but there is no workflow orchestrator or automatic resume functionality.

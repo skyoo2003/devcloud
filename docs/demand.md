@@ -1,4 +1,4 @@
-# Demand for unregistered services
+# Demand study
 
 The evidence behind DevCloud's [coverage target](coverage.md#the-target).
 Sampled 2026-09-05; re-derive with `python3 scripts/demand_rank.py`.
@@ -46,8 +46,7 @@ at any point would have stopped on the best surface available.
 
 **All 57 services with support ≥ 2 are registered**, down to and including
 `workspaces-web`; `TestDemandSetIsRegistered` fails if any of them stops being.
-56 serve at least one operation, and the one that does not (`rds-data`) is named
-with its reason in [coverage.md](coverage.md). Everything below them — support 1
+All 57 serve at least one operation. Everything below them — support 1
 and support 0 — is the 226 services that carry no depth commitment. They are
 registered and engine-served, so a call to one is answered locally rather than
 billed; what this study declined to promise is that it is answered *faithfully*.

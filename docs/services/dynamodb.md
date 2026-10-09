@@ -11,7 +11,7 @@ M (Map), and the SS / NS / BS sets.
 
 ## Supported APIs
 
-These 20 operations are `hand-verified` — implemented by the provider, not by
+These 29 operations are `hand-verified` — implemented by the provider, not by
 the [CRUD engine](../crud-engine.md). Everything else DynamoDB models is served
 at a lower tier or not at all; [fidelity-manifest.md](../fidelity-manifest.md)
 is the per-operation answer.
@@ -131,14 +131,9 @@ aws --endpoint-url http://localhost:4747 dynamodb get-item \
   `LastEvaluatedKey` and no `ConsumedCapacity`, so `Query`/`Scan` return the
   whole matching set in one page and code that loops on the cursor sees one
   iteration.
-- **No PartiQL** — `ExecuteStatement`, `ExecuteTransaction` and
-  `BatchExecuteStatement` are unimplemented and fail rather than answering.
-- **Backups, global tables and exports answer from the CRUD engine.**
-  `CreateBackup`, `CreateGlobalTable`, `DescribeContinuousBackups` and their
-  neighbours return stored, plausible shapes with no behaviour behind them —
-  see [crud-engine.md](../crud-engine.md).
-- No Kinesis streaming destination (`EnableKinesisStreamingDestination` is
-  unimplemented)
+- **PartiQL subset only** — `ExecuteStatement`, `ExecuteTransaction` and `BatchExecuteStatement` support single-table `SELECT`, `INSERT`, `UPDATE`, and `DELETE`. `WHERE` clauses are limited to simple equality (`=`). No nested paths, subqueries, or arithmetic.
+- **Backups and global tables answer from the CRUD engine.** `CreateBackup`, `CreateGlobalTable`, `DescribeContinuousBackups` and their neighbours return stored, plausible shapes with no behaviour behind them. However, `ExportTableToPointInTime`, `ImportTable`, `RestoreTableFromBackup`, and `RestoreTableToPointInTime` are fully handled by the provider (cloning tables and items in SQLite).
+- **No Kinesis active replication.** `EnableKinesisStreamingDestination` and `DisableKinesisStreamingDestination` persist configuration, but write events are not actively replicated to Kinesis streams.
 - No provisioned-throughput accounting or throttling; `BillingMode` is recorded,
   never enforced
 - Single account model (account ID: `000000000000`)
