@@ -71,7 +71,7 @@ Phase 1F 100% Service Fleet Activation implemented native CBOR encoding/decoding
 RPC-v2 routing, bringing `partnercentralrevenuemeasurement` into `auto-crud`. Every
 single registered service in the AWS fleet (431 of 431, 100.0%) now serves $\ge 1$ operation,
 leaving **zero** registered-only services.
-The original 3,085-operation unimplemented baseline has **469 remaining**;
+The original 3,085-operation unimplemented baseline has **477 remaining** across all registered services (267 within the serving target);
 complete AWS operation support is still in progress across subsequent bundles. See
 [EventBridge](services/eventbridge.md), [SNS](services/sns.md), [S3](services/s3.md) and
 [IAM/STS](services/iam-sts.md) for local limits.

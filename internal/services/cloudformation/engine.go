@@ -774,6 +774,14 @@ func (e *Engine) provisionResource(ctx context.Context, stackName, logicalID, re
 		res, err = e.provisionDynamoDBTable(ctx, logicalID, props)
 	case "AWS::Lambda::Function":
 		res, err = e.provisionLambdaFunction(ctx, logicalID, props)
+	case "AWS::Lambda::EventSourceMapping":
+		res, err = e.provisionLambdaEventSourceMapping(ctx, logicalID, props)
+	case "AWS::Events::Rule":
+		res, err = e.provisionEventBridgeRule(ctx, logicalID, props)
+	case "AWS::SSM::Parameter":
+		res, err = e.provisionSSMParameter(ctx, logicalID, props)
+	case "AWS::SecretsManager::Secret":
+		res, err = e.provisionSecretsManagerSecret(ctx, logicalID, props)
 	case "AWS::SQS::Queue":
 		res, err = e.provisionSQSQueue(ctx, stackName, logicalID, props)
 	case "AWS::SNS::Topic":
@@ -812,6 +820,8 @@ func (e *Engine) simulateResource(logicalID, resType string, props map[string]an
 			physicalID = name
 		} else if name, ok := props["RoleName"].(string); ok && name != "" {
 			physicalID = name
+		} else if name, ok := props["Name"].(string); ok && name != "" {
+			physicalID = name
 		}
 	}
 	arn := shared.BuildARN("cloudformation", "resource", physicalID)
@@ -834,6 +844,14 @@ func (e *Engine) deleteResource(ctx context.Context, resType, physicalID, arn st
 		return e.deleteDynamoDBTable(ctx, physicalID)
 	case "AWS::Lambda::Function":
 		return e.deleteLambdaFunction(ctx, physicalID)
+	case "AWS::Lambda::EventSourceMapping":
+		return e.deleteLambdaEventSourceMapping(ctx, physicalID)
+	case "AWS::Events::Rule":
+		return e.deleteEventBridgeRule(ctx, physicalID)
+	case "AWS::SSM::Parameter":
+		return e.deleteSSMParameter(ctx, physicalID)
+	case "AWS::SecretsManager::Secret":
+		return e.deleteSecretsManagerSecret(ctx, physicalID)
 	case "AWS::SQS::Queue":
 		queueURL := attrs["QueueUrl"]
 		if queueURL == "" {
@@ -1145,6 +1163,235 @@ func (e *Engine) deleteIAMRole(ctx context.Context, name string) error {
 	form.Set("Action", "DeleteRole")
 	form.Set("RoleName", name)
 	_, err := e.call(ctx, "iam", "DeleteRole", http.MethodPost, "/", "application/x-www-form-urlencoded", "", []byte(form.Encode()))
+	return err
+}
+
+// ---- Lambda EventSourceMapping ----
+
+func (e *Engine) provisionLambdaEventSourceMapping(ctx context.Context, logicalID string, props map[string]any) (*provisionResult, error) {
+	body, err := json.Marshal(props)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := e.call(ctx, "lambda", "", http.MethodPost, "/2015-03-31/event-source-mappings", "application/json", "", body)
+	if err != nil {
+		return nil, err
+	}
+	if !isSuccess(resp) {
+		return nil, fmt.Errorf("lambda CreateEventSourceMapping failed: status=%d body=%s", resp.StatusCode, string(resp.Body))
+	}
+	var out struct {
+		UUID string `json:"UUID"`
+	}
+	_ = json.Unmarshal(resp.Body, &out)
+	uuid := out.UUID
+	if uuid == "" {
+		uuid = logicalID + "-" + shared.GenerateID("", 8)
+	}
+	arn := fmt.Sprintf("arn:aws:lambda:%s:%s:event-source-mapping:%s", shared.DefaultRegion, shared.DefaultAccountID, uuid)
+	return &provisionResult{
+		LogicalID:  logicalID,
+		Type:       "AWS::Lambda::EventSourceMapping",
+		PhysicalID: uuid,
+		ARN:        arn,
+		Attributes: map[string]string{
+			"Arn": arn,
+			"Id":  uuid,
+		},
+	}, nil
+}
+
+func (e *Engine) deleteLambdaEventSourceMapping(ctx context.Context, uuid string) error {
+	if uuid == "" {
+		return nil
+	}
+	_, err := e.call(ctx, "lambda", "", http.MethodDelete, "/2015-03-31/event-source-mappings/"+uuid, "application/json", "", nil)
+	return err
+}
+
+// ---- EventBridge Rule ----
+
+func (e *Engine) provisionEventBridgeRule(ctx context.Context, logicalID string, props map[string]any) (*provisionResult, error) {
+	name, _ := props["Name"].(string)
+	if name == "" {
+		name = logicalID + "-" + shared.GenerateID("", 8)
+	}
+	rulePayload := map[string]any{
+		"Name": name,
+	}
+	if v, ok := props["EventBusName"].(string); ok && v != "" {
+		rulePayload["EventBusName"] = v
+	}
+	if v, ok := props["EventPattern"]; ok && v != nil {
+		if s, ok := v.(string); ok {
+			rulePayload["EventPattern"] = s
+		} else if b, err := json.Marshal(v); err == nil {
+			rulePayload["EventPattern"] = string(b)
+		}
+	}
+	if v, ok := props["ScheduleExpression"].(string); ok && v != "" {
+		rulePayload["ScheduleExpression"] = v
+	}
+	if v, ok := props["State"].(string); ok && v != "" {
+		rulePayload["State"] = v
+	}
+	if v, ok := props["Description"].(string); ok && v != "" {
+		rulePayload["Description"] = v
+	}
+
+	body, err := json.Marshal(rulePayload)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := e.call(ctx, "eventbridge", "PutRule", http.MethodPost, "/", "application/x-amz-json-1.1", "AWSEvents.PutRule", body)
+	if err != nil {
+		return nil, err
+	}
+	if !isSuccess(resp) {
+		return nil, fmt.Errorf("eventbridge PutRule failed: status=%d body=%s", resp.StatusCode, string(resp.Body))
+	}
+
+	if targets, ok := props["Targets"].([]any); ok && len(targets) > 0 {
+		targetsPayload := map[string]any{
+			"Rule":    name,
+			"Targets": targets,
+		}
+		if v, ok := props["EventBusName"].(string); ok && v != "" {
+			targetsPayload["EventBusName"] = v
+		}
+		tb, err := json.Marshal(targetsPayload)
+		if err == nil {
+			_, _ = e.call(ctx, "eventbridge", "PutTargets", http.MethodPost, "/", "application/x-amz-json-1.1", "AWSEvents.PutTargets", tb)
+		}
+	}
+
+	arn := fmt.Sprintf("arn:aws:events:%s:%s:rule/%s", shared.DefaultRegion, shared.DefaultAccountID, name)
+	return &provisionResult{
+		LogicalID:  logicalID,
+		Type:       "AWS::Events::Rule",
+		PhysicalID: name,
+		ARN:        arn,
+		Attributes: map[string]string{
+			"Arn": arn,
+		},
+	}, nil
+}
+
+func (e *Engine) deleteEventBridgeRule(ctx context.Context, name string) error {
+	if name == "" {
+		return nil
+	}
+	body, _ := json.Marshal(map[string]string{"Name": name})
+	_, err := e.call(ctx, "eventbridge", "DeleteRule", http.MethodPost, "/", "application/x-amz-json-1.1", "AWSEvents.DeleteRule", body)
+	return err
+}
+
+// ---- SSM Parameter ----
+
+func (e *Engine) provisionSSMParameter(ctx context.Context, logicalID string, props map[string]any) (*provisionResult, error) {
+	name, _ := props["Name"].(string)
+	if name == "" {
+		name = "/" + logicalID
+	}
+	paramType, _ := props["Type"].(string)
+	if paramType == "" {
+		paramType = "String"
+	}
+	val := toString(props["Value"])
+	desc, _ := props["Description"].(string)
+
+	payload := map[string]any{
+		"Name":      name,
+		"Type":      paramType,
+		"Value":     val,
+		"Overwrite": true,
+	}
+	if desc != "" {
+		payload["Description"] = desc
+	}
+	body, err := json.Marshal(payload)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := e.call(ctx, "ssm", "PutParameter", http.MethodPost, "/", "application/x-amz-json-1.1", "AmazonSSM.PutParameter", body)
+	if err != nil {
+		return nil, err
+	}
+	if !isSuccess(resp) {
+		return nil, fmt.Errorf("ssm PutParameter failed: status=%d body=%s", resp.StatusCode, string(resp.Body))
+	}
+	arn := fmt.Sprintf("arn:aws:ssm:%s:%s:parameter%s", shared.DefaultRegion, shared.DefaultAccountID, name)
+	return &provisionResult{
+		LogicalID:  logicalID,
+		Type:       "AWS::SSM::Parameter",
+		PhysicalID: name,
+		ARN:        arn,
+		Attributes: map[string]string{
+			"Arn":   arn,
+			"Type":  paramType,
+			"Value": val,
+		},
+	}, nil
+}
+
+func (e *Engine) deleteSSMParameter(ctx context.Context, name string) error {
+	if name == "" {
+		return nil
+	}
+	body, _ := json.Marshal(map[string]string{"Name": name})
+	_, err := e.call(ctx, "ssm", "DeleteParameter", http.MethodPost, "/", "application/x-amz-json-1.1", "AmazonSSM.DeleteParameter", body)
+	return err
+}
+
+// ---- Secrets Manager Secret ----
+
+func (e *Engine) provisionSecretsManagerSecret(ctx context.Context, logicalID string, props map[string]any) (*provisionResult, error) {
+	name, _ := props["Name"].(string)
+	if name == "" {
+		name = logicalID + "-" + shared.GenerateID("", 8)
+	}
+	payload := map[string]any{
+		"Name": name,
+	}
+	if v, ok := props["SecretString"].(string); ok {
+		payload["SecretString"] = v
+	}
+	if v, ok := props["Description"].(string); ok {
+		payload["Description"] = v
+	}
+	body, err := json.Marshal(payload)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := e.call(ctx, "secretsmanager", "CreateSecret", http.MethodPost, "/", "application/x-amz-json-1.1", "secretsmanager.CreateSecret", body)
+	if err != nil {
+		return nil, err
+	}
+	if !isSuccess(resp) {
+		return nil, fmt.Errorf("secretsmanager CreateSecret failed: status=%d body=%s", resp.StatusCode, string(resp.Body))
+	}
+	arn := fmt.Sprintf("arn:aws:secretsmanager:%s:%s:secret:%s", shared.DefaultRegion, shared.DefaultAccountID, name)
+	attrs := map[string]string{
+		"Arn": arn,
+	}
+	if v, ok := props["SecretString"].(string); ok {
+		attrs["SecretString"] = v
+	}
+	return &provisionResult{
+		LogicalID:  logicalID,
+		Type:       "AWS::SecretsManager::Secret",
+		PhysicalID: name,
+		ARN:        arn,
+		Attributes: attrs,
+	}, nil
+}
+
+func (e *Engine) deleteSecretsManagerSecret(ctx context.Context, name string) error {
+	if name == "" {
+		return nil
+	}
+	body, _ := json.Marshal(map[string]any{"SecretId": name, "ForceDeleteWithoutRecovery": true})
+	_, err := e.call(ctx, "secretsmanager", "DeleteSecret", http.MethodPost, "/", "application/x-amz-json-1.1", "secretsmanager.DeleteSecret", body)
 	return err
 }
 
