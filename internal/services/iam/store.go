@@ -258,6 +258,67 @@ var iamMigrations = []sqlite.Migration{
 			PRIMARY KEY (group_name, policy_name, account_id)
 		);`,
 	},
+	{
+		Version: 17,
+		SQL: `CREATE TABLE IF NOT EXISTS mfa_devices (
+			serial_number TEXT PRIMARY KEY,
+			user_name     TEXT NOT NULL,
+			account_id    TEXT NOT NULL,
+			status        TEXT NOT NULL DEFAULT 'Active',
+			enable_date   DATETIME NOT NULL
+		);
+		CREATE TABLE IF NOT EXISTS oidc_providers (
+			arn         TEXT PRIMARY KEY,
+			url         TEXT NOT NULL,
+			client_ids  TEXT NOT NULL DEFAULT '',
+			thumbprints TEXT NOT NULL DEFAULT '',
+			account_id  TEXT NOT NULL
+		);
+		CREATE TABLE IF NOT EXISTS signing_certificates (
+			certificate_id TEXT PRIMARY KEY,
+			user_name      TEXT NOT NULL,
+			certificate_body TEXT NOT NULL,
+			status         TEXT NOT NULL DEFAULT 'Active',
+			account_id     TEXT NOT NULL,
+			upload_date    DATETIME NOT NULL
+		);
+		CREATE TABLE IF NOT EXISTS ssh_public_keys (
+			key_id      TEXT PRIMARY KEY,
+			user_name   TEXT NOT NULL,
+			key_body    TEXT NOT NULL,
+			status      TEXT NOT NULL DEFAULT 'Active',
+			account_id  TEXT NOT NULL,
+			upload_date DATETIME NOT NULL
+		);
+		CREATE TABLE IF NOT EXISTS server_certificates (
+			certificate_name TEXT NOT NULL,
+			certificate_id   TEXT NOT NULL,
+			arn              TEXT NOT NULL,
+			path             TEXT NOT NULL DEFAULT '/',
+			certificate_body TEXT NOT NULL,
+			account_id       TEXT NOT NULL,
+			upload_date      DATETIME NOT NULL,
+			PRIMARY KEY (certificate_name, account_id)
+		);
+		CREATE TABLE IF NOT EXISTS delegation_requests (
+			request_id     TEXT PRIMARY KEY,
+			target_account TEXT NOT NULL,
+			status         TEXT NOT NULL DEFAULT 'Pending',
+			token          TEXT NOT NULL,
+			account_id     TEXT NOT NULL,
+			created_at     DATETIME NOT NULL
+		);
+		CREATE TABLE IF NOT EXISTS org_settings (
+			account_id                    TEXT PRIMARY KEY,
+			root_credentials_enabled      INTEGER NOT NULL DEFAULT 0,
+			root_sessions_enabled         INTEGER NOT NULL DEFAULT 0,
+			outbound_web_identity_enabled INTEGER NOT NULL DEFAULT 1
+		);
+		CREATE TABLE IF NOT EXISTS sts_preferences (
+			account_id    TEXT PRIMARY KEY,
+			token_version TEXT NOT NULL DEFAULT 'v1Token'
+		);`,
+	},
 }
 
 // IAMStore is a SQLite-backed store for IAM entities.
@@ -1407,4 +1468,187 @@ func generateSecret() (string, error) {
 		return "", err
 	}
 	return hex.EncodeToString(b), nil
+}
+
+// EnableMFADevice records an MFA device as active for the specified user.
+func (s *IAMStore) EnableMFADevice(accountID, userName, serialNumber string) error {
+	now := time.Now().UTC()
+	_, err := s.store.DB().Exec(`
+		INSERT INTO mfa_devices (serial_number, user_name, account_id, status, enable_date)
+		VALUES (?, ?, ?, 'Active', ?)
+		ON CONFLICT(serial_number) DO UPDATE SET status = 'Active', user_name = excluded.user_name, enable_date = excluded.enable_date
+	`, serialNumber, userName, accountID, now)
+	return err
+}
+
+// DeactivateMFADevice deactivates an MFA device.
+func (s *IAMStore) DeactivateMFADevice(accountID, userName, serialNumber string) error {
+	_, err := s.store.DB().Exec(`
+		UPDATE mfa_devices SET status = 'Inactive'
+		WHERE serial_number = ? AND user_name = ? AND account_id = ?
+	`, serialNumber, userName, accountID)
+	return err
+}
+
+// ResyncMFADevice resyncs an MFA device.
+func (s *IAMStore) ResyncMFADevice(accountID, userName, serialNumber string) error {
+	return s.EnableMFADevice(accountID, userName, serialNumber)
+}
+
+// AddClientIDToOpenIDConnectProvider adds a client ID to an OIDC provider.
+func (s *IAMStore) AddClientIDToOpenIDConnectProvider(accountID, arn, clientID string) error {
+	var clientIDs string
+	err := s.store.DB().QueryRow("SELECT client_ids FROM oidc_providers WHERE arn = ? AND account_id = ?", arn, accountID).Scan(&clientIDs)
+	if errors.Is(err, sql.ErrNoRows) {
+		_, err = s.store.DB().Exec("INSERT INTO oidc_providers (arn, url, client_ids, account_id) VALUES (?, ?, ?, ?)", arn, "https://oidc.devcloud.local", clientID, accountID)
+		return err
+	}
+	if err != nil {
+		return err
+	}
+	list := strings.Split(clientIDs, ",")
+	for _, id := range list {
+		if id == clientID {
+			return nil
+		}
+	}
+	if clientIDs != "" {
+		clientIDs += "," + clientID
+	} else {
+		clientIDs = clientID
+	}
+	_, err = s.store.DB().Exec("UPDATE oidc_providers SET client_ids = ? WHERE arn = ? AND account_id = ?", clientIDs, arn, accountID)
+	return err
+}
+
+// RemoveClientIDFromOpenIDConnectProvider removes a client ID from an OIDC provider.
+func (s *IAMStore) RemoveClientIDFromOpenIDConnectProvider(accountID, arn, clientID string) error {
+	var clientIDs string
+	err := s.store.DB().QueryRow("SELECT client_ids FROM oidc_providers WHERE arn = ? AND account_id = ?", arn, accountID).Scan(&clientIDs)
+	if errors.Is(err, sql.ErrNoRows) {
+		return nil
+	}
+	if err != nil {
+		return err
+	}
+	list := strings.Split(clientIDs, ",")
+	var remaining []string
+	for _, id := range list {
+		if id != clientID && id != "" {
+			remaining = append(remaining, id)
+		}
+	}
+	_, err = s.store.DB().Exec("UPDATE oidc_providers SET client_ids = ? WHERE arn = ? AND account_id = ?", strings.Join(remaining, ","), arn, accountID)
+	return err
+}
+
+// UploadSigningCertificate uploads a user signing certificate.
+func (s *IAMStore) UploadSigningCertificate(accountID, userName, certBody string) (string, time.Time, error) {
+	certID, err := generateID()
+	if err != nil {
+		return "", time.Time{}, err
+	}
+	now := time.Now().UTC()
+	_, err = s.store.DB().Exec(`
+		INSERT INTO signing_certificates (certificate_id, user_name, certificate_body, status, account_id, upload_date)
+		VALUES (?, ?, ?, 'Active', ?, ?)
+	`, certID, userName, certBody, accountID, now)
+	return certID, now, err
+}
+
+// UploadSSHPublicKey uploads a user SSH public key.
+func (s *IAMStore) UploadSSHPublicKey(accountID, userName, keyBody string) (string, time.Time, error) {
+	keyID, err := generateID()
+	if err != nil {
+		return "", time.Time{}, err
+	}
+	now := time.Now().UTC()
+	_, err = s.store.DB().Exec(`
+		INSERT INTO ssh_public_keys (key_id, user_name, key_body, status, account_id, upload_date)
+		VALUES (?, ?, ?, 'Active', ?, ?)
+	`, keyID, userName, keyBody, accountID, now)
+	return keyID, now, err
+}
+
+// UploadServerCertificate uploads an SSL server certificate.
+func (s *IAMStore) UploadServerCertificate(accountID, name, path, certBody string) (string, string, time.Time, error) {
+	if path == "" {
+		path = "/"
+	}
+	certID, err := generateID()
+	if err != nil {
+		return "", "", time.Time{}, err
+	}
+	now := time.Now().UTC()
+	arn := fmt.Sprintf("arn:aws:iam::%s:server-certificate%s%s", accountID, path, name)
+	_, err = s.store.DB().Exec(`
+		INSERT INTO server_certificates (certificate_name, certificate_id, arn, path, certificate_body, account_id, upload_date)
+		VALUES (?, ?, ?, ?, ?, ?, ?)
+		ON CONFLICT(certificate_name, account_id) DO UPDATE SET certificate_id = excluded.certificate_id, arn = excluded.arn, certificate_body = excluded.certificate_body, upload_date = excluded.upload_date
+	`, name, certID, arn, path, certBody, accountID, now)
+	return certID, arn, now, err
+}
+
+// SetDefaultPolicyVersion sets the default version for a managed policy.
+func (s *IAMStore) SetDefaultPolicyVersion(accountID, policyArn, versionID string) error {
+	_, err := s.store.DB().Exec("UPDATE policy_versions SET is_default = 0 WHERE policy_arn = ?", policyArn)
+	if err != nil {
+		return err
+	}
+	_, err = s.store.DB().Exec("UPDATE policy_versions SET is_default = 1 WHERE policy_arn = ? AND version_id = ?", policyArn, versionID)
+	return err
+}
+
+// SetSTSPreferences records STS endpoint preferences.
+func (s *IAMStore) SetSTSPreferences(accountID, tokenVersion string) error {
+	_, err := s.store.DB().Exec(`
+		INSERT INTO sts_preferences (account_id, token_version)
+		VALUES (?, ?)
+		ON CONFLICT(account_id) DO UPDATE SET token_version = excluded.token_version
+	`, accountID, tokenVersion)
+	return err
+}
+
+// SetOrgSettings updates organizational root / session settings.
+func (s *IAMStore) SetOrgSettings(accountID string, rootCreds, rootSessions, outboundWebIdentity *bool) error {
+	_, _ = s.store.DB().Exec(`INSERT OR IGNORE INTO org_settings (account_id, root_credentials_enabled, root_sessions_enabled, outbound_web_identity_enabled) VALUES (?, 0, 0, 1)`, accountID)
+	if rootCreds != nil {
+		val := 0
+		if *rootCreds {
+			val = 1
+		}
+		if _, err := s.store.DB().Exec("UPDATE org_settings SET root_credentials_enabled = ? WHERE account_id = ?", val, accountID); err != nil {
+			return err
+		}
+	}
+	if rootSessions != nil {
+		val := 0
+		if *rootSessions {
+			val = 1
+		}
+		if _, err := s.store.DB().Exec("UPDATE org_settings SET root_sessions_enabled = ? WHERE account_id = ?", val, accountID); err != nil {
+			return err
+		}
+	}
+	if outboundWebIdentity != nil {
+		val := 0
+		if *outboundWebIdentity {
+			val = 1
+		}
+		if _, err := s.store.DB().Exec("UPDATE org_settings SET outbound_web_identity_enabled = ? WHERE account_id = ?", val, accountID); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// RecordDelegationRequest stores or updates a delegation request.
+func (s *IAMStore) RecordDelegationRequest(accountID, requestID, targetAccount, token, status string) error {
+	now := time.Now().UTC()
+	_, err := s.store.DB().Exec(`
+		INSERT INTO delegation_requests (request_id, target_account, status, token, account_id, created_at)
+		VALUES (?, ?, ?, ?, ?, ?)
+		ON CONFLICT(request_id) DO UPDATE SET status = excluded.status, token = excluded.token
+	`, requestID, targetAccount, status, token, accountID, now)
+	return err
 }

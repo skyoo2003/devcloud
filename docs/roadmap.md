@@ -48,10 +48,15 @@ across S3 (RestoreObject, SelectObjectContent, WriteGetObjectResponse),
 DynamoDB (PartiQL engine, Kinesis destinations, PITR and table restores),
 Lambda (Layer versioning, response streaming, async and durable callbacks), and
 CloudFormation (CancelUpdateStack, drift detection, resource scans and orgs access).
-The original 3,085-operation unimplemented baseline has **3,043 remaining**;
+Phase 1B Core Identity & Access completed native support for all remaining operations
+across IAM (MFA devices, password changes, service credentials, SSH/server/signing certificates,
+OIDC provider client IDs, delegation requests, access/credential reports, policy simulation,
+and org root credentials/sessions) and STS (AssumeRoleWithWebIdentity, AssumeRoleWithSAML,
+AssumeRoot, DecodeAuthorizationMessage, GetDelegatedAccessToken, GetFederationToken, GetWebIdentityToken).
+The original 3,085-operation unimplemented baseline has **3,009 remaining**;
 complete AWS operation support is still in progress across subsequent bundles. See
-[EventBridge](services/eventbridge.md), [SNS](services/sns.md) and [S3](services/s3.md)
-for local limits.
+[EventBridge](services/eventbridge.md), [SNS](services/sns.md), [S3](services/s3.md) and
+[IAM/STS](services/iam-sts.md) for local limits.
 
 ## Phase 2 — Architectural preparation (complete, v1.x)
 

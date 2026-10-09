@@ -225,6 +225,64 @@ func (p *IAMProvider) HandleRequest(ctx context.Context, op string, req *http.Re
 		return p.handleUntagRole(ctx, form)
 	case "ListRoleTags":
 		return p.handleListRoleTags(ctx, form)
+	// MFA devices & passwords
+	case "EnableMFADevice":
+		return p.handleEnableMFADevice(ctx, form)
+	case "DeactivateMFADevice":
+		return p.handleDeactivateMFADevice(ctx, form)
+	case "ResyncMFADevice":
+		return p.handleResyncMFADevice(ctx, form)
+	case "ChangePassword":
+		return p.handleChangePassword(ctx, form)
+	case "ResetServiceSpecificCredential":
+		return p.handleResetServiceSpecificCredential(ctx, form)
+	case "UploadSSHPublicKey":
+		return p.handleUploadSSHPublicKey(ctx, form)
+	case "UploadServerCertificate":
+		return p.handleUploadServerCertificate(ctx, form)
+	case "UploadSigningCertificate":
+		return p.handleUploadSigningCertificate(ctx, form)
+	case "SetDefaultPolicyVersion":
+		return p.handleSetDefaultPolicyVersion(ctx, form)
+	case "SetSecurityTokenServicePreferences":
+		return p.handleSetSecurityTokenServicePreferences(ctx, form)
+	// OpenID Connect & Delegation
+	case "AddClientIDToOpenIDConnectProvider":
+		return p.handleAddClientIDToOpenIDConnectProvider(ctx, form)
+	case "RemoveClientIDFromOpenIDConnectProvider":
+		return p.handleRemoveClientIDFromOpenIDConnectProvider(ctx, form)
+	case "AcceptDelegationRequest":
+		return p.handleAcceptDelegationRequest(ctx, form)
+	case "AssociateDelegationRequest":
+		return p.handleAssociateDelegationRequest(ctx, form)
+	case "RejectDelegationRequest":
+		return p.handleRejectDelegationRequest(ctx, form)
+	case "SendDelegationToken":
+		return p.handleSendDelegationToken(ctx, form)
+	// Reports & Simulation
+	case "GenerateCredentialReport":
+		return p.handleGenerateCredentialReport(ctx, form)
+	case "GenerateOrganizationsAccessReport":
+		return p.handleGenerateOrganizationsAccessReport(ctx, form)
+	case "GenerateServiceLastAccessedDetails":
+		return p.handleGenerateServiceLastAccessedDetails(ctx, form)
+	case "SimulateCustomPolicy":
+		return p.handleSimulateCustomPolicy(ctx, form)
+	case "SimulatePrincipalPolicy":
+		return p.handleSimulatePrincipalPolicy(ctx, form)
+	// Organizations root settings
+	case "EnableOrganizationsRootCredentialsManagement":
+		return p.handleEnableOrganizationsRootCredentialsManagement(ctx, form)
+	case "DisableOrganizationsRootCredentialsManagement":
+		return p.handleDisableOrganizationsRootCredentialsManagement(ctx, form)
+	case "EnableOrganizationsRootSessions":
+		return p.handleEnableOrganizationsRootSessions(ctx, form)
+	case "DisableOrganizationsRootSessions":
+		return p.handleDisableOrganizationsRootSessions(ctx, form)
+	case "EnableOutboundWebIdentityFederation":
+		return p.handleEnableOutboundWebIdentityFederation(ctx, form)
+	case "DisableOutboundWebIdentityFederation":
+		return p.handleDisableOutboundWebIdentityFederation(ctx, form)
 	default:
 		return iamXMLError("NotImplemented", fmt.Sprintf("operation not implemented: %s", action), http.StatusNotImplemented), nil
 	}

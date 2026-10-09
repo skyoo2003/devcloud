@@ -8040,11 +8040,15 @@
   "iam": {
     "protocol": "query",
     "servedOps": [
+      "AcceptDelegationRequest",
+      "AddClientIDToOpenIDConnectProvider",
       "AddRoleToInstanceProfile",
       "AddUserToGroup",
+      "AssociateDelegationRequest",
       "AttachGroupPolicy",
       "AttachRolePolicy",
       "AttachUserPolicy",
+      "ChangePassword",
       "CreateAccessKey",
       "CreateAccountAlias",
       "CreateDelegationRequest",
@@ -8060,6 +8064,7 @@
       "CreateServiceSpecificCredential",
       "CreateUser",
       "CreateVirtualMFADevice",
+      "DeactivateMFADevice",
       "DeleteAccessKey",
       "DeleteAccountAlias",
       "DeleteAccountPasswordPolicy",
@@ -8086,6 +8091,16 @@
       "DetachGroupPolicy",
       "DetachRolePolicy",
       "DetachUserPolicy",
+      "DisableOrganizationsRootCredentialsManagement",
+      "DisableOrganizationsRootSessions",
+      "DisableOutboundWebIdentityFederation",
+      "EnableMFADevice",
+      "EnableOrganizationsRootCredentialsManagement",
+      "EnableOrganizationsRootSessions",
+      "EnableOutboundWebIdentityFederation",
+      "GenerateCredentialReport",
+      "GenerateOrganizationsAccessReport",
+      "GenerateServiceLastAccessedDetails",
       "GetAccessKeyLastUsed",
       "GetAccountAuthorizationDetails",
       "GetAccountPasswordPolicy",
@@ -8156,8 +8171,17 @@
       "PutRolePolicy",
       "PutUserPermissionsBoundary",
       "PutUserPolicy",
+      "RejectDelegationRequest",
+      "RemoveClientIDFromOpenIDConnectProvider",
       "RemoveRoleFromInstanceProfile",
       "RemoveUserFromGroup",
+      "ResetServiceSpecificCredential",
+      "ResyncMFADevice",
+      "SendDelegationToken",
+      "SetDefaultPolicyVersion",
+      "SetSecurityTokenServicePreferences",
+      "SimulateCustomPolicy",
+      "SimulatePrincipalPolicy",
       "TagInstanceProfile",
       "TagMFADevice",
       "TagOpenIDConnectProvider",
@@ -8188,7 +8212,10 @@
       "UpdateServerCertificate",
       "UpdateServiceSpecificCredential",
       "UpdateSigningCertificate",
-      "UpdateUser"
+      "UpdateUser",
+      "UploadSSHPublicKey",
+      "UploadServerCertificate",
+      "UploadSigningCertificate"
     ]
   },
   "iamtoolbox": {
@@ -16886,9 +16913,16 @@
     "protocol": "query",
     "servedOps": [
       "AssumeRole",
+      "AssumeRoleWithSAML",
+      "AssumeRoleWithWebIdentity",
+      "AssumeRoot",
+      "DecodeAuthorizationMessage",
       "GetAccessKeyInfo",
       "GetCallerIdentity",
-      "GetSessionToken"
+      "GetDelegatedAccessToken",
+      "GetFederationToken",
+      "GetSessionToken",
+      "GetWebIdentityToken"
     ]
   },
   "supplychain": {

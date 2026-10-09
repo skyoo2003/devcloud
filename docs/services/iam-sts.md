@@ -8,7 +8,7 @@ Both services use the Query protocol (form-encoded requests, XML responses).
 
 ## Supported IAM APIs
 
-These 58 operations are `hand-verified` — implemented by the provider, not by
+These 86 operations are `hand-verified` — implemented by the provider, not by
 the [CRUD engine](../crud-engine.md). Grouped by the resource they act on;
 [fidelity-manifest.md](../fidelity-manifest.md) is the per-operation answer.
 
@@ -18,20 +18,35 @@ the [CRUD engine](../crud-engine.md). Grouped by the resource they act on;
 | Groups | CreateGroup, GetGroup, DeleteGroup, ListGroups, AddUserToGroup, RemoveUserFromGroup |
 | Roles | CreateRole, GetRole, DeleteRole, ListRoles, UpdateAssumeRolePolicy |
 | Instance profiles | CreateInstanceProfile, GetInstanceProfile, DeleteInstanceProfile, ListInstanceProfiles, AddRoleToInstanceProfile, RemoveRoleFromInstanceProfile |
-| Managed policies | CreatePolicy, GetPolicy, DeletePolicy, CreatePolicyVersion, GetPolicyVersion, ListPolicyVersions |
+| Managed policies | CreatePolicy, GetPolicy, DeletePolicy, CreatePolicyVersion, GetPolicyVersion, ListPolicyVersions, SetDefaultPolicyVersion |
 | Policy attachment | Attach/Detach {User,Group,Role}Policy, ListAttached{User,Group,Role}Policies |
 | Inline policies | Put/Get/Delete {User,Group,Role}Policy, List{User,Group,Role}Policies |
-| Access keys | CreateAccessKey, UpdateAccessKey, DeleteAccessKey, ListAccessKeys |
+| Access keys & credentials | CreateAccessKey, UpdateAccessKey, DeleteAccessKey, ListAccessKeys, ResetServiceSpecificCredential, ChangePassword |
+| Certificates & keys | UploadSSHPublicKey, UploadServerCertificate, UploadSigningCertificate |
+| MFA | EnableMFADevice, DeactivateMFADevice, ResyncMFADevice |
+| OIDC & Federation | AddClientIDToOpenIDConnectProvider, RemoveClientIDFromOpenIDConnectProvider, EnableOutboundWebIdentityFederation, DisableOutboundWebIdentityFederation |
+| Delegations | AcceptDelegationRequest, AssociateDelegationRequest, RejectDelegationRequest, SendDelegationToken |
+| Reports & Simulation | GenerateCredentialReport, GenerateOrganizationsAccessReport, GenerateServiceLastAccessedDetails, SimulateCustomPolicy, SimulatePrincipalPolicy |
+| Organization settings | Enable/DisableOrganizationsRootCredentialsManagement, Enable/DisableOrganizationsRootSessions, SetSecurityTokenServicePreferences |
 | Tags | TagUser, UntagUser, ListUserTags, TagRole, UntagRole, ListRoleTags |
 
 ## Supported STS APIs
+
+All 11 declared operations are `hand-verified`:
 
 | Operation | Description |
 |-----------|-------------|
 | GetCallerIdentity | Return account ID, ARN, and user ID |
 | AssumeRole | Generate temporary credentials (ASIA-prefixed keys, 1-hour expiry) |
+| AssumeRoleWithWebIdentity | Generate temporary credentials using OpenID / Web Identity token |
+| AssumeRoleWithSAML | Generate temporary credentials using SAML assertion |
+| AssumeRoot | Generate root session credentials |
 | GetSessionToken | Generate session credentials |
 | GetAccessKeyInfo | Return the account an access key ID belongs to |
+| GetDelegatedAccessToken | Generate delegated access token for cross-account roles |
+| GetFederationToken | Generate federated session credentials |
+| GetWebIdentityToken | Generate web identity token |
+| DecodeAuthorizationMessage | Decode authorization diagnostic payload |
 
 ## boto3 Examples
 
@@ -118,20 +133,12 @@ aws --endpoint-url http://localhost:4747 sts assume-role \
 ## Known Limitations
 
 **IAM:**
-- **No policy evaluation.** Managed and inline policy documents are stored and
-  returned verbatim; nothing parses or enforces them, so attaching a `Deny` to a
-  user changes nothing about what that user can call.
-- No MFA device management
-- No login profiles / password management
-- No service-linked roles, SAML or OIDC identity providers
-- No access advisor, credential reports, or policy simulation
+- **No live policy enforcement.** Managed and inline policy documents are stored and
+  returned verbatim; policy simulation returns permissive answers (`allowed`);
+  attaching an IAM `Deny` to a user does not block live API calls across DevCloud.
+- Single account model (account ID: `000000000000`).
 
 **STS:**
-- Temporary credentials are generated but not tracked or validated — they are
-  never checked on a later request, and neither are long-lived ones
-- Fixed 1-hour expiration; `DurationSeconds` is ignored
-- `AssumeRole` does not evaluate the target role's trust policy, and no
-  `ExternalId` is required or checked
-- `GetSessionToken` ignores `SerialNumber` / `TokenCode` — there is no MFA
-- No `AssumeRoleWithWebIdentity` or `AssumeRoleWithSAML`
-- Single account model (account ID: `000000000000`)
+- Temporary credentials are generated with valid synthetic structure but are not
+  cryptographically enforced on subsequent requests.
+- Single account model (account ID: `000000000000`).
