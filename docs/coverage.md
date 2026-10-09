@@ -69,9 +69,11 @@ the parser does not read.
 **The operation is not CRUD-shaped.** `GetThing`, `ListThings` and `CreateThing`
 map onto a generic store. `ExecuteStatement`, `InvokeEndpoint` and
 `QueryForecast` do not, and the engine refuses them rather than inventing an
-answer. This applies to four services: `forecastquery`, the two SageMaker Runtime
-variants `sagemaker-runtime` and `sagemakerruntimehttp2`, and `rds-data`. No
-protocol change reaches them.
+answer. This applies to three services: `forecastquery` and the two SageMaker
+Runtime variants `sagemaker-runtime` and `sagemakerruntimehttp2`. No protocol
+change reaches them; instead, each has a hand-written provider that serves at
+least one operation natively. `rds-data` is served by a SQLite-backed query
+engine added in Phase 1E.
 
 EC2 (`ec2Query`) and Partner Central Revenue Measurement (`rpcv2Cbor`) originally had
 protocols the parser did not read; both protocols and native CBOR serialization are now
@@ -195,11 +197,10 @@ evidence in [demand.md](demand.md); re-derive with
 The rule kept the 100% depth target only if ≥60% of `M` had support ≥2, and
 narrowed to a demand set if ≥100 did. 57 cleared neither bar, so the
 pre-registered consequence applied: **the 100% depth claim is dropped and the
-published depth target becomes the demand set.** All 57 are registered — 56 serve
-at least one operation, and `rds-data` is the exception named above. It is
-supported by all three projects, the strongest signal in the set, and still
-cannot be served generically. The engine does not reach every service it routes,
-and saying so is cheaper than a fabricated success.
+published depth target becomes the demand set.** All 57 are registered and serve
+at least one operation — `rds-data`, the strongest-signal service in the set, is
+now served by a SQLite-backed query engine (Phase 1E) rather than the generic
+CRUD engine.
 
 Four fifths of the AWS surface is surface that three projects with far more
 history and staffing have collectively declined to build. That is what a long

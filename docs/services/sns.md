@@ -1,9 +1,29 @@
-# SNS
+# SNS (Simple Notification Service)
 
+## Overview
 DevCloud supports topics/subscriptions, batch publication to local SQS, FIFO
 admission, platform application/endpoint settings, SMS settings, opt-in and SMS
 sandbox verification. Use the standard boto3 sns client against the local endpoint.
 The local account is `000000000000` and region is `us-east-1`.
+
+## Supported APIs
+
+These 41 operations are `hand-verified` — implemented by the provider, not by the CRUD engine.
+
+| Operation | Description |
+|-----------|-------------|
+| CreateTopic / DeleteTopic / ListTopics | Topic lifecycle |
+| GetTopicAttributes / SetTopicAttributes | Topic configurations (including `.fifo` topics) |
+| Subscribe / Unsubscribe / ListSubscriptions / ListSubscriptionsByTopic / ConfirmSubscription | Subscription lifecycle |
+| GetSubscriptionAttributes / SetSubscriptionAttributes | Subscription configurations |
+| Publish / PublishBatch | Message publication, including FIFO deduplication and ordering |
+| CreatePlatformApplication / DeletePlatformApplication / ListPlatformApplications / GetPlatformApplicationAttributes / SetPlatformApplicationAttributes | Mobile push application configurations |
+| CreatePlatformEndpoint / DeleteEndpoint / ListEndpointsByPlatformApplication / GetEndpointAttributes / SetEndpointAttributes | Mobile push endpoints |
+| SetSMSAttributes / GetSMSAttributes / OptInPhoneNumber / CheckIfPhoneNumberIsOptedOut / ListPhoneNumbersOptedOut | SMS global settings |
+| CreateSMSSandboxPhoneNumber / VerifySMSSandboxPhoneNumber / ListSMSSandboxPhoneNumbers / DeleteSMSSandboxPhoneNumber / GetSMSSandboxAccountStatus | SMS sandbox and OTP generation |
+| AddPermission / RemovePermission | Resource-based topic policies |
+| TagResource / UntagResource / ListTagsForResource | Resource tagging |
+| PutDataProtectionPolicy / GetDataProtectionPolicy | Data protection policies |
 
 ## Publication and FIFO
 
@@ -99,3 +119,37 @@ challenge; issue a fresh OTP before verification.
 Pinned boto3 tests exercise Query/XML responses and actual SQS/outbox results.
 Invalid parameters, resource absence, verification and storage/delivery failures
 use distinct errors. A closed database does not produce an empty successful list.
+
+
+## boto3 Examples
+
+```python
+import boto3
+
+client = boto3.client('sns', endpoint_url='http://localhost:4747', region_name='us-east-1')
+
+# Standard topic creation and subscription
+topic = client.create_topic(Name='my-topic')
+client.subscribe(
+    TopicArn=topic['TopicArn'],
+    Protocol='sqs',
+    Endpoint='arn:aws:sqs:us-east-1:000000000000:my-queue'
+)
+
+# Publish a message
+client.publish(
+    TopicArn=topic['TopicArn'],
+    Message='hello world'
+)
+```
+
+## AWS CLI Examples
+
+```bash
+aws --endpoint-url=http://localhost:4747 sns create-topic --name my-topic
+aws --endpoint-url=http://localhost:4747 sns publish --topic-arn arn:aws:sns:us-east-1:000000000000:my-topic --message "hello"
+```
+
+## Known Limitations
+- **Delivery endpoints:** Active delivery is only implemented for SQS (`sqs` protocol) and Lambda (`lambda` protocol). HTTP/S, email, and mobile push endpoints are accepted as configuration but no outbound network requests are made.
+- **SMS Delivery:** SMS messages are not dispatched to real telecommunication networks. OTP codes for the SMS sandbox are generated and stored locally in the `sns.db` outbox table for verification (see Sandbox section).

@@ -102,6 +102,16 @@ enableGitInfo = true
     parent = 'services-matrix'
     pageRef = '/services/iam-sts'
     weight = 85
+  [[menu.before]]
+    identifier = 'eventbridge'
+    parent = 'services-matrix'
+    pageRef = '/services/eventbridge'
+    weight = 86
+  [[menu.before]]
+    identifier = 'sns'
+    parent = 'services-matrix'
+    pageRef = '/services/sns'
+    weight = 87
 
   [[menu.before]]
     identifier = 'demand'

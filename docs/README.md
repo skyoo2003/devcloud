@@ -18,7 +18,7 @@
 | [Fidelity Manifest](fidelity-manifest.md) | Per-operation tiers: how much to trust any given call |
 | [CRUD Engine](crud-engine.md) | How engine-served operations behave, and where they stop |
 | [Services Matrix](services-matrix.md) | Depth by group, cross-service integrations, protocols |
-| [Demand](demand.md) | Which unregistered services have demonstrated demand, and how it was measured |
+| [Demand](demand.md) | Which services have demonstrated demand, and how it was measured |
 
 ## Per-service references
 

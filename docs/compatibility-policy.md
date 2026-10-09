@@ -116,12 +116,12 @@ promise means adding or strengthening assertions, and such contributions are wel
 
 Depending on any of the following will break, and breaking it is **not** a major-version event.
 
-- **`auto-crud` response content.** 10,871 operations are served by the
+- **`auto-crud` response content.** 14,082 operations are served by the
   [generic CRUD engine](crud-engine.md) at fidelity that is deliberately *plausible, not
   faithful*: store-backed responses echoing your input plus synthesized ids and ARNs, with no
   validation, no cross-resource integrity, no pagination correctness and no business logic.
   Their shape and content may change in any release. Use them to wire an SDK up, nothing more.
-- **Hand-verified operations with no compatibility test.** Of 4,528 hand-verified operations,
+- **Hand-verified operations with no compatibility test.** Of 4,642 hand-verified operations,
   only what the suite covers is promised. The rest are best-effort.
 - **Data durability.** Stores are local development stores. Several are in-memory and
   per-process; on-disk layouts under `data_dir` may change format between releases without a
@@ -129,8 +129,8 @@ Depending on any of the following will break, and breaking it is **not** a major
 - **`unimplemented` → served transitions.** An operation that returns an error today may start
   returning a response. This is additive, and ships in a minor release.
 - **Service coverage.** New services may be added in a minor release. The 431 services registered
-  today are a floor, not a ceiling — and not a promise of depth either: 5 of them serve no
-  operation and only decline cleanly. See [coverage.md](coverage.md).
+  today are a floor, not a ceiling — and all of them serve at least one operation.
+  See [coverage.md](coverage.md).
 - **Error codes, HTTP status and message wording.** What *is* guaranteed for an `unimplemented`
   operation is that it **fails** — an AWS-shaped error, never a fabricated success. *Which* error
   is not guaranteed: it comes from whichever provider handles the request, and `sqs` even differs

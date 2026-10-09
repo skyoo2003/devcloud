@@ -40,7 +40,7 @@ These are wired end to end, not stubbed:
 
 | Integration | Implementation |
 |-------------|----------------|
-| CloudFormation → 6 resource types | `cloudformation/engine.go` — topological sort, intrinsic functions |
+| CloudFormation → 10 resource types | `cloudformation/engine.go` — topological sort, intrinsic functions |
 | DynamoDB → DynamoDB Streams | Write path publishes records |
 | DynamoDB Streams → Lambda | `lambda/eventsource.go` polls stream shards |
 | SQS → Lambda | Event source poller |
@@ -57,6 +57,8 @@ These are wired end to end, not stubbed:
 | REST-JSON | `application/json` | ACM, API Gateway, S3Tables, MWAA, IdentityStore |
 | REST-XML | `application/xml` | S3, Route53, CloudFront |
 | Query | `application/x-www-form-urlencoded` | IAM, STS, SQS, SNS, RDS, EC2, AutoScaling |
+| EC2 Query | `application/x-www-form-urlencoded` | EC2 (EC2-compliant XML with `<requestId>`) |
+| RPC-v2 CBOR | `application/cbor` | Partner Central Revenue Measurement |
 
 SQS speaks both Query and JSON; the protocol is detected per request.
 
