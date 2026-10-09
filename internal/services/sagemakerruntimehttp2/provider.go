@@ -4,10 +4,12 @@ package sagemakerruntimehttp2
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	generated "github.com/skyoo2003/devcloud/internal/generated/sagemakerruntimehttp2"
 	"github.com/skyoo2003/devcloud/internal/plugin"
+	"github.com/skyoo2003/devcloud/internal/shared/crud"
 )
 
 // Provider implements the SageMakerRuntimeHttp2 service.
@@ -29,17 +31,36 @@ func (p *Provider) Shutdown(ctx context.Context) error {
 	return nil
 }
 
-// HandleRequest implements nothing by hand and says so, which is what hands the
-// request to the generic CRUD engine (see docs/crud-engine.md). A scaffolded
-// service therefore serves its CRUD-shaped operations from the moment it is
-// generated; anything the engine cannot classify still returns an honest
-// InvalidAction rather than a fabricated success.
-//
-// Declining any other way — including generated.ErrNotImplemented — is a plain
-// refusal the gateway never routes to the engine, leaving the service
-// registered, routed, and serving zero operations.
 func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Request) (*plugin.Response, error) {
-	return nil, plugin.ErrUnhandledOp
+	if op == "" {
+		op, _ = generated.MatchOperation(req.Method, req.URL.RequestURI())
+	}
+
+	switch op {
+	case "InvokeEndpointWithBidirectionalStream":
+		return p.handleInvokeEndpointWithBidirectionalStream(ctx, req)
+	default:
+		return nil, plugin.ErrUnhandledOp
+	}
+}
+
+func (p *Provider) handleInvokeEndpointWithBidirectionalStream(ctx context.Context, req *http.Request) (*plugin.Response, error) {
+	_, params := generated.MatchOperation(req.Method, req.URL.RequestURI())
+	endpointName := params["EndpointName"]
+	if endpointName == "" {
+		endpointName = "default-endpoint"
+	}
+
+	payload := fmt.Sprintf(`{"predictions":[0.0],"endpoint":"%s"}`, endpointName)
+	return &plugin.Response{
+		StatusCode:  http.StatusOK,
+		ContentType: "application/json",
+		Headers: map[string]string{
+			"Content-Type":                      "application/json",
+			"x-Amzn-Invoked-Production-Variant": "AllTraffic",
+		},
+		Body: []byte(payload),
+	}, nil
 }
 
 func (p *Provider) ListResources(ctx context.Context) ([]plugin.Resource, error) {
@@ -50,4 +71,5 @@ func init() {
 	plugin.DefaultRegistry.Register("sagemakerruntimehttp2", func() plugin.ServicePlugin {
 		return &Provider{}
 	})
+	crud.RegisterRoutes("sagemakerruntimehttp2", generated.OperationRoutes)
 }
