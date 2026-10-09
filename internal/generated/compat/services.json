@@ -14453,8 +14453,27 @@
     ]
   },
   "partnercentralrevenuemeasurement": {
-    "protocol": "",
-    "servedOps": []
+    "protocol": "rpcv2-cbor",
+    "servedOps": [
+      "CreateMarketplaceRevenueShare",
+      "CreateMarketplaceRevenueShareAllocation",
+      "CreateRevenueAttribution",
+      "GetMarketplaceRevenueShare",
+      "GetMarketplaceRevenueShareAllocation",
+      "GetRevenueAttribution",
+      "GetRevenueAttributionAllocation",
+      "GetRevenueAttributionAllocationsTask",
+      "ListMarketplaceRevenueShareAllocations",
+      "ListMarketplaceRevenueShares",
+      "ListRevenueAttributionAllocations",
+      "ListRevenueAttributions",
+      "ListTagsForResource",
+      "StartRevenueAttributionAllocationsTask",
+      "TagResource",
+      "UntagResource",
+      "UpdateMarketplaceRevenueShareAllocation",
+      "UpdateRevenueAttribution"
+    ]
   },
   "partnercentralselling": {
     "protocol": "json-1.0",

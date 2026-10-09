@@ -5,6 +5,7 @@ package cognitoidentityprovider
 
 import (
 	"database/sql"
+	"encoding/json"
 	"errors"
 	"path/filepath"
 
@@ -725,11 +726,12 @@ func (s *CognitoStore) ListTagsForResource(arn string) (map[string]string, error
 
 // containsString checks if a JSON array string contains the given value.
 func containsString(jsonArr, val string) bool {
-	// Simple string search: val surrounded by quotes inside JSON array.
-	needle := `"` + val + `"`
-	for i := 0; i <= len(jsonArr)-len(needle); i++ {
-		if jsonArr[i:i+len(needle)] == needle {
-			return true
+	var items []string
+	if err := json.Unmarshal([]byte(jsonArr), &items); err == nil {
+		for _, item := range items {
+			if item == val {
+				return true
+			}
 		}
 	}
 	return false

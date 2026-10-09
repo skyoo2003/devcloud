@@ -24,6 +24,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/skyoo2003/devcloud/internal/shared/cbor"
 	"github.com/skyoo2003/devcloud/internal/shared/httproute"
 	storesqlite "github.com/skyoo2003/devcloud/internal/storage/sqlite"
 )
@@ -72,9 +73,11 @@ const (
 	jsonContentType = "application/x-amz-json-1.1"
 	restJSONType    = "application/json"
 	xmlContentType  = "application/xml"
+	cborContentType = "application/cbor"
 
-	protocolJSON10   = "json-1.0"
-	protocolRESTJSON = "rest-json"
+	protocolJSON10    = "json-1.0"
+	protocolRESTJSON  = "rest-json"
+	protocolRPCV2CBOR = "rpcv2-cbor"
 )
 
 var (
@@ -283,7 +286,7 @@ func JSONProtocol(protocol string) bool {
 func Servable(protocol string) bool {
 	return JSONProtocol(protocol) || protocol == protocolRESTJSON ||
 		protocol == protocolRESTXML || protocol == protocolQuery ||
-		protocol == protocolEC2Query
+		protocol == protocolEC2Query || protocol == protocolRPCV2CBOR
 }
 
 // NeedsBody reports whether the gateway must buffer the request body before
@@ -301,7 +304,8 @@ func Servable(protocol string) bool {
 // because the operation name itself is a field in it.
 func NeedsBody(protocol string) bool {
 	return JSONProtocol(protocol) || protocol == protocolRESTJSON ||
-		protocol == protocolQuery || protocol == protocolEC2Query
+		protocol == protocolQuery || protocol == protocolEC2Query ||
+		protocol == protocolRPCV2CBOR
 }
 
 // Handle attempts to serve a call from the service's registered operations. It
@@ -314,8 +318,8 @@ func Handle(c Call) (*Result, error) {
 	rest := false
 
 	switch {
-	case JSONProtocol(c.Protocol):
-		// The operation name arrived in X-Amz-Target; nothing to resolve.
+	case JSONProtocol(c.Protocol), c.Protocol == protocolRPCV2CBOR:
+		// The operation name arrived in X-Amz-Target or RPC-v2 URL path; nothing to resolve.
 	case c.Protocol == protocolQuery || c.Protocol == protocolEC2Query:
 		// query and ec2-query name their operation in neither a header nor a path:
 		// Action is a field of the form body.
@@ -460,6 +464,8 @@ func withContentType(res *Result, protocol string) *Result {
 		res.ContentType = restJSONType
 	case protocolEC2Query:
 		res.ContentType = "text/xml"
+	case protocolRPCV2CBOR:
+		res.ContentType = cborContentType
 	}
 	return res
 }
@@ -698,6 +704,13 @@ func okBody(protocol, op string, v map[string]any) (*Result, error) {
 		}
 		return &Result{Status: 200, Body: encodeXML(protocol, op, v), ContentType: ct}, nil
 	}
+	if protocol == protocolRPCV2CBOR {
+		b, err := cbor.Encode(v)
+		if err != nil {
+			return nil, err
+		}
+		return &Result{Status: 200, Body: b, ContentType: cborContentType}, nil
+	}
 	b, err := json.Marshal(v)
 	if err != nil {
 		return nil, err
@@ -737,6 +750,10 @@ func errorResult(protocol, code, message string) *Result {
 			ct = "text/xml"
 		}
 		return &Result{Status: 400, Body: []byte(body), ContentType: ct}
+	}
+	if protocol == protocolRPCV2CBOR {
+		b, _ := cbor.Encode(map[string]string{"__type": code, "message": message})
+		return &Result{Status: 400, Body: b, ContentType: cborContentType}
 	}
 	b, _ := json.Marshal(map[string]string{"__type": code, "message": message})
 	return &Result{Status: 400, Body: b, ContentType: jsonContentType}

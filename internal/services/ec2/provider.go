@@ -644,12 +644,12 @@ func (p *Provider) handleDescribeSecurityGroups(form url.Values) (*plugin.Respon
 	}
 	for _, id := range wantIDs {
 		if !idSet[id] {
-			return ec2XMLError("InvalidGroup.NotFound", fmt.Sprintf("The security group '%s' does not exist", id), http.StatusBadRequest), nil
+			return ec2XMLError("InvalidGroup.NotFound", "The security group "+id+" does not exist", http.StatusBadRequest), nil
 		}
 	}
 	for _, n := range wantNames {
 		if !nameSet[n] {
-			return ec2XMLError("InvalidGroup.NotFound", fmt.Sprintf("The security group '%s' does not exist", n), http.StatusBadRequest), nil
+			return ec2XMLError("InvalidGroup.NotFound", "The security group "+n+" does not exist", http.StatusBadRequest), nil
 		}
 	}
 
@@ -834,12 +834,12 @@ func (p *Provider) handleDescribeAddresses(form url.Values) (*plugin.Response, e
 	}
 	for _, id := range wantAllocs {
 		if !allocSet[id] {
-			return ec2XMLError("InvalidAllocationID.NotFound", fmt.Sprintf("Address with allocation ID '%s' not found", id), http.StatusBadRequest), nil
+			return ec2XMLError("InvalidAllocationID.NotFound", "Address with allocation ID "+id+" not found", http.StatusBadRequest), nil
 		}
 	}
 	for _, ip := range wantIPs {
 		if !ipSet[ip] {
-			return ec2XMLError("InvalidAddress.NotFound", fmt.Sprintf("Address '%s' not found", ip), http.StatusBadRequest), nil
+			return ec2XMLError("InvalidAddress.NotFound", "Address "+ip+" not found", http.StatusBadRequest), nil
 		}
 	}
 

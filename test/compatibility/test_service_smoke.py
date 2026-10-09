@@ -127,7 +127,6 @@ def test_no_registered_service_is_unreachable_from_boto3():
     assert set(_coverage.UNREACHABLE_FROM_BOTO3) == {
         "codecatalyst",
         "cloudfrontkeyvaluestore",
-        "partnercentralrevenuemeasurement",
     }, (
         "the set of registered services unreachable from boto3 changed: "
         f"{sorted(_coverage.UNREACHABLE_FROM_BOTO3)}. Each one drops out of the "

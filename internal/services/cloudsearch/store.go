@@ -126,7 +126,7 @@ func (s *Store) ListDomains(names []string) ([]Domain, error) {
 	query := `SELECT name, arn, domain_id, status, search_endpoint, doc_endpoint, created FROM domains`
 	var args []any
 	if len(names) > 0 {
-		placeholders := make([]byte, 0, len(names)*2)
+		var placeholders []byte
 		for i, n := range names {
 			if i > 0 {
 				placeholders = append(placeholders, ',')
@@ -196,7 +196,7 @@ func (s *Store) ListIndexFields(domainName string, fieldNames []string) ([]Index
 	query := `SELECT domain_name, name, type, config FROM index_fields WHERE domain_name = ?`
 	args := []any{domainName}
 	if len(fieldNames) > 0 {
-		placeholders := make([]byte, 0, len(fieldNames)*2)
+		var placeholders []byte
 		for i, n := range fieldNames {
 			if i > 0 {
 				placeholders = append(placeholders, ',')
