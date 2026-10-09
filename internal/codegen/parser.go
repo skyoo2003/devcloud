@@ -456,6 +456,9 @@ func detectProtocol(s *rawShape) string {
 	if _, ok := s.Traits["aws.protocols#restJson1"]; ok {
 		return "rest-json"
 	}
+	if _, ok := s.Traits["smithy.protocols#rpcv2Cbor"]; ok {
+		return "rpcv2-cbor"
+	}
 	return ""
 }
 

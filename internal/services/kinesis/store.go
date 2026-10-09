@@ -225,8 +225,7 @@ func (b *StreamBuffer) getRecords(iteratorID string, limit int) ([]BufferRecord,
 		end = len(shard.Records)
 	}
 
-	records := make([]BufferRecord, end-start)
-	copy(records, shard.Records[start:end])
+	records := append([]BufferRecord(nil), shard.Records[start:end]...)
 
 	// Calculate millis behind latest
 	var millisBehind int64

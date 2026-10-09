@@ -13296,6 +13296,26 @@ func init() {
 		"UpdateProgramManagementAccount": {Verb: "Update", Resource: "ProgramManagementAccount", OutputListKey: "", OutputItemKey: "programManagementAccountDetail", Method: "POST", URI: "/UpdateProgramManagementAccount"},
 		"UpdateRelationship":             {Verb: "Update", Resource: "Relationship", OutputListKey: "", OutputItemKey: "relationshipDetail", Method: "POST", URI: "/UpdateRelationship"},
 	})
+	crud.Register("partnercentralrevenuemeasurement", map[string]crud.OpMeta{
+		"CreateMarketplaceRevenueShare":           {Verb: "Create", Resource: "MarketplaceRevenueShare", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/CreateMarketplaceRevenueShare"},
+		"CreateMarketplaceRevenueShareAllocation": {Verb: "Create", Resource: "MarketplaceRevenueShareAllocation", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/CreateMarketplaceRevenueShareAllocation"},
+		"CreateRevenueAttribution":                {Verb: "Create", Resource: "RevenueAttribution", OutputListKey: "", OutputItemKey: "MarketplaceProduct", Method: "POST", URI: "/CreateRevenueAttribution"},
+		"GetMarketplaceRevenueShare":              {Verb: "Get", Resource: "MarketplaceRevenueShare", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/GetMarketplaceRevenueShare"},
+		"GetMarketplaceRevenueShareAllocation":    {Verb: "Get", Resource: "MarketplaceRevenueShareAllocation", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/GetMarketplaceRevenueShareAllocation"},
+		"GetRevenueAttribution":                   {Verb: "Get", Resource: "RevenueAttribution", OutputListKey: "", OutputItemKey: "MarketplaceProduct", Method: "POST", URI: "/GetRevenueAttribution"},
+		"GetRevenueAttributionAllocation":         {Verb: "Get", Resource: "RevenueAttributionAllocation", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/GetRevenueAttributionAllocation"},
+		"GetRevenueAttributionAllocationsTask":    {Verb: "Get", Resource: "RevenueAttributionAllocationsTask", OutputListKey: "ErrorDetailList", OutputItemKey: "", Method: "POST", URI: "/GetRevenueAttributionAllocationsTask"},
+		"ListMarketplaceRevenueShareAllocations":  {Verb: "List", Resource: "MarketplaceRevenueShareAllocation", OutputListKey: "MarketplaceRevenueShareAllocationSummaries", OutputItemKey: "", Method: "POST", URI: "/ListMarketplaceRevenueShareAllocations"},
+		"ListMarketplaceRevenueShares":            {Verb: "List", Resource: "MarketplaceRevenueShare", OutputListKey: "MarketplaceRevenueShareSummaries", OutputItemKey: "", Method: "POST", URI: "/ListMarketplaceRevenueShares"},
+		"ListRevenueAttributionAllocations":       {Verb: "List", Resource: "RevenueAttributionAllocation", OutputListKey: "RevenueAttributionAllocationSummaries", OutputItemKey: "", Method: "POST", URI: "/ListRevenueAttributionAllocations"},
+		"ListRevenueAttributions":                 {Verb: "List", Resource: "RevenueAttribution", OutputListKey: "RevenueAttributionSummaries", OutputItemKey: "", Method: "POST", URI: "/ListRevenueAttributions"},
+		"ListTagsForResource":                     {Verb: "List", Resource: "TagsForResource", OutputListKey: "tags", OutputItemKey: "", Method: "POST", URI: "/ListTagsForResource"},
+		"StartRevenueAttributionAllocationsTask":  {Verb: "Toggle", Resource: "RevenueAttributionAllocationsTask", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/StartRevenueAttributionAllocationsTask"},
+		"TagResource":                             {Verb: "Tag", Resource: "Resource", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/TagResource"},
+		"UntagResource":                           {Verb: "Untag", Resource: "Resource", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/UntagResource"},
+		"UpdateMarketplaceRevenueShareAllocation": {Verb: "Update", Resource: "MarketplaceRevenueShareAllocation", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/UpdateMarketplaceRevenueShareAllocation"},
+		"UpdateRevenueAttribution":                {Verb: "Update", Resource: "RevenueAttribution", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/UpdateRevenueAttribution"},
+	})
 	crud.Register("partnercentralselling", map[string]crud.OpMeta{
 		"AcceptEngagementInvitation":               {Verb: "Toggle", Resource: "EngagementInvitation", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/AcceptEngagementInvitation"},
 		"AssignOpportunity":                        {Verb: "Relate", Resource: "Opportunity", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/AssignOpportunity"},

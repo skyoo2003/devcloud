@@ -282,7 +282,7 @@ func classifyOps(model *ir.Model) []crudOpData {
 func engineServable(protocol string) bool {
 	return strings.HasPrefix(protocol, "json") ||
 		protocol == "rest-json" || protocol == "rest-xml" || protocol == "query" ||
-		protocol == "ec2-query"
+		protocol == "ec2-query" || protocol == "rpcv2-cbor"
 }
 
 // ServiceCRUDData classifies an engine-servable model's CRUD operations. It

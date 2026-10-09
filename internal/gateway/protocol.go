@@ -51,6 +51,27 @@ func DetectProtocol(r *http.Request) (protocol string, serviceID string) {
 		}
 	}
 
+	// 2.5. RPC-v2-CBOR protocol (e.g. PartnerCentral Revenue Measurement)
+	if r.Header.Get("smithy-protocol") == "rpc-v2-cbor" ||
+		strings.Contains(r.Header.Get("Content-Type"), "application/cbor") ||
+		strings.HasPrefix(r.URL.Path, "/service/") {
+		parts := strings.Split(strings.Trim(r.URL.Path, "/"), "/")
+		svc := ""
+		if len(parts) >= 2 && parts[0] == "service" {
+			svc = normalizeServiceID(parts[1])
+		}
+		if svc == "" {
+			svc = serviceFromSigV4(r)
+			if svc != "" {
+				svc = normalizeServiceID(svc)
+			}
+		}
+		if svc == "partnercentral" {
+			svc = "partnercentralrevenuemeasurement"
+		}
+		return "rpcv2-cbor", svc
+	}
+
 	// 3. Check SigV4 for REST-style services (Lambda, etc.)
 	if svc := serviceFromSigV4(r); svc != "" && svc != "s3" {
 		normalized := normalizeServiceID(svc)

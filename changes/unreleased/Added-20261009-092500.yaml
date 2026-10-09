@@ -1,0 +1,3 @@
+kind: Added
+body: Implement Phase 1F 100% service fleet activation and CBOR protocol support (internal/shared/cbor), adding smithy.protocols#rpcv2Cbor protocol detection and RPC-v2 gateway routing to promote partnercentralrevenuemeasurement into auto-crud, achieving 100.0% fleet serving (431 of 431 registered AWS services serving >= 1 operation, 0 registered-only remaining) and raising compatibility-tested services to 427.
+time: 2026-10-09T09:25:00.000000+09:00

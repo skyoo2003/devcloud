@@ -839,7 +839,7 @@ func buildPlaceholders(n int) string {
 	if n == 0 {
 		return ""
 	}
-	b := make([]byte, 0, n*2-1)
+	var b []byte
 	for i := 0; i < n; i++ {
 		if i > 0 {
 			b = append(b, ',')

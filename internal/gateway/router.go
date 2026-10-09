@@ -14,6 +14,7 @@ import (
 
 	"github.com/skyoo2003/devcloud/internal/admin"
 	"github.com/skyoo2003/devcloud/internal/plugin"
+	"github.com/skyoo2003/devcloud/internal/shared/cbor"
 	"github.com/skyoo2003/devcloud/internal/shared/crud"
 )
 
@@ -72,6 +73,11 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			writeAWSError(w, protocol, http.StatusBadRequest, "SerializationException", "failed to read request body")
 			return
 		}
+		if protocol == "rpcv2-cbor" && len(body) > 0 {
+			if jsonBytes, err := cbor.CBORToJSON(body); err == nil {
+				body = jsonBytes
+			}
+		}
 		r.Body = io.NopCloser(bytes.NewReader(body))
 	}
 
@@ -102,6 +108,19 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		writeAWSError(w, protocol, http.StatusInternalServerError, "InternalError", err.Error())
 		return
+	}
+
+	if protocol == "rpcv2-cbor" && resp != nil {
+		if resp.Headers == nil {
+			resp.Headers = make(map[string]string)
+		}
+		resp.Headers["smithy-protocol"] = "rpc-v2-cbor"
+		if resp.ContentType != "application/cbor" {
+			if cborBytes, err := cbor.JSONToCBOR(resp.Body); err == nil {
+				resp.Body = cborBytes
+				resp.ContentType = "application/cbor"
+			}
+		}
 	}
 
 	// Write response headers from the plugin.
@@ -190,6 +209,11 @@ func extractOperationName(r *http.Request, protocol string) string {
 		// consumes the request body. The service provider will parse the
 		// form body itself and extract the Action.
 		return r.URL.Query().Get("Action")
+	case protocol == "rpcv2-cbor":
+		if idx := strings.LastIndex(r.URL.Path, "/operation/"); idx != -1 {
+			return r.URL.Path[idx+len("/operation/"):]
+		}
+		return ""
 	default:
 		return ""
 	}
@@ -242,6 +266,15 @@ type awsJSONError struct {
 // the failure it is reporting. It went unnoticed while no rest-json service
 // reached the engine.
 func writeAWSError(w http.ResponseWriter, protocol string, status int, code, message string) {
+	if protocol == "rpcv2-cbor" {
+		body, _ := cbor.Encode(map[string]any{"__type": code, "message": message})
+		w.Header().Set("Content-Type", "application/cbor")
+		w.Header().Set("smithy-protocol", "rpc-v2-cbor")
+		w.WriteHeader(status)
+		_, _ = w.Write(body)
+		return
+	}
+
 	if strings.HasPrefix(protocol, "json") || protocol == "rest-json" {
 		body, _ := json.Marshal(awsJSONError{Code: code, Message: message})
 		w.Header().Set("Content-Type", "application/json")

@@ -66,7 +66,12 @@ Phase 1E Non-CRUD Data Planes implemented SQLite-backed query execution for `rds
 `sagemakerruntime` and `sagemakerruntimehttp2` (`InvokeEndpoint`, `InvokeEndpointAsync`,
 `InvokeEndpointWithResponseStream`, `InvokeEndpointWithBidirectionalStream`), promoting
 10 operations to `hand-verified` and leaving only 1 registered-only service in the fleet.
-The original 3,085-operation unimplemented baseline has **487 remaining**;
+Phase 1F 100% Service Fleet Activation implemented native CBOR encoding/decoding
+(`internal/shared/cbor`), `smithy.protocols#rpcv2Cbor` protocol detection, and gateway
+RPC-v2 routing, bringing `partnercentralrevenuemeasurement` into `auto-crud`. Every
+single registered service in the AWS fleet (431 of 431, 100.0%) now serves $\ge 1$ operation,
+leaving **zero** registered-only services.
+The original 3,085-operation unimplemented baseline has **469 remaining**;
 complete AWS operation support is still in progress across subsequent bundles. See
 [EventBridge](services/eventbridge.md), [SNS](services/sns.md), [S3](services/s3.md) and
 [IAM/STS](services/iam-sts.md) for local limits.

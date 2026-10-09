@@ -162,7 +162,7 @@ func (s *Store) ListApplications(names []string) ([]Application, error) {
 	query := `SELECT name, arn, description, created_at, updated_at FROM applications`
 	var args []any
 	if len(names) > 0 {
-		placeholders := make([]byte, 0, len(names)*2)
+		var placeholders []byte
 		for i, n := range names {
 			if i > 0 {
 				placeholders = append(placeholders, ',')
@@ -269,7 +269,7 @@ func (s *Store) ListAppVersions(appName string, labels []string) ([]AppVersion, 
 		args = append(args, appName)
 	}
 	if len(labels) > 0 {
-		placeholders := make([]byte, 0, len(labels)*2)
+		var placeholders []byte
 		for i, l := range labels {
 			if i > 0 {
 				placeholders = append(placeholders, ',')
@@ -378,7 +378,7 @@ func (s *Store) ListEnvironments(appName string, envNames []string, envIDs []str
 		args = append(args, appName)
 	}
 	if len(envNames) > 0 {
-		placeholders := make([]byte, 0, len(envNames)*2)
+		var placeholders []byte
 		for i, n := range envNames {
 			if i > 0 {
 				placeholders = append(placeholders, ',')
@@ -389,7 +389,7 @@ func (s *Store) ListEnvironments(appName string, envNames []string, envIDs []str
 		query += ` AND name IN (` + string(placeholders) + `)`
 	}
 	if len(envIDs) > 0 {
-		placeholders := make([]byte, 0, len(envIDs)*2)
+		var placeholders []byte
 		for i, id := range envIDs {
 			if i > 0 {
 				placeholders = append(placeholders, ',')

@@ -4,6 +4,7 @@ package iam
 
 import (
 	"context"
+	"encoding/json"
 	"encoding/xml"
 	"fmt"
 	"net/http"
@@ -239,7 +240,22 @@ func (p *STSProvider) handleDecodeAuthorizationMessage(_ context.Context, form u
 	if msg == "" {
 		return stsXMLError("MissingParameter", "EncodedMessage is required", http.StatusBadRequest), nil
 	}
-	decoded := fmt.Sprintf(`{"allowed":false,"explicitDeny":false,"matchedStatements":{"items":[]},"failures":{"items":[]},"context":{"action":"unknown","resource":"unknown","conditions":{"items":[]}},"raw":"%s"}`, msg)
+	rawJSON, err := json.Marshal(map[string]any{
+		"allowed":           false,
+		"explicitDeny":      false,
+		"matchedStatements": map[string]any{"items": []any{}},
+		"failures":          map[string]any{"items": []any{}},
+		"context": map[string]any{
+			"action":     "unknown",
+			"resource":   "unknown",
+			"conditions": map[string]any{"items": []any{}},
+		},
+		"raw": msg,
+	})
+	if err != nil {
+		return nil, err
+	}
+	decoded := string(rawJSON)
 	return stsXMLResponse(http.StatusOK, decodeAuthorizationMessageResponse{
 		DecodeAuthorizationMessageResult: decodeAuthorizationMessageResult{
 			DecodedMessage: decoded,

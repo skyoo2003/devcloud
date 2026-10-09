@@ -6,7 +6,6 @@
   },
   "unreachableFromBoto3": {
     "codecatalyst": "codecatalyst authenticates with a bearer token rather than SigV4, and botocore raises NoAuthTokenError before the request is built",
-    "cloudfrontkeyvaluestore": "the client resolves its endpoint from a KVS ARN, so botocore raises EndpointResolutionError instead of honouring endpoint_url",
-    "partnercentralrevenuemeasurement": "smithy.protocols#rpcv2Cbor — botocore parses every answer as CBOR and DevCloud speaks none, so no reply it can send is intelligible"
+    "cloudfrontkeyvaluestore": "the client resolves its endpoint from a KVS ARN, so botocore raises EndpointResolutionError instead of honouring endpoint_url"
   }
 }
