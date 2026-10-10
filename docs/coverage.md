@@ -160,7 +160,7 @@ one as the other is the mistake this page exists to prevent.
 |---|---|---|
 | **Routing target** | **432 / 432 — met** | leak-zero; every published model is registered |
 | **Serving target** | **206 — met** | the demand study below, sampled 2026-09-05 |
-| Registered and engine-served, outside the serving target | 227 | no depth promise — see the [CRUD engine](crud-engine.md) |
+| Registered and engine-served, outside the serving target | 226 | no depth promise — see the [CRUD engine](crud-engine.md) |
 
 ### How the depth target was set
 
