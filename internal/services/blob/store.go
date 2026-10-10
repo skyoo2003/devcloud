@@ -53,24 +53,40 @@ func NewFileStore(baseDir string) *FileStore {
 	if err != nil {
 		abs = filepath.Clean(baseDir)
 	}
-	_ = os.MkdirAll(abs, 0755)
-	return &FileStore{baseDir: abs}
+	cleaned := filepath.Clean(abs)
+	_ = os.MkdirAll(cleaned, 0755)
+	return &FileStore{baseDir: cleaned}
+}
+
+// validPathComponent checks that a single path segment contains no path
+// separators, dot-only components, or empty values.
+func validPathComponent(part string) error {
+	// IsLocal covers "", "..", "../x" and absolute paths, and is the guard
+	// CodeQL recognises as a path-injection barrier.
+	if !filepath.IsLocal(part) || part == "." {
+		return ErrInvalidName
+	}
+	if strings.ContainsAny(part, "/\\") ||
+		strings.ContainsFunc(part, func(r rune) bool { return os.IsPathSeparator(byte(r)) }) {
+		return ErrInvalidName
+	}
+	return nil
 }
 
 func (fs *FileStore) safeContainerDir(account, container string) (string, error) {
-	if account == "" || container == "" {
-		return "", ErrInvalidName
+	if err := validPathComponent(account); err != nil {
+		return "", err
 	}
-	if strings.Contains(account, "..") || strings.Contains(container, "..") ||
-		strings.ContainsAny(account, "/\\") || strings.ContainsAny(container, "/\\") {
-		return "", ErrInvalidName
+	if err := validPathComponent(container); err != nil {
+		return "", err
 	}
 	dir := filepath.Join(fs.baseDir, account, container)
-	rel, err := filepath.Rel(fs.baseDir, dir)
-	if err != nil || strings.HasPrefix(rel, "..") {
+	cleaned := filepath.Clean(dir)
+	rel, err := filepath.Rel(fs.baseDir, cleaned)
+	if err != nil || !filepath.IsLocal(rel) || rel == "." {
 		return "", ErrInvalidName
 	}
-	return dir, nil
+	return cleaned, nil
 }
 
 func (fs *FileStore) safeBlobPaths(account, container, blob string) (dataPath, metaPath string, err error) {
@@ -78,23 +94,39 @@ func (fs *FileStore) safeBlobPaths(account, container, blob string) (dataPath, m
 	if err != nil {
 		return "", "", err
 	}
-	if blob == "" || strings.Contains(blob, "\\") {
+	// The blob gets IsLocal rather than validPathComponent because '/' is legal
+	// in it (virtual directories). IsLocal is the guard CodeQL recognises as a
+	// path-injection barrier.
+	if !filepath.IsLocal(blob) || blob == "." {
 		return "", "", ErrInvalidName
 	}
-	// Blobs can have '/' in their name (virtual directories)
+	if strings.Contains(blob, "\\") ||
+		strings.ContainsFunc(blob, func(r rune) bool { return os.IsPathSeparator(byte(r)) && r != '/' }) {
+		return "", "", ErrInvalidName
+	}
+
 	cleanBlob := filepath.Clean(blob)
-	if strings.HasPrefix(cleanBlob, "..") || cleanBlob == "." {
+	if !filepath.IsLocal(cleanBlob) || cleanBlob == "." {
 		return "", "", ErrInvalidName
 	}
 
-	dataPath = filepath.Join(containerDir, "data", cleanBlob)
-	metaPath = filepath.Join(containerDir, "meta", cleanBlob+".json")
-
-	relData, err := filepath.Rel(containerDir, dataPath)
-	if err != nil || strings.HasPrefix(relData, "..") {
+	dataDir := filepath.Join(containerDir, "data")
+	dataPath = filepath.Join(dataDir, cleanBlob)
+	cleanedData := filepath.Clean(dataPath)
+	relData, err := filepath.Rel(dataDir, cleanedData)
+	if err != nil || !filepath.IsLocal(relData) || relData == "." {
 		return "", "", ErrInvalidName
 	}
-	return dataPath, metaPath, nil
+
+	metaDir := filepath.Join(containerDir, "meta")
+	metaPath = filepath.Join(metaDir, cleanBlob+".json")
+	cleanedMeta := filepath.Clean(metaPath)
+	relMeta, err := filepath.Rel(metaDir, cleanedMeta)
+	if err != nil || !filepath.IsLocal(relMeta) || relMeta == "." {
+		return "", "", ErrInvalidName
+	}
+
+	return cleanedData, cleanedMeta, nil
 }
 
 func (fs *FileStore) CreateContainer(account, container string) (*ContainerInfo, error) {
@@ -183,8 +215,18 @@ func (fs *FileStore) ListContainers(account string) ([]ContainerInfo, error) {
 	fs.mu.RLock()
 	defer fs.mu.RUnlock()
 
+	if err := validPathComponent(account); err != nil {
+		return nil, err
+	}
+
 	accountDir := filepath.Join(fs.baseDir, account)
-	entries, err := os.ReadDir(accountDir)
+	cleaned := filepath.Clean(accountDir)
+	rel, err := filepath.Rel(fs.baseDir, cleaned)
+	if err != nil || !filepath.IsLocal(rel) || rel == "." {
+		return nil, ErrInvalidName
+	}
+
+	entries, err := os.ReadDir(cleaned)
 	if err != nil {
 		if os.IsNotExist(err) {
 			return []ContainerInfo{}, nil
@@ -197,7 +239,7 @@ func (fs *FileStore) ListContainers(account string) ([]ContainerInfo, error) {
 		if !entry.IsDir() {
 			continue
 		}
-		metaFile := filepath.Join(accountDir, entry.Name(), "container.json")
+		metaFile := filepath.Join(cleaned, entry.Name(), "container.json")
 		data, err := os.ReadFile(metaFile)
 		if err != nil {
 			continue
@@ -236,7 +278,11 @@ func (fs *FileStore) PutBlob(account, container, blob string, contentType string
 	}
 
 	// Read content and compute MD5
-	tmpFile := dataPath + ".tmp"
+	tmpFile := filepath.Clean(dataPath + ".tmp")
+	relTmp, err := filepath.Rel(filepath.Dir(dataPath), tmpFile)
+	if err != nil || !filepath.IsLocal(relTmp) || relTmp == "." {
+		return nil, ErrInvalidName
+	}
 	f, err := os.Create(tmpFile)
 	if err != nil {
 		return nil, err

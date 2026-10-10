@@ -140,3 +140,78 @@ func TestBlobProvider_ListResources(t *testing.T) {
 	require.NoError(t, err)
 	assert.Len(t, resources, 2)
 }
+
+func TestFileStore_PathTraversal(t *testing.T) {
+	store := NewFileStore(t.TempDir())
+
+	// Account traversal rejected
+	_, err := store.CreateContainer("../escape", "cont")
+	assert.ErrorIs(t, err, ErrInvalidName)
+
+	_, err = store.CreateContainer("account/sub", "cont")
+	assert.ErrorIs(t, err, ErrInvalidName)
+
+	_, err = store.ListContainers("../escape")
+	assert.ErrorIs(t, err, ErrInvalidName)
+
+	// Container traversal rejected
+	for _, badContainer := range []string{"..", "../escape", "a/b", "a\\b", ".", "/abs"} {
+		_, err := store.CreateContainer("devstoreaccount1", badContainer)
+		assert.ErrorIs(t, err, ErrInvalidName, "container %q should be rejected", badContainer)
+
+		err = store.DeleteContainer("devstoreaccount1", badContainer)
+		assert.ErrorIs(t, err, ErrInvalidName, "container %q should be rejected", badContainer)
+
+		_, err = store.GetContainer("devstoreaccount1", badContainer)
+		assert.ErrorIs(t, err, ErrInvalidName, "container %q should be rejected", badContainer)
+	}
+
+	// Create valid container
+	_, err = store.CreateContainer("devstoreaccount1", "validcont")
+	require.NoError(t, err)
+
+	// Blob traversal rejected
+	for _, badBlob := range []string{"..", "../escape", "../../secret", "/etc/passwd", "a/../../escape", "a\\b"} {
+		_, err := store.PutBlob("devstoreaccount1", "validcont", badBlob, "text/plain", bytes.NewReader([]byte("data")))
+		assert.ErrorIs(t, err, ErrInvalidName, "blob %q should be rejected", badBlob)
+
+		_, _, err = store.GetBlob("devstoreaccount1", "validcont", badBlob)
+		assert.ErrorIs(t, err, ErrInvalidName, "blob %q should be rejected", badBlob)
+
+		_, err = store.GetBlobProperties("devstoreaccount1", "validcont", badBlob)
+		assert.ErrorIs(t, err, ErrInvalidName, "blob %q should be rejected", badBlob)
+
+		err = store.DeleteBlob("devstoreaccount1", "validcont", badBlob)
+		assert.ErrorIs(t, err, ErrInvalidName, "blob %q should be rejected", badBlob)
+	}
+
+	// Valid nested blob accepted
+	bi, err := store.PutBlob("devstoreaccount1", "validcont", "a/b/c.txt", "text/plain", bytes.NewReader([]byte("ok")))
+	require.NoError(t, err)
+	assert.Equal(t, "a/b/c.txt", bi.Name)
+}
+
+func TestBlobProvider_VirtualDirectory(t *testing.T) {
+	p := newTestProvider(t)
+	ctx := context.Background()
+
+	// Create container
+	reqCreate := httptest.NewRequest(http.MethodPut, "/devstoreaccount1/vdir-container?restype=container", nil)
+	resp, err := p.HandleRequest(ctx, "", reqCreate)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusCreated, resp.StatusCode)
+
+	// Put blob with virtual directory
+	payload := []byte("nested content")
+	reqPut := httptest.NewRequest(http.MethodPut, "/devstoreaccount1/vdir-container/folder/subfolder/file.txt", bytes.NewReader(payload))
+	resp, err = p.HandleRequest(ctx, "", reqPut)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusCreated, resp.StatusCode)
+
+	// Get blob with virtual directory
+	reqGet := httptest.NewRequest(http.MethodGet, "/devstoreaccount1/vdir-container/folder/subfolder/file.txt", nil)
+	resp, err = p.HandleRequest(ctx, "", reqGet)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resp.StatusCode)
+	assert.Equal(t, payload, resp.Body)
+}

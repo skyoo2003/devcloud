@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"sort"
 	"strings"
+	"unicode"
 
 	"github.com/skyoo2003/devcloud/internal/codegen/ir"
 )
@@ -119,7 +120,7 @@ func ParseOpenAPIJSON(data []byte) (*ir.Model, error) {
 
 			opName := op.OperationID
 			if opName == "" {
-				opName = fmt.Sprintf("%s%s", strings.Title(method), sanitizeName(pathKey))
+				opName = fmt.Sprintf("%s%s", titleCase(method), sanitizeName(pathKey))
 			}
 
 			uri := op.HTTPUri
@@ -234,4 +235,13 @@ func sanitizeName(s string) string {
 		}
 	}
 	return b.String()
+}
+
+func titleCase(s string) string {
+	if s == "" {
+		return ""
+	}
+	r := []rune(s)
+	r[0] = unicode.ToUpper(r[0])
+	return string(r)
 }

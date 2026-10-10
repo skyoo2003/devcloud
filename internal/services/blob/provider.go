@@ -130,6 +130,9 @@ func (p *Provider) HandleRequest(ctx context.Context, _ string, req *http.Reques
 		if errors.Is(err, ErrContainerAlreadyExists) {
 			return p.errorReply(req, http.StatusConflict, "ContainerAlreadyExists", "The specified container already exists."), nil
 		}
+		if errors.Is(err, ErrInvalidName) {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidResourceName", "The specified resource name contains invalid characters."), nil
+		}
 		if err != nil {
 			return p.errorReply(req, http.StatusInternalServerError, "InternalError", err.Error()), nil
 		}
@@ -145,6 +148,9 @@ func (p *Provider) HandleRequest(ctx context.Context, _ string, req *http.Reques
 		if errors.Is(err, ErrContainerNotFound) {
 			return p.errorReply(req, http.StatusNotFound, "ContainerNotFound", "The specified container does not exist."), nil
 		}
+		if errors.Is(err, ErrInvalidName) {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidResourceName", "The specified resource name contains invalid characters."), nil
+		}
 		if err != nil {
 			return p.errorReply(req, http.StatusInternalServerError, "InternalError", err.Error()), nil
 		}
@@ -155,6 +161,9 @@ func (p *Provider) HandleRequest(ctx context.Context, _ string, req *http.Reques
 		info, err := p.store.GetContainer(account, container)
 		if errors.Is(err, ErrContainerNotFound) {
 			return p.errorReply(req, http.StatusNotFound, "ContainerNotFound", "The specified container does not exist."), nil
+		}
+		if errors.Is(err, ErrInvalidName) {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidResourceName", "The specified resource name contains invalid characters."), nil
 		}
 		if err != nil {
 			return p.errorReply(req, http.StatusInternalServerError, "InternalError", err.Error()), nil
@@ -173,6 +182,9 @@ func (p *Provider) HandleRequest(ctx context.Context, _ string, req *http.Reques
 
 	case "ListContainers":
 		containers, err := p.store.ListContainers(account)
+		if errors.Is(err, ErrInvalidName) {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidResourceName", "The specified resource name contains invalid characters."), nil
+		}
 		if err != nil {
 			return p.errorReply(req, http.StatusInternalServerError, "InternalError", err.Error()), nil
 		}
@@ -215,6 +227,9 @@ func (p *Provider) HandleRequest(ctx context.Context, _ string, req *http.Reques
 		if errors.Is(err, ErrContainerNotFound) {
 			return p.errorReply(req, http.StatusNotFound, "ContainerNotFound", "The specified container does not exist."), nil
 		}
+		if errors.Is(err, ErrInvalidName) {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidResourceName", "The specified resource name contains invalid characters."), nil
+		}
 		if err != nil {
 			return p.errorReply(req, http.StatusInternalServerError, "InternalError", err.Error()), nil
 		}
@@ -235,6 +250,9 @@ func (p *Provider) HandleRequest(ctx context.Context, _ string, req *http.Reques
 		}
 		if errors.Is(err, ErrBlobNotFound) {
 			return p.errorReply(req, http.StatusNotFound, "BlobNotFound", "The specified blob does not exist."), nil
+		}
+		if errors.Is(err, ErrInvalidName) {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidResourceName", "The specified resource name contains invalid characters."), nil
 		}
 		if err != nil {
 			return p.errorReply(req, http.StatusInternalServerError, "InternalError", err.Error()), nil
@@ -302,6 +320,9 @@ func (p *Provider) HandleRequest(ctx context.Context, _ string, req *http.Reques
 		if errors.Is(err, ErrBlobNotFound) {
 			return p.errorReply(req, http.StatusNotFound, "BlobNotFound", "The specified blob does not exist."), nil
 		}
+		if errors.Is(err, ErrInvalidName) {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidResourceName", "The specified resource name contains invalid characters."), nil
+		}
 		if err != nil {
 			return p.errorReply(req, http.StatusInternalServerError, "InternalError", err.Error()), nil
 		}
@@ -330,6 +351,9 @@ func (p *Provider) HandleRequest(ctx context.Context, _ string, req *http.Reques
 		if errors.Is(err, ErrBlobNotFound) {
 			return p.errorReply(req, http.StatusNotFound, "BlobNotFound", "The specified blob does not exist."), nil
 		}
+		if errors.Is(err, ErrInvalidName) {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidResourceName", "The specified resource name contains invalid characters."), nil
+		}
 		if err != nil {
 			return p.errorReply(req, http.StatusInternalServerError, "InternalError", err.Error()), nil
 		}
@@ -343,6 +367,9 @@ func (p *Provider) HandleRequest(ctx context.Context, _ string, req *http.Reques
 		blobs, err := p.store.ListBlobs(account, container)
 		if errors.Is(err, ErrContainerNotFound) {
 			return p.errorReply(req, http.StatusNotFound, "ContainerNotFound", "The specified container does not exist."), nil
+		}
+		if errors.Is(err, ErrInvalidName) {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidResourceName", "The specified resource name contains invalid characters."), nil
 		}
 		if err != nil {
 			return p.errorReply(req, http.StatusInternalServerError, "InternalError", err.Error()), nil
