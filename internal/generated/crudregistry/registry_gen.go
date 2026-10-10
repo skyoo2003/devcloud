@@ -2137,6 +2137,9 @@ func init() {
 		"UpdatePricingPlan":                            {Verb: "Update", Resource: "PricingPlan", OutputListKey: "", OutputItemKey: "", Method: "PUT", URI: "/update-pricing-plan"},
 		"UpdatePricingRule":                            {Verb: "Update", Resource: "PricingRule", OutputListKey: "", OutputItemKey: "Tiering", Method: "PUT", URI: "/update-pricing-rule"},
 	})
+	crud.Register("blob", map[string]crud.OpMeta{
+		"CreateContainer": {Verb: "Create", Resource: "Container", OutputListKey: "", OutputItemKey: ""},
+	})
 	crud.Register("braket", map[string]crud.OpMeta{
 		"CancelJob":            {Verb: "Toggle", Resource: "Job", OutputListKey: "", OutputItemKey: "", Method: "PUT", URI: "/job/{jobArn}/cancel"},
 		"CancelQuantumTask":    {Verb: "Toggle", Resource: "QuantumTask", OutputListKey: "", OutputItemKey: "", Method: "PUT", URI: "/quantum-task/{quantumTaskArn}/cancel"},

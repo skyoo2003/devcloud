@@ -53,7 +53,7 @@ type Adapter interface {
 
 // Adapters is the ordered set Identify consults. Adding a provider means
 // appending its adapter here.
-var Adapters = []Adapter{SigV4{}}
+var Adapters = []Adapter{SigV4{}, AzureSharedKey{}}
 
 // Identify returns the first identity any adapter recognizes.
 func Identify(r *http.Request) (Identity, bool) {

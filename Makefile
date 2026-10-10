@@ -11,10 +11,10 @@ test-compat:
 	cd test/compatibility && pip install -q -r requirements.txt && pytest -v
 
 codegen:
-	go run ./tools/codegen -models ./api/smithy -output ./internal/generated -templates ./internal/codegen/templates -scaffold-output ./internal/services
+	go run ./tools/codegen -models ./api/models -output ./internal/generated -templates ./internal/codegen/templates -scaffold-output ./internal/services
 
 codegen-s3:
-	go run ./tools/codegen -models ./api/smithy -output ./internal/generated -services s3 -templates ./internal/codegen/templates
+	go run ./tools/codegen -models ./api/models -output ./internal/generated -services s3 -templates ./internal/codegen/templates
 
 run:
 	go run ./cmd/devcloud
