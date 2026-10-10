@@ -17,7 +17,7 @@ import (
 // against the same input the generator uses.
 func modelOperationsForTest(t *testing.T) map[string][]string {
 	t.Helper()
-	entries, err := os.ReadDir("../../api/smithy")
+	entries, err := os.ReadDir("../../api/models")
 	require.NoError(t, err)
 
 	ops := make(map[string][]string)
@@ -25,9 +25,13 @@ func modelOperationsForTest(t *testing.T) map[string][]string {
 		if e.IsDir() || filepath.Ext(e.Name()) != ".json" {
 			continue
 		}
-		data, err := os.ReadFile(filepath.Join("../../api/smithy", e.Name()))
+		data, err := os.ReadFile(filepath.Join("../../api/models", e.Name()))
 		require.NoError(t, err)
-		model, err := ParseSmithyJSON(data)
+		source, err := SourceFor(e.Name(), data)
+		if err != nil {
+			continue
+		}
+		model, err := source.Parse(data)
 		if err != nil {
 			continue
 		}

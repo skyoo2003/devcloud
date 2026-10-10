@@ -148,7 +148,7 @@ func TestSmithyToGoType_Primitives(t *testing.T) {
 // separately: its X-Amz-Target prefix is RekognitionService while every other
 // identifier it publishes is plain "rekognition".
 func TestParseSmithyJSON_ServiceIdentifiers(t *testing.T) {
-	data, err := os.ReadFile("../../api/smithy/rekognition.json")
+	data, err := os.ReadFile("../../api/models/rekognition.json")
 	require.NoError(t, err)
 
 	model, err := ParseSmithyJSON(data)

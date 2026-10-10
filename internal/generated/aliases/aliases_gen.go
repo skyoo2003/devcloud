@@ -295,6 +295,7 @@ var ServiceIDs = map[string]string{
 	"bedrockruntime":                                "bedrockruntime",
 	"billing":                                       "billing",
 	"billingconductor":                              "billingconductor",
+	"blob":                                          "blob",
 	"braket":                                        "braket",
 	"budgets":                                       "budgets",
 	"capstonecontrolplaneservice":                   "devopsguru",

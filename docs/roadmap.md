@@ -96,11 +96,11 @@ each of them an addition rather than a fork.
 
 Validate the multi-CSP architecture with one well-scoped pilot.
 
-- [ ] Pick an Azure pilot service — candidate: **Azure Blob Storage**, closest to S3 semantically
-- [ ] OpenAPI → IR → codegen proof of concept
-- [ ] Azure authentication adapter (Shared Key to start)
-- [ ] Compatibility tests against `azure-sdk-for-python`
-- [ ] Documentation pattern for multi-CSP service docs
+- [x] Pick an Azure pilot service — candidate: **Azure Blob Storage**, closest to S3 semantically
+- [x] OpenAPI → IR → codegen proof of concept
+- [x] Azure authentication adapter (Shared Key to start)
+- [x] Compatibility tests against `azure-sdk-for-python`
+- [x] Documentation pattern for multi-CSP service docs
 
 ## Phase 4 — Breadth expansion (v2.x+)
 

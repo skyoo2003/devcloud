@@ -2283,6 +2283,9 @@ var Services = map[string]Service{
 		"UpdatePricingPlan":                            TierAutoCRUD,
 		"UpdatePricingRule":                            TierAutoCRUD,
 	}},
+	"blob": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
+		"CreateContainer": TierAutoCRUD,
+	}},
 	"braket": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
 		"CancelJob":            TierAutoCRUD,
 		"CancelQuantumTask":    TierAutoCRUD,

@@ -2,3 +2,4 @@
 boto3==1.43.105
 pytest==9.1.1
 cryptography==50.0.1
+azure-storage-blob==12.19.0

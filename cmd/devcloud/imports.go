@@ -58,6 +58,7 @@ import (
 	_ "github.com/skyoo2003/devcloud/internal/services/bedrockruntime"
 	_ "github.com/skyoo2003/devcloud/internal/services/billing"
 	_ "github.com/skyoo2003/devcloud/internal/services/billingconductor"
+	_ "github.com/skyoo2003/devcloud/internal/services/blob"
 	_ "github.com/skyoo2003/devcloud/internal/services/braket"
 	_ "github.com/skyoo2003/devcloud/internal/services/budgets"
 	_ "github.com/skyoo2003/devcloud/internal/services/chatbot"

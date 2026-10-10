@@ -27,7 +27,7 @@ DevCloud is an **on-ramp to the cloud**, not a replacement for it. The goal is t
 
 ## Features
 
-- **431 AWS services registered, 431 serving at least one operation** — every service AWS publishes is routed, so no SDK call escapes to a billable account. Depth is a separate, smaller promise — see [coverage.md](docs/coverage.md) for both targets.
+- **432 AWS services registered, 432 serving at least one operation** — every service AWS publishes is routed, so no SDK call escapes to a billable account. Depth is a separate, smaller promise — see [coverage.md](docs/coverage.md) for both targets.
 - **boto3-compatible** — a 1,530-test suite runs in CI (`make test-compat`) across every registered service. Unsupported operations return a clean AWS error, never a false success.
 - **Cross-service integration** — CloudFormation provisioning, DynamoDB Streams → Lambda, EventBridge targets, S3 → Lambda
 - **Smithy-driven codegen** — Go types, routers and error catalogues generated from AWS models, with a weekly sync workflow that keeps them current

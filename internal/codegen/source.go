@@ -55,7 +55,7 @@ func (SmithySource) Parse(data []byte) (*ir.Model, error) { return ParseSmithyJS
 // DefaultSources is the set of formats the codegen driver understands, in
 // detection order. Adding a format means appending an implementation here — no
 // generator, template or driver change.
-var DefaultSources = []ModelSource{SmithySource{}}
+var DefaultSources = []ModelSource{SmithySource{}, OpenAPISource{}}
 
 // SourceFor returns the first source in DefaultSources that claims the file.
 // A file no source claims is an error at the call site rather than a silent
