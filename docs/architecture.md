@@ -193,3 +193,8 @@ touched an *addition* rather than an edit:
 The plugin system, protocol detector and storage abstractions stay CSP-agnostic
 by convention rather than enforcement — `ProtocolType` is an open string type,
 not an enum, for exactly this reason.
+
+Phase 3 established the first non-AWS pilot (**Azure Blob Storage**) exercising all
+four seams: OpenAPI models in `api/models/` parsed via `OpenAPISource`, namespaced
+configuration under `providers.azure.services.blob`, `ProviderScoped` plugin registration,
+and `AzureSharedKey` authentication.

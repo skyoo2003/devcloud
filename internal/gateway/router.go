@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"fmt"
 	"io"
 	"mime"
 	"net/http"
@@ -48,6 +49,11 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	p, ok := sr.registry.Get(serviceID)
 	if !ok {
 		sr.unrouted.Add(serviceID)
+		if isAzureRequest(r) {
+			writeAzureError(w, http.StatusBadRequest, "UnknownService",
+				"The requested service is not available: "+serviceID)
+			return
+		}
 		writeAWSError(w, protocol, http.StatusBadRequest, "UnknownService",
 			"The requested service is not available: "+serviceID)
 		return
@@ -97,6 +103,10 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			Body:     body,
 		})
 		if cerr != nil && errors.Is(err, plugin.ErrUnhandledOp) {
+			if plugin.ProviderOf(p) == "azure" {
+				writeAzureError(w, http.StatusBadRequest, "InvalidAction", "unknown action: "+op)
+				return
+			}
 			writeAWSError(w, protocol, http.StatusBadRequest, "InvalidAction", "unknown action: "+op)
 			return
 		}
@@ -106,6 +116,10 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err != nil {
+		if plugin.ProviderOf(p) == "azure" {
+			writeAzureError(w, http.StatusInternalServerError, "InternalError", err.Error())
+			return
+		}
 		writeAWSError(w, protocol, http.StatusInternalServerError, "InternalError", err.Error())
 		return
 	}
@@ -301,4 +315,12 @@ func writeAWSError(w http.ResponseWriter, protocol string, status int, code, mes
 	w.WriteHeader(status)
 	_, _ = w.Write([]byte(xml.Header))
 	_, _ = w.Write(body)
+}
+
+func writeAzureError(w http.ResponseWriter, status int, code, message string) {
+	w.Header().Set("Content-Type", "application/xml")
+	w.Header().Set("x-ms-error-code", code)
+	w.WriteHeader(status)
+	_, _ = fmt.Fprintf(w, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Error><Code>%s</Code><Message>%s</Message></Error>",
+		code, message)
 }

@@ -3,7 +3,67 @@
 package blob
 
 type CreateContainerInput struct {
+	Container string `json:"container" xml:"Container"`
 }
 
 type CreateContainerOutput struct {
+}
+
+type DeleteBlobInput struct {
+	Container string `json:"container" xml:"Container"`
+	Blob      string `json:"blob" xml:"Blob"`
+}
+
+type DeleteBlobOutput struct {
+}
+
+type DeleteContainerInput struct {
+	Container string `json:"container" xml:"Container"`
+}
+
+type DeleteContainerOutput struct {
+}
+
+type GetBlobInput struct {
+	Container string `json:"container" xml:"Container"`
+	Blob      string `json:"blob" xml:"Blob"`
+}
+
+type GetBlobOutput struct {
+}
+
+type GetBlobPropertiesInput struct {
+	Container string `json:"container" xml:"Container"`
+	Blob      string `json:"blob" xml:"Blob"`
+}
+
+type GetBlobPropertiesOutput struct {
+}
+
+type GetContainerPropertiesInput struct {
+	Container string `json:"container" xml:"Container"`
+}
+
+type GetContainerPropertiesOutput struct {
+}
+
+type ListBlobsInput struct {
+	Container string `json:"container" xml:"Container"`
+}
+
+type ListBlobsOutput struct {
+}
+
+type ListContainersInput struct {
+}
+
+type ListContainersOutput struct {
+}
+
+type PutBlobInput struct {
+	Container string `json:"container" xml:"Container"`
+	Blob      string `json:"blob" xml:"Blob"`
+}
+
+type PutBlobOutput struct {
 }

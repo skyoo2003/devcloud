@@ -11,6 +11,38 @@ var ErrNotImplemented = fmt.Errorf("operation not implemented")
 
 type BaseProvider struct{}
 
+func (b *BaseProvider) ListBlobs(ctx context.Context, input *ListBlobsInput) (*ListBlobsOutput, error) {
+	return nil, fmt.Errorf("ListBlobs: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) CreateContainer(ctx context.Context, input *CreateContainerInput) (*CreateContainerOutput, error) {
 	return nil, fmt.Errorf("CreateContainer: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteContainer(ctx context.Context, input *DeleteContainerInput) (*DeleteContainerOutput, error) {
+	return nil, fmt.Errorf("DeleteContainer: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetContainerProperties(ctx context.Context, input *GetContainerPropertiesInput) (*GetContainerPropertiesOutput, error) {
+	return nil, fmt.Errorf("GetContainerProperties: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) ListContainers(ctx context.Context, input *ListContainersInput) (*ListContainersOutput, error) {
+	return nil, fmt.Errorf("ListContainers: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) DeleteBlob(ctx context.Context, input *DeleteBlobInput) (*DeleteBlobOutput, error) {
+	return nil, fmt.Errorf("DeleteBlob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetBlob(ctx context.Context, input *GetBlobInput) (*GetBlobOutput, error) {
+	return nil, fmt.Errorf("GetBlob: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) GetBlobProperties(ctx context.Context, input *GetBlobPropertiesInput) (*GetBlobPropertiesOutput, error) {
+	return nil, fmt.Errorf("GetBlobProperties: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutBlob(ctx context.Context, input *PutBlobInput) (*PutBlobOutput, error) {
+	return nil, fmt.Errorf("PutBlob: %w", ErrNotImplemented)
 }
