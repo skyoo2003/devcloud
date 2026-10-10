@@ -23,6 +23,9 @@ import (
 //  2. Content-Type application/x-www-form-urlencoded with Action= body → Query protocol (SQS/IAM/STS)
 //  3. Default → REST-XML / S3
 func DetectProtocol(r *http.Request) (protocol string, serviceID string) {
+	if isAzureRequest(r) {
+		return "rest-xml", "blob"
+	}
 	if serviceFromSigV4(r) == "s3express" {
 		return "rest-xml", "s3"
 	}
@@ -460,4 +463,24 @@ func serviceFromQueryRequest(r *http.Request, body string) string {
 		}
 	}
 	return "sqs"
+}
+
+func isAzureRequest(r *http.Request) bool {
+	if id, ok := auth.FromContext(r.Context()); ok && id.Provider == "azure" {
+		return true
+	}
+	if id, ok := (auth.AzureSharedKey{}).Authenticate(r); ok && id.Provider == "azure" {
+		return true
+	}
+	if r.Header.Get("x-ms-version") != "" || r.Header.Get("x-ms-date") != "" {
+		return true
+	}
+	if strings.HasPrefix(r.URL.Path, "/devstoreaccount1") {
+		return true
+	}
+	authz := r.Header.Get("Authorization")
+	if strings.HasPrefix(authz, "SharedKey ") || strings.HasPrefix(authz, "SharedKeyLite ") {
+		return true
+	}
+	return false
 }

@@ -217,3 +217,28 @@ func TestDetectProtocol_Query_STS(t *testing.T) {
 	assert.Equal(t, "query", proto)
 	assert.Equal(t, "sts", service)
 }
+
+func TestDetectProtocol_AzureBlob(t *testing.T) {
+	t.Run("SharedKey auth header", func(t *testing.T) {
+		req := httptest.NewRequest("PUT", "/mycontainer?restype=container", nil)
+		req.Header.Set("Authorization", "SharedKey devstoreaccount1:abcdef==")
+		proto, service := DetectProtocol(req)
+		assert.Equal(t, "rest-xml", proto)
+		assert.Equal(t, "blob", service)
+	})
+
+	t.Run("x-ms-version header", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/devstoreaccount1?comp=list", nil)
+		req.Header.Set("x-ms-version", "2023-11-03")
+		proto, service := DetectProtocol(req)
+		assert.Equal(t, "rest-xml", proto)
+		assert.Equal(t, "blob", service)
+	})
+
+	t.Run("devstoreaccount1 path prefix", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/devstoreaccount1/container/blob.txt", nil)
+		proto, service := DetectProtocol(req)
+		assert.Equal(t, "rest-xml", proto)
+		assert.Equal(t, "blob", service)
+	})
+}

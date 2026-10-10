@@ -12,7 +12,15 @@ type OperationRoute = httproute.Route
 
 // OperationRoutes is the list of all routes for this service.
 var OperationRoutes = []OperationRoute{
-	{Method: "", Pattern: "", Operation: "CreateContainer"},
+	{Method: "GET", Pattern: "/{container}?restype=container&comp=list", Operation: "ListBlobs"},
+	{Method: "PUT", Pattern: "/{container}?restype=container", Operation: "CreateContainer"},
+	{Method: "DELETE", Pattern: "/{container}?restype=container", Operation: "DeleteContainer"},
+	{Method: "GET", Pattern: "/{container}?restype=container", Operation: "GetContainerProperties"},
+	{Method: "GET", Pattern: "/?comp=list", Operation: "ListContainers"},
+	{Method: "DELETE", Pattern: "/{container}/{blob+}", Operation: "DeleteBlob"},
+	{Method: "GET", Pattern: "/{container}/{blob+}", Operation: "GetBlob"},
+	{Method: "HEAD", Pattern: "/{container}/{blob+}", Operation: "GetBlobProperties"},
+	{Method: "PUT", Pattern: "/{container}/{blob+}", Operation: "PutBlob"},
 }
 
 // MatchOperation returns the operation name and extracted path parameters for

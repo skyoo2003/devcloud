@@ -2138,7 +2138,15 @@ func init() {
 		"UpdatePricingRule":                            {Verb: "Update", Resource: "PricingRule", OutputListKey: "", OutputItemKey: "Tiering", Method: "PUT", URI: "/update-pricing-rule"},
 	})
 	crud.Register("blob", map[string]crud.OpMeta{
-		"CreateContainer": {Verb: "Create", Resource: "Container", OutputListKey: "", OutputItemKey: ""},
+		"ListBlobs":              {Verb: "List", Resource: "Blob", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/{container}?restype=container&comp=list"},
+		"CreateContainer":        {Verb: "Create", Resource: "Container", OutputListKey: "", OutputItemKey: "", Method: "PUT", URI: "/{container}?restype=container"},
+		"DeleteContainer":        {Verb: "Delete", Resource: "Container", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/{container}?restype=container"},
+		"GetContainerProperties": {Verb: "Get", Resource: "ContainerProperty", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/{container}?restype=container"},
+		"ListContainers":         {Verb: "List", Resource: "Container", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/?comp=list"},
+		"DeleteBlob":             {Verb: "Delete", Resource: "Blob", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/{container}/{blob+}"},
+		"GetBlob":                {Verb: "Get", Resource: "Blob", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/{container}/{blob+}"},
+		"GetBlobProperties":      {Verb: "Get", Resource: "BlobProperty", OutputListKey: "", OutputItemKey: "", Method: "HEAD", URI: "/{container}/{blob+}"},
+		"PutBlob":                {Verb: "Update", Resource: "Blob", OutputListKey: "", OutputItemKey: "", Method: "PUT", URI: "/{container}/{blob+}"},
 	})
 	crud.Register("braket", map[string]crud.OpMeta{
 		"CancelJob":            {Verb: "Toggle", Resource: "Job", OutputListKey: "", OutputItemKey: "", Method: "PUT", URI: "/job/{jobArn}/cancel"},

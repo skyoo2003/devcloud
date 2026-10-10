@@ -2,17 +2,457 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Azure Blob Storage",
-    "version": "2023-01-03"
+    "version": "2023-11-03",
+    "description": "Azure Blob Storage Data Plane REST API"
   },
   "paths": {
+    "/": {
+      "get": {
+        "operationId": "ListContainers",
+        "description": "Lists all containers in the storage account",
+        "parameters": [
+          {
+            "name": "comp",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["list"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of containers",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListContainersOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{container}": {
       "put": {
         "operationId": "CreateContainer",
+        "description": "Creates a new container",
+        "parameters": [
+          {
+            "name": "container",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "restype",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["container"]
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Container created"
+          },
+          "409": {
+            "description": "Container already exists",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerAlreadyExists"
+                }
+              }
+            }
           }
         }
+      },
+      "delete": {
+        "operationId": "DeleteContainer",
+        "description": "Deletes the specified container",
+        "parameters": [
+          {
+            "name": "container",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "restype",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["container"]
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Container deleted"
+          },
+          "404": {
+            "description": "Container not found",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerNotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "GetContainerProperties",
+        "description": "Gets properties for the specified container, or lists blobs if comp=list query is provided",
+        "parameters": [
+          {
+            "name": "container",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "restype",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["container"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Container properties retrieved"
+          },
+          "404": {
+            "description": "Container not found",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{container}?restype=container&comp=list": {
+      "get": {
+        "operationId": "ListBlobs",
+        "description": "Lists blobs in the specified container",
+        "parameters": [
+          {
+            "name": "container",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "restype",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["container"]
+            }
+          },
+          {
+            "name": "comp",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["list"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of blobs",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListBlobsOutput"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Container not found",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{container}/{blob+}": {
+      "put": {
+        "operationId": "PutBlob",
+        "description": "Uploads a block blob to the container",
+        "parameters": [
+          {
+            "name": "container",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "blob+",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Blob uploaded successfully"
+          },
+          "404": {
+            "description": "Container not found",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerNotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "GetBlob",
+        "description": "Downloads the specified blob content",
+        "parameters": [
+          {
+            "name": "container",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "blob+",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Blob content"
+          },
+          "404": {
+            "description": "Blob or Container not found",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlobNotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "head": {
+        "operationId": "GetBlobProperties",
+        "description": "Gets properties for the specified blob",
+        "parameters": [
+          {
+            "name": "container",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "blob+",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Blob properties"
+          },
+          "404": {
+            "description": "Blob not found",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlobNotFound"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteBlob",
+        "description": "Deletes the specified blob",
+        "parameters": [
+          {
+            "name": "container",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "blob+",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Blob deleted"
+          },
+          "404": {
+            "description": "Blob not found",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlobNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateContainerInput": {
+        "type": "object",
+        "properties": {
+          "Container": { "type": "string" }
+        }
+      },
+      "CreateContainerOutput": {
+        "type": "object"
+      },
+      "DeleteContainerInput": {
+        "type": "object",
+        "properties": {
+          "Container": { "type": "string" }
+        }
+      },
+      "DeleteContainerOutput": {
+        "type": "object"
+      },
+      "GetContainerPropertiesInput": {
+        "type": "object",
+        "properties": {
+          "Container": { "type": "string" }
+        }
+      },
+      "GetContainerPropertiesOutput": {
+        "type": "object"
+      },
+      "ListContainersInput": {
+        "type": "object"
+      },
+      "ListContainersOutput": {
+        "type": "object"
+      },
+      "ListBlobsInput": {
+        "type": "object",
+        "properties": {
+          "Container": { "type": "string" }
+        }
+      },
+      "ListBlobsOutput": {
+        "type": "object"
+      },
+      "PutBlobInput": {
+        "type": "object",
+        "properties": {
+          "Container": { "type": "string" },
+          "Blob": { "type": "string" }
+        }
+      },
+      "PutBlobOutput": {
+        "type": "object"
+      },
+      "GetBlobInput": {
+        "type": "object",
+        "properties": {
+          "Container": { "type": "string" },
+          "Blob": { "type": "string" }
+        }
+      },
+      "GetBlobOutput": {
+        "type": "object"
+      },
+      "GetBlobPropertiesInput": {
+        "type": "object",
+        "properties": {
+          "Container": { "type": "string" },
+          "Blob": { "type": "string" }
+        }
+      },
+      "GetBlobPropertiesOutput": {
+        "type": "object"
+      },
+      "DeleteBlobInput": {
+        "type": "object",
+        "properties": {
+          "Container": { "type": "string" },
+          "Blob": { "type": "string" }
+        }
+      },
+      "DeleteBlobOutput": {
+        "type": "object"
+      },
+      "ContainerNotFound": {
+        "type": "object",
+        "x-error-status": 404
+      },
+      "ContainerAlreadyExists": {
+        "type": "object",
+        "x-error-status": 409
+      },
+      "BlobNotFound": {
+        "type": "object",
+        "x-error-status": 404
       }
     }
   }

@@ -2315,9 +2315,17 @@
     ]
   },
   "blob": {
-    "protocol": "rest-json",
+    "protocol": "rest-xml",
     "servedOps": [
-      "CreateContainer"
+      "CreateContainer",
+      "DeleteBlob",
+      "DeleteContainer",
+      "GetBlob",
+      "GetBlobProperties",
+      "GetContainerProperties",
+      "ListBlobs",
+      "ListContainers",
+      "PutBlob"
     ]
   },
   "braket": {

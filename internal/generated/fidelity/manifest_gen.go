@@ -2283,8 +2283,16 @@ var Services = map[string]Service{
 		"UpdatePricingPlan":                            TierAutoCRUD,
 		"UpdatePricingRule":                            TierAutoCRUD,
 	}},
-	"blob": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
-		"CreateContainer": TierAutoCRUD,
+	"blob": {Protocol: "rest-xml", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
+		"CreateContainer":        TierHandVerified,
+		"DeleteBlob":             TierHandVerified,
+		"DeleteContainer":        TierHandVerified,
+		"GetBlob":                TierHandVerified,
+		"GetBlobProperties":      TierHandVerified,
+		"GetContainerProperties": TierHandVerified,
+		"ListBlobs":              TierHandVerified,
+		"ListContainers":         TierHandVerified,
+		"PutBlob":                TierHandVerified,
 	}},
 	"braket": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
 		"CancelJob":            TierAutoCRUD,
