@@ -123,6 +123,17 @@ func (p *Provider) HandleRequest(ctx context.Context, _ string, req *http.Reques
 		return nil, plugin.ErrUnhandledOp
 	}
 
+	if container, ok := params["container"]; ok && container != "" {
+		if container == "." || strings.Contains(container, "..") || strings.Contains(container, "/") || strings.Contains(container, "\\") {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidResourceName", "The specified resource name contains invalid characters."), nil
+		}
+	}
+	if blob, ok := params["blob"]; ok && blob != "" {
+		if blob == "." || strings.Contains(blob, "..") || strings.Contains(blob, "\\") || strings.HasPrefix(blob, "/") {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidResourceName", "The specified resource name contains invalid characters."), nil
+		}
+	}
+
 	switch op {
 	case "CreateContainer":
 		container := params["container"]

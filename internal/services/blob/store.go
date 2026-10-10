@@ -58,35 +58,30 @@ func NewFileStore(baseDir string) *FileStore {
 	return &FileStore{baseDir: cleaned}
 }
 
-// validPathComponent checks that a single path segment contains no path
-// separators, dot-only components, or empty values.
-func validPathComponent(part string) error {
-	// IsLocal covers "", "..", "../x" and absolute paths, and is the guard
-	// CodeQL recognises as a path-injection barrier.
-	if !filepath.IsLocal(part) || part == "." {
-		return ErrInvalidName
-	}
-	if strings.ContainsAny(part, "/\\") ||
-		strings.ContainsFunc(part, func(r rune) bool { return os.IsPathSeparator(byte(r)) }) {
-		return ErrInvalidName
-	}
-	return nil
-}
-
 func (fs *FileStore) safeContainerDir(account, container string) (string, error) {
-	if err := validPathComponent(account); err != nil {
-		return "", err
+	if account == "" || container == "" || account == "." || container == "." {
+		return "", ErrInvalidName
 	}
-	if err := validPathComponent(container); err != nil {
-		return "", err
+	if strings.Contains(account, "..") || strings.Contains(account, "/") || strings.Contains(account, "\\") {
+		return "", ErrInvalidName
 	}
-	dir := filepath.Join(fs.baseDir, account, container)
-	cleaned := filepath.Clean(dir)
-	rel, err := filepath.Rel(fs.baseDir, cleaned)
+	if strings.Contains(container, "..") || strings.Contains(container, "/") || strings.Contains(container, "\\") {
+		return "", ErrInvalidName
+	}
+	if !filepath.IsLocal(account) || !filepath.IsLocal(container) {
+		return "", ErrInvalidName
+	}
+
+	dir := filepath.Clean(filepath.Join(fs.baseDir, account, container))
+	basePrefix := fs.baseDir + string(filepath.Separator)
+	if !strings.HasPrefix(dir, basePrefix) {
+		return "", ErrInvalidName
+	}
+	rel, err := filepath.Rel(fs.baseDir, dir)
 	if err != nil || !filepath.IsLocal(rel) || rel == "." {
 		return "", ErrInvalidName
 	}
-	return cleaned, nil
+	return dir, nil
 }
 
 func (fs *FileStore) safeBlobPaths(account, container, blob string) (dataPath, metaPath string, err error) {
@@ -94,39 +89,44 @@ func (fs *FileStore) safeBlobPaths(account, container, blob string) (dataPath, m
 	if err != nil {
 		return "", "", err
 	}
-	// The blob gets IsLocal rather than validPathComponent because '/' is legal
-	// in it (virtual directories). IsLocal is the guard CodeQL recognises as a
-	// path-injection barrier.
-	if !filepath.IsLocal(blob) || blob == "." {
+	if blob == "" || strings.Contains(blob, "..") || strings.Contains(blob, "\\") || strings.HasPrefix(blob, "/") {
 		return "", "", ErrInvalidName
 	}
-	if strings.Contains(blob, "\\") ||
-		strings.ContainsFunc(blob, func(r rune) bool { return os.IsPathSeparator(byte(r)) && r != '/' }) {
+	if !filepath.IsLocal(blob) || blob == "." {
 		return "", "", ErrInvalidName
 	}
 
 	cleanBlob := filepath.Clean(blob)
-	if !filepath.IsLocal(cleanBlob) || cleanBlob == "." {
+	if strings.Contains(cleanBlob, "..") || strings.HasPrefix(cleanBlob, "/") || cleanBlob == "." {
+		return "", "", ErrInvalidName
+	}
+	if !filepath.IsLocal(cleanBlob) {
 		return "", "", ErrInvalidName
 	}
 
-	dataDir := filepath.Join(containerDir, "data")
-	dataPath = filepath.Join(dataDir, cleanBlob)
-	cleanedData := filepath.Clean(dataPath)
-	relData, err := filepath.Rel(dataDir, cleanedData)
+	dataDir := filepath.Clean(filepath.Join(containerDir, "data"))
+	dataPath = filepath.Clean(filepath.Join(dataDir, cleanBlob))
+	dataPrefix := dataDir + string(filepath.Separator)
+	if !strings.HasPrefix(dataPath, dataPrefix) {
+		return "", "", ErrInvalidName
+	}
+	relData, err := filepath.Rel(dataDir, dataPath)
 	if err != nil || !filepath.IsLocal(relData) || relData == "." {
 		return "", "", ErrInvalidName
 	}
 
-	metaDir := filepath.Join(containerDir, "meta")
-	metaPath = filepath.Join(metaDir, cleanBlob+".json")
-	cleanedMeta := filepath.Clean(metaPath)
-	relMeta, err := filepath.Rel(metaDir, cleanedMeta)
+	metaDir := filepath.Clean(filepath.Join(containerDir, "meta"))
+	metaPath = filepath.Clean(filepath.Join(metaDir, cleanBlob+".json"))
+	metaPrefix := metaDir + string(filepath.Separator)
+	if !strings.HasPrefix(metaPath, metaPrefix) {
+		return "", "", ErrInvalidName
+	}
+	relMeta, err := filepath.Rel(metaDir, metaPath)
 	if err != nil || !filepath.IsLocal(relMeta) || relMeta == "." {
 		return "", "", ErrInvalidName
 	}
 
-	return cleanedData, cleanedMeta, nil
+	return dataPath, metaPath, nil
 }
 
 func (fs *FileStore) CreateContainer(account, container string) (*ContainerInfo, error) {
@@ -215,18 +215,24 @@ func (fs *FileStore) ListContainers(account string) ([]ContainerInfo, error) {
 	fs.mu.RLock()
 	defer fs.mu.RUnlock()
 
-	if err := validPathComponent(account); err != nil {
-		return nil, err
+	if account == "" || account == "." || strings.Contains(account, "..") || strings.Contains(account, "/") || strings.Contains(account, "\\") {
+		return nil, ErrInvalidName
+	}
+	if !filepath.IsLocal(account) {
+		return nil, ErrInvalidName
 	}
 
-	accountDir := filepath.Join(fs.baseDir, account)
-	cleaned := filepath.Clean(accountDir)
-	rel, err := filepath.Rel(fs.baseDir, cleaned)
+	accountDir := filepath.Clean(filepath.Join(fs.baseDir, account))
+	basePrefix := fs.baseDir + string(filepath.Separator)
+	if !strings.HasPrefix(accountDir, basePrefix) {
+		return nil, ErrInvalidName
+	}
+	rel, err := filepath.Rel(fs.baseDir, accountDir)
 	if err != nil || !filepath.IsLocal(rel) || rel == "." {
 		return nil, ErrInvalidName
 	}
 
-	entries, err := os.ReadDir(cleaned)
+	entries, err := os.ReadDir(accountDir)
 	if err != nil {
 		if os.IsNotExist(err) {
 			return []ContainerInfo{}, nil
@@ -239,7 +245,7 @@ func (fs *FileStore) ListContainers(account string) ([]ContainerInfo, error) {
 		if !entry.IsDir() {
 			continue
 		}
-		metaFile := filepath.Join(cleaned, entry.Name(), "container.json")
+		metaFile := filepath.Join(accountDir, entry.Name(), "container.json")
 		data, err := os.ReadFile(metaFile)
 		if err != nil {
 			continue
@@ -279,7 +285,12 @@ func (fs *FileStore) PutBlob(account, container, blob string, contentType string
 
 	// Read content and compute MD5
 	tmpFile := filepath.Clean(dataPath + ".tmp")
-	relTmp, err := filepath.Rel(filepath.Dir(dataPath), tmpFile)
+	dataDir := filepath.Clean(filepath.Join(containerDir, "data"))
+	dataPrefix := dataDir + string(filepath.Separator)
+	if !strings.HasPrefix(tmpFile, dataPrefix) {
+		return nil, ErrInvalidName
+	}
+	relTmp, err := filepath.Rel(dataDir, tmpFile)
 	if err != nil || !filepath.IsLocal(relTmp) || relTmp == "." {
 		return nil, ErrInvalidName
 	}
