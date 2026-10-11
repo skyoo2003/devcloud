@@ -242,7 +242,23 @@ func (fs *FileStore) ListBuckets(project string) ([]BucketInfo, error) {
 	if project == "" {
 		project = "default"
 	}
+	if project == "." || strings.Contains(project, "..") || strings.Contains(project, "/") || strings.Contains(project, "\\") {
+		return nil, ErrInvalidName
+	}
+	if !filepath.IsLocal(project) {
+		return nil, ErrInvalidName
+	}
+
 	projDir := filepath.Clean(filepath.Join(fs.baseDir, project))
+	basePrefix := fs.baseDir + string(filepath.Separator)
+	if !strings.HasPrefix(projDir, basePrefix) {
+		return nil, ErrInvalidName
+	}
+	rel, err := filepath.Rel(fs.baseDir, projDir)
+	if err != nil || !filepath.IsLocal(rel) || rel == "." {
+		return nil, ErrInvalidName
+	}
+
 	entries, err := os.ReadDir(projDir)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -256,7 +272,19 @@ func (fs *FileStore) ListBuckets(project string) ([]BucketInfo, error) {
 		if !entry.IsDir() {
 			continue
 		}
-		metaFile := filepath.Join(projDir, entry.Name(), "bucket.json")
+		bucketName := entry.Name()
+		dir, err := fs.safeBucketDir(project, bucketName)
+		if err != nil {
+			continue
+		}
+		metaFile := filepath.Clean(filepath.Join(dir, "bucket.json"))
+		if !strings.HasPrefix(metaFile, dir+string(filepath.Separator)) {
+			continue
+		}
+		relMeta, err := filepath.Rel(dir, metaFile)
+		if err != nil || !filepath.IsLocal(relMeta) {
+			continue
+		}
 		raw, err := os.ReadFile(metaFile)
 		if err == nil {
 			var info BucketInfo
