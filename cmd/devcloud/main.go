@@ -27,7 +27,7 @@ import (
 // dependency order — sts borrows iam's store, so iam precedes it. A failure
 // here is fatal; every other registered service only warns.
 var initOrder = []string{
-	"s3", "sqs", "dynamodb", "iam", "sts", "lambda",
+	"s3", "sqs", "dynamodb", "iam", "sts", "identity", "lambda",
 	"kms", "sns", "secretsmanager", "ssm", "cloudwatchlogs", "cloudwatch",
 	"eventbridge", "ec2", "ecs", "ecr", "route53", "acm",
 }

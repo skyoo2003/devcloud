@@ -198,3 +198,9 @@ Phase 3 established the first non-AWS pilot (**Azure Blob Storage**) exercising 
 four seams: OpenAPI models in `api/models/` parsed via `OpenAPISource`, namespaced
 configuration under `providers.azure.services.blob`, `ProviderScoped` plugin registration,
 and `AzureSharedKey` authentication.
+
+Phase 4 expanded multi-CSP breadth to **Google Cloud Platform** (`providers.gcp.services.gcs`)
+with OAuth2 Bearer token authentication (`GCPAuth`), expanded **Azure Storage & Database**
+capabilities (Queue Storage `azurequeue`, Table Storage `azuretable`, and Cosmos DB `cosmosdb`),
+and introduced the **Federated Identity Playground** (`internal/services/iam`) providing local
+OIDC discovery/JWKS/token issuance and cross-CSP token exchanges (AWS STS, Azure AD, and GCP STS).

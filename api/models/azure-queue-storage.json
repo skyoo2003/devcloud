@@ -1,0 +1,257 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Azure Queue Storage",
+    "version": "2023-11-03",
+    "description": "Azure Queue Storage REST API",
+    "x-service-id": "azurequeue",
+    "x-provider": "azure",
+    "x-protocol": "rest-xml"
+  },
+  "paths": {
+    "/?comp=list": {
+      "get": {
+        "operationId": "ListQueues",
+        "description": "Lists all queues in the storage account",
+        "parameters": [
+          {
+            "name": "comp",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["list"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of queues"
+          }
+        }
+      }
+    },
+    "/{queue}": {
+      "put": {
+        "operationId": "CreateQueue",
+        "description": "Creates a queue",
+        "parameters": [
+          {
+            "name": "queue",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Queue created"
+          },
+          "204": {
+            "description": "Queue already exists"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteQueue",
+        "description": "Deletes the queue",
+        "parameters": [
+          {
+            "name": "queue",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Queue deleted"
+          }
+        }
+      }
+    },
+    "/{queue}?comp=metadata": {
+      "get": {
+        "operationId": "GetQueueMetadata",
+        "description": "Retrieves queue metadata and approximate message count",
+        "parameters": [
+          {
+            "name": "queue",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "comp",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["metadata"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Queue metadata"
+          }
+        }
+      },
+      "put": {
+        "operationId": "SetQueueMetadata",
+        "description": "Sets user-defined metadata on the queue",
+        "parameters": [
+          {
+            "name": "queue",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "comp",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["metadata"]
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Metadata updated"
+          }
+        }
+      }
+    },
+    "/{queue}/messages": {
+      "post": {
+        "operationId": "PutMessage",
+        "description": "Adds a message to the queue",
+        "parameters": [
+          {
+            "name": "queue",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Message created"
+          }
+        }
+      },
+      "get": {
+        "operationId": "GetMessages",
+        "description": "Retrieves messages from the queue",
+        "parameters": [
+          {
+            "name": "queue",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Queue messages list"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "ClearMessages",
+        "description": "Deletes all messages from the queue",
+        "parameters": [
+          {
+            "name": "queue",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Queue cleared"
+          }
+        }
+      }
+    },
+    "/{queue}/messages?peekonly=true": {
+      "get": {
+        "operationId": "PeekMessages",
+        "description": "Retrieves messages without altering visibility",
+        "parameters": [
+          {
+            "name": "queue",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "peekonly",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["true"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Queue messages list"
+          }
+        }
+      }
+    },
+    "/{queue}/messages/{messageid}": {
+      "delete": {
+        "operationId": "DeleteMessage",
+        "description": "Deletes the specified message",
+        "parameters": [
+          {
+            "name": "queue",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "messageid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Message deleted"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

@@ -1,0 +1,306 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Google Cloud Storage",
+    "version": "v1",
+    "description": "Google Cloud Storage JSON API v1",
+    "x-service-id": "gcs",
+    "x-provider": "gcp",
+    "x-protocol": "rest-json"
+  },
+  "paths": {
+    "/storage/v1/b": {
+      "get": {
+        "operationId": "ListBuckets",
+        "description": "Retrieves a list of buckets for a given project",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of buckets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BucketList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "InsertBucket",
+        "description": "Creates a new bucket",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Created bucket metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bucket"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/storage/v1/b/{bucket}": {
+      "get": {
+        "operationId": "GetBucket",
+        "description": "Returns metadata for the specified bucket",
+        "parameters": [
+          {
+            "name": "bucket",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bucket metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bucket"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteBucket",
+        "description": "Permanently deletes an empty bucket",
+        "parameters": [
+          {
+            "name": "bucket",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Bucket deleted"
+          }
+        }
+      }
+    },
+    "/storage/v1/b/{bucket}/o": {
+      "get": {
+        "operationId": "ListObjects",
+        "description": "Retrieves a list of objects matching the criteria",
+        "parameters": [
+          {
+            "name": "bucket",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "prefix",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObjectList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/storage/v1/b/{bucket}/o/{object+}": {
+      "get": {
+        "operationId": "GetObject",
+        "description": "Retrieves an object or its metadata",
+        "parameters": [
+          {
+            "name": "bucket",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "object",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "alt",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object metadata or media stream"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteObject",
+        "description": "Deletes an object and its metadata",
+        "parameters": [
+          {
+            "name": "bucket",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "object",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Object deleted"
+          }
+        }
+      }
+    },
+    "/upload/storage/v1/b/{bucket}/o": {
+      "post": {
+        "operationId": "InsertObject",
+        "description": "Stores a new object and metadata",
+        "parameters": [
+          {
+            "name": "bucket",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "uploadType",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Object resource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Bucket": {
+        "type": "object",
+        "properties": {
+          "kind": { "type": "string" },
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "projectNumber": { "type": "string" },
+          "location": { "type": "string" },
+          "storageClass": { "type": "string" },
+          "timeCreated": { "type": "string" },
+          "updated": { "type": "string" },
+          "etag": { "type": "string" }
+        }
+      },
+      "BucketList": {
+        "type": "object",
+        "properties": {
+          "kind": { "type": "string" },
+          "items": { "type": "string" }
+        }
+      },
+      "Object": {
+        "type": "object",
+        "properties": {
+          "kind": { "type": "string" },
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "bucket": { "type": "string" },
+          "size": { "type": "string" },
+          "contentType": { "type": "string" },
+          "md5Hash": { "type": "string" },
+          "crc32c": { "type": "string" },
+          "etag": { "type": "string" },
+          "timeCreated": { "type": "string" },
+          "updated": { "type": "string" }
+        }
+      },
+      "ObjectList": {
+        "type": "object",
+        "properties": {
+          "kind": { "type": "string" },
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

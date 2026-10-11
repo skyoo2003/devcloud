@@ -113,12 +113,17 @@ Azure Shared Key and emulator signatures, and integration tests verify complete 
 compatibility against `azure-sdk-for-python` in CI. See [Azure Services](services/azure.md)
 for configuration and local limits.
 
-## Phase 4 — Breadth expansion (v2.x+)
+## Phase 4 — Breadth expansion (complete, v2.1)
 
-- [ ] More Azure services — Queue Storage, Table Storage, Cosmos DB
-- [ ] Google Cloud pilot — candidate: **Google Cloud Storage**
+- [x] More Azure services — Queue Storage, Table Storage, Cosmos DB
+- [x] Google Cloud pilot — candidate: **Google Cloud Storage**
+- [x] Federated identity playground (cross-CSP IAM simulation)
 - [ ] Other providers as community interest justifies
-- [ ] Federated identity playground (cross-CSP IAM simulation)
+
+Phase 4 execution completed:
+- **Google Cloud Pilot (GCS)**: First-class GCP provider (`providers.gcp.services.gcs`) with OAuth2 Bearer auth adapter, OpenAPI-backed REST-JSON router, complete bucket/object CRUD, multipart and media uploads, Alt=media downloads, Castagnoli CRC32c and MD5 checksums, and Python integration tests.
+- **Azure Expansion**: Added Azure Queue Storage (`azurequeue`) with FIFO queues, message visibility timeouts, pop receipts, and XML payloads; Azure Table Storage (`azuretable`) with SQLite-backed OData JSON table and entity indexing; and Azure Cosmos DB (`cosmosdb`) NoSQL/SQL REST API with SQLite document storage, collections, and metadata headers. Multi-service Azure routing runs seamlessly on unified port 4747.
+- **Federated Identity Playground**: Built-in local OIDC issuer providing discovery (`/devcloud/identity/.well-known/openid-configuration`), public JWKS (`/devcloud/identity/jwks.json`), RS256 token minting (`/devcloud/identity/token`), cross-CSP token exchanges for Azure AD and Google Cloud STS, and integration with AWS STS `AssumeRoleWithWebIdentity`.
 
 ## Out of scope
 

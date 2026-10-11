@@ -1430,6 +1430,35 @@
       "UpdateScalingPlan"
     ]
   },
+  "azurequeue": {
+    "protocol": "rest-xml",
+    "servedOps": [
+      "ClearMessages",
+      "CreateQueue",
+      "DeleteMessage",
+      "DeleteQueue",
+      "GetMessages",
+      "GetQueueMetadata",
+      "ListQueues",
+      "PeekMessages",
+      "PutMessage",
+      "SetQueueMetadata"
+    ]
+  },
+  "azuretable": {
+    "protocol": "rest-json",
+    "servedOps": [
+      "CreateTable",
+      "DeleteEntity",
+      "DeleteTable",
+      "GetEntity",
+      "InsertEntity",
+      "MergeEntity",
+      "QueryEntities",
+      "QueryTables",
+      "UpdateEntity"
+    ]
+  },
   "b2bi": {
     "protocol": "json-1.0",
     "servedOps": [
@@ -5176,6 +5205,24 @@
       "UpdateLandingZone"
     ]
   },
+  "cosmosdb": {
+    "protocol": "rest-json",
+    "servedOps": [
+      "CreateContainer",
+      "CreateDatabase",
+      "CreateDocument",
+      "DeleteContainer",
+      "DeleteDatabase",
+      "DeleteDocument",
+      "GetContainer",
+      "GetDatabase",
+      "GetDocument",
+      "ListContainers",
+      "ListDatabases",
+      "ListDocuments",
+      "ReplaceDocument"
+    ]
+  },
   "costandusagereportservice": {
     "protocol": "json-1.1",
     "servedOps": [
@@ -8782,6 +8829,19 @@
       "UpdateStreamGroup"
     ]
   },
+  "gcs": {
+    "protocol": "rest-json",
+    "servedOps": [
+      "DeleteBucket",
+      "DeleteObject",
+      "GetBucket",
+      "GetObject",
+      "InsertBucket",
+      "InsertObject",
+      "ListBuckets",
+      "ListObjects"
+    ]
+  },
   "geomaps": {
     "protocol": "rest-json",
     "servedOps": [
@@ -9714,6 +9774,16 @@
     "protocol": "rest-json",
     "servedOps": [
       "GetRequestAuthorizationDetails"
+    ]
+  },
+  "identity": {
+    "protocol": "rest-json",
+    "servedOps": [
+      "ExchangeAzureToken",
+      "ExchangeGCPToken",
+      "GetJWKS",
+      "GetOpenIDConfiguration",
+      "MintToken"
     ]
   },
   "identitystore": {

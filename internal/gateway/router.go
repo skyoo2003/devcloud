@@ -49,6 +49,11 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	p, ok := sr.registry.Get(serviceID)
 	if !ok {
 		sr.unrouted.Add(serviceID)
+		if isGCPRequest(r) {
+			writeGCPError(w, http.StatusBadRequest, "UnknownService",
+				"The requested service is not available: "+serviceID)
+			return
+		}
 		if isAzureRequest(r) {
 			writeAzureError(w, http.StatusBadRequest, "UnknownService",
 				"The requested service is not available: "+serviceID)
@@ -103,6 +108,10 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			Body:     body,
 		})
 		if cerr != nil && errors.Is(err, plugin.ErrUnhandledOp) {
+			if plugin.ProviderOf(p) == "gcp" {
+				writeGCPError(w, http.StatusBadRequest, "InvalidAction", "unknown action: "+op)
+				return
+			}
 			if plugin.ProviderOf(p) == "azure" {
 				writeAzureError(w, http.StatusBadRequest, "InvalidAction", "unknown action: "+op)
 				return
@@ -116,6 +125,10 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err != nil {
+		if plugin.ProviderOf(p) == "gcp" {
+			writeGCPError(w, http.StatusInternalServerError, "InternalError", err.Error())
+			return
+		}
 		if plugin.ProviderOf(p) == "azure" {
 			writeAzureError(w, http.StatusInternalServerError, "InternalError", err.Error())
 			return
@@ -327,4 +340,30 @@ func writeAzureError(w http.ResponseWriter, status int, code, message string) {
 	w.WriteHeader(status)
 	_, _ = fmt.Fprintf(w, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Error><Code>%s</Code><Message>%s</Message></Error>",
 		code, message)
+}
+
+func writeGCPError(w http.ResponseWriter, status int, code, message string) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(status)
+	type gcpErrItem struct {
+		Message string `json:"message"`
+		Domain  string `json:"domain"`
+		Reason  string `json:"reason"`
+	}
+	type gcpErr struct {
+		Error struct {
+			Code    int          `json:"code"`
+			Message string       `json:"message"`
+			Errors  []gcpErrItem `json:"errors"`
+		} `json:"error"`
+	}
+	var resp gcpErr
+	resp.Error.Code = status
+	resp.Error.Message = message
+	resp.Error.Errors = []gcpErrItem{{
+		Message: message,
+		Domain:  "global",
+		Reason:  code,
+	}}
+	_ = json.NewEncoder(w).Encode(resp)
 }

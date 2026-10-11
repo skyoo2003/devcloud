@@ -20,6 +20,7 @@ type openAPIDoc struct {
 		Description string `json:"description"`
 		ServiceID   string `json:"x-service-id"`
 		Provider    string `json:"x-provider"`
+		Protocol    string `json:"x-protocol"`
 	} `json:"info"`
 	Paths      map[string]map[string]json.RawMessage `json:"paths"`
 	Components struct {
@@ -75,11 +76,16 @@ func ParseOpenAPIJSON(data []byte) (*ir.Model, error) {
 		}
 	}
 
+	protocol := doc.Info.Protocol
+	if protocol == "" {
+		protocol = "rest-xml"
+	}
+
 	model := &ir.Model{
 		Provider:    provider,
 		ServiceName: doc.Info.Title,
 		ServiceID:   serviceID,
-		Protocol:    "rest-xml",
+		Protocol:    protocol,
 		Operations:  nil,
 		Shapes:      make(map[string]*ir.Shape),
 	}

@@ -241,4 +241,88 @@ func TestDetectProtocol_AzureBlob(t *testing.T) {
 		assert.Equal(t, "rest-xml", proto)
 		assert.Equal(t, "blob", service)
 	})
+
+	t.Run("azure queue detection", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/devstoreaccount1/myqueue/messages", nil)
+		req.Header.Set("x-ms-version", "2023-11-03")
+		proto, service := DetectProtocol(req)
+		assert.Equal(t, "rest-xml", proto)
+		assert.Equal(t, "azurequeue", service)
+	})
+
+	t.Run("azure table detection", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/devstoreaccount1/Tables", nil)
+		req.Header.Set("x-ms-version", "2023-11-03")
+		proto, service := DetectProtocol(req)
+		assert.Equal(t, "rest-json", proto)
+		assert.Equal(t, "azuretable", service)
+	})
+
+	t.Run("azure cosmos detection", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/dbs", nil)
+		req.Header.Set("x-ms-documentdb-partitionkey", "[\"id\"]")
+		proto, service := DetectProtocol(req)
+		assert.Equal(t, "rest-json", proto)
+		assert.Equal(t, "cosmosdb", service)
+	})
+}
+
+func TestDetectProtocol_GCP(t *testing.T) {
+	t.Run("GCS list buckets via path", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/storage/v1/b?project=test-proj", nil)
+		req.Header.Set("Authorization", "Bearer ya29.test")
+		proto, service := DetectProtocol(req)
+		assert.Equal(t, "rest-json", proto)
+		assert.Equal(t, "gcs", service)
+	})
+
+	t.Run("GCS upload object via upload path", func(t *testing.T) {
+		req := httptest.NewRequest("POST", "/upload/storage/v1/b/my-bucket/o?uploadType=media&name=file.txt", nil)
+		proto, service := DetectProtocol(req)
+		assert.Equal(t, "rest-json", proto)
+		assert.Equal(t, "gcs", service)
+	})
+
+	t.Run("GCS via x-goog-api-client header", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/storage/v1/b/my-bucket", nil)
+		req.Header.Set("x-goog-api-client", "gl-python/3.13.0")
+		proto, service := DetectProtocol(req)
+		assert.Equal(t, "rest-json", proto)
+		assert.Equal(t, "gcs", service)
+	})
+}
+
+func TestDetectProtocol_Identity(t *testing.T) {
+	t.Run("OIDC discovery", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/devcloud/identity/.well-known/openid-configuration", nil)
+		proto, service := DetectProtocol(req)
+		assert.Equal(t, "rest-json", proto)
+		assert.Equal(t, "identity", service)
+	})
+
+	t.Run("JWKS endpoint", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/devcloud/identity/jwks.json", nil)
+		proto, service := DetectProtocol(req)
+		assert.Equal(t, "rest-json", proto)
+		assert.Equal(t, "identity", service)
+	})
+
+	t.Run("Token minting endpoint", func(t *testing.T) {
+		req := httptest.NewRequest("POST", "/devcloud/identity/token", nil)
+		proto, service := DetectProtocol(req)
+		assert.Equal(t, "rest-json", proto)
+		assert.Equal(t, "identity", service)
+	})
+
+	t.Run("Cross-CSP token exchange endpoints", func(t *testing.T) {
+		reqAz := httptest.NewRequest("POST", "/devcloud/identity/azure/oauth2/v2.0/token", nil)
+		protoAz, serviceAz := DetectProtocol(reqAz)
+		assert.Equal(t, "rest-json", protoAz)
+		assert.Equal(t, "identity", serviceAz)
+
+		reqGCP := httptest.NewRequest("POST", "/devcloud/identity/gcp/v1/token", nil)
+		protoGCP, serviceGCP := DetectProtocol(reqGCP)
+		assert.Equal(t, "rest-json", protoGCP)
+		assert.Equal(t, "identity", serviceGCP)
+	})
 }

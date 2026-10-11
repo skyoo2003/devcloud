@@ -35,7 +35,7 @@ const DefaultProvider = "aws"
 // without erroring — but it is reported, because nothing in this binary will
 // read it. Adding a provider means adding its services and this entry in the
 // same change.
-var knownProviders = map[string]bool{DefaultProvider: true, "azure": true}
+var knownProviders = map[string]bool{DefaultProvider: true, "azure": true, "gcp": true}
 
 type Config struct {
 	Server   ServerConfig             `yaml:"server"`

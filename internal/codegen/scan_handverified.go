@@ -82,6 +82,9 @@ var pathRoutedOps = map[string][]string{
 		"ListModelCustomizationJobs", "ListTagsForResource",
 		"StopModelCustomizationJob", "TagResource", "UntagResource", "UpdateGuardrail",
 	},
+	"identity": {
+		"GetOpenIDConfiguration", "GetJWKS", "MintToken", "ExchangeAzureToken", "ExchangeGCPToken",
+	},
 }
 
 // ProviderScan is what a service's source tells us about how it serves requests.
