@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+	"github.com/skyoo2003/devcloud/internal/services/identity"
 )
 
 // --- Response structs ---
@@ -130,7 +131,7 @@ func (p *STSProvider) handleAssumeRoleWithWebIdentity(_ context.Context, form ur
 	expiration := time.Now().UTC().Add(time.Hour).Format(time.RFC3339)
 	assumedArn := deriveAssumedRoleArn(roleArn, sessionName)
 
-	parsed := ParseWebIdentityToken(webToken)
+	parsed := identity.ParseWebIdentityToken(webToken)
 	subject := parsed.Subject
 	provider := parsed.Issuer
 	audience := parsed.Audience

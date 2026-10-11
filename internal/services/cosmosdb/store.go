@@ -190,7 +190,7 @@ func (s *Store) ListDatabases(account string) ([]DatabaseInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var list []DatabaseInfo
 	for rows.Next() {
@@ -295,7 +295,7 @@ func (s *Store) ListContainers(account, dbID string) ([]ContainerInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var list []ContainerInfo
 	for rows.Next() {
@@ -448,7 +448,7 @@ func (s *Store) ListDocuments(account, dbID, collID string) ([]Document, error) 
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var list []Document
 	for rows.Next() {

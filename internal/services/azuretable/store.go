@@ -131,7 +131,7 @@ func (s *Store) ListTables(account string) ([]TableInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var list []TableInfo
 	for rows.Next() {
@@ -292,7 +292,7 @@ func (s *Store) QueryEntities(account, tableName string) ([]Entity, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var list []Entity
 	for rows.Next() {

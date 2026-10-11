@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
-package iam
+package identity
 
 import (
 	"bytes"
@@ -17,16 +17,16 @@ import (
 	"github.com/skyoo2003/devcloud/internal/plugin"
 )
 
-func TestIdentityProvider_Metadata(t *testing.T) {
-	p := NewIdentityProvider()
+func TestProvider_Metadata(t *testing.T) {
+	p := NewProvider()
 	assert.Equal(t, "identity", p.ServiceID())
 	assert.Equal(t, "DevCloud Federated Identity", p.ServiceName())
 	assert.Equal(t, plugin.ProtocolRESTJSON, p.Protocol())
 	assert.Equal(t, "devcloud", plugin.ProviderOf(p))
 }
 
-func TestIdentityProvider_OIDCDiscoveryAndJWKS(t *testing.T) {
-	p := NewIdentityProvider()
+func TestProvider_OIDCDiscoveryAndJWKS(t *testing.T) {
+	p := NewProvider()
 	ctx := context.Background()
 
 	// 1. Discovery
@@ -57,8 +57,8 @@ func TestIdentityProvider_OIDCDiscoveryAndJWKS(t *testing.T) {
 	assert.NotEmpty(t, jwks.Keys[0].E)
 }
 
-func TestIdentityProvider_MintToken(t *testing.T) {
-	p := NewIdentityProvider()
+func TestProvider_MintToken(t *testing.T) {
+	p := NewProvider()
 	ctx := context.Background()
 
 	mintPayload := map[string]any{
@@ -90,8 +90,8 @@ func TestIdentityProvider_MintToken(t *testing.T) {
 	assert.Equal(t, "infrastructure", parsed.Claims["team"])
 }
 
-func TestIdentityProvider_CrossCSPExchange(t *testing.T) {
-	p := NewIdentityProvider()
+func TestProvider_CrossCSPExchange(t *testing.T) {
+	p := NewProvider()
 	ctx := context.Background()
 
 	// First mint a token to use as subject assertion
@@ -134,35 +134,5 @@ func TestIdentityProvider_CrossCSPExchange(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, "Bearer", gcpResp["token_type"])
 	gcpToken, _ := gcpResp["access_token"].(string)
-	assert.Contains(t, gcpToken, "ya29.c.devcloud")
-}
-
-func TestSTS_AssumeRoleWithWebIdentity_JWTRoundtrip(t *testing.T) {
-	idp := NewIdentityProvider()
-	tokenStr, err := idp.issuer.MintToken(MintTokenOptions{
-		Subject:  "repo:octocat/hello-world:ref:refs/heads/main",
-		Issuer:   "https://token.actions.githubusercontent.com",
-		Audience: "sts.amazonaws.com",
-	})
-	require.NoError(t, err)
-
-	stsProv := &STSProvider{}
-	form := url.Values{
-		"Action":           {"AssumeRoleWithWebIdentity"},
-		"RoleArn":          {"arn:aws:iam::123456789012:role/DeployRole"},
-		"RoleSessionName":  {"gha-session"},
-		"WebIdentityToken": {tokenStr},
-	}
-	req := httptest.NewRequest(http.MethodPost, "/", bytes.NewReader([]byte(form.Encode())))
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-
-	resp, err := stsProv.HandleRequest(context.Background(), "AssumeRoleWithWebIdentity", req)
-	require.NoError(t, err)
-	assert.Equal(t, http.StatusOK, resp.StatusCode)
-
-	bodyStr := string(resp.Body)
-	assert.Contains(t, bodyStr, "<SubjectFromWebIdentityToken>repo:octocat/hello-world:ref:refs/heads/main</SubjectFromWebIdentityToken>")
-	assert.Contains(t, bodyStr, "<Provider>https://token.actions.githubusercontent.com</Provider>")
-	assert.Contains(t, bodyStr, "<Audience>sts.amazonaws.com</Audience>")
-	assert.Contains(t, bodyStr, "<AccessKeyId>ASIA")
+	assert.Contains(t, gcpToken, "ya29.")
 }

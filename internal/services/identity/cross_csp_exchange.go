@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
-package iam
+package identity
 
 import (
 	"crypto/rand"
@@ -11,7 +11,6 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-	"time"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
 )
@@ -51,11 +50,10 @@ func parseRequestFormOrJSON(req *http.Request) (url.Values, map[string]any, erro
 	return form, nil, nil
 }
 
-// HandleAzureTokenExchange simulates Azure Active Directory / Microsoft Entra ID token endpoint
+// HandleAzureTokenExchange handles Microsoft Entra / Azure AD token exchange requests
 // (e.g. POST /devcloud/identity/azure/oauth2/v2.0/token or POST /devcloud/identity/azure/token).
-// Exchanges an AWS STS token, GitHub Actions OIDC token, or local OIDC token for an Azure AD Bearer token.
 func (c *CrossCSPExchange) HandleAzureTokenExchange(req *http.Request) (*plugin.Response, error) {
-	form, jsonBody, err := parseRequestFormOrJSON(req)
+	form, _, err := parseRequestFormOrJSON(req)
 	if err != nil {
 		return &plugin.Response{
 			StatusCode:  http.StatusBadRequest,
@@ -64,69 +62,49 @@ func (c *CrossCSPExchange) HandleAzureTokenExchange(req *http.Request) (*plugin.
 		}, nil
 	}
 
-	assertion := form.Get("client_assertion")
-	if assertion == "" {
-		assertion = form.Get("assertion")
-	}
-	if assertion == "" {
-		assertion = form.Get("subject_token")
-	}
+	grantType := form.Get("grant_type")
+	clientAssertion := form.Get("client_assertion")
+	assertionType := form.Get("client_assertion_type")
 
-	parsed := ParseWebIdentityToken(assertion)
-	subject := parsed.Subject
-	if subject == "" {
-		subject = "devcloud-azure-workload"
+	sub := "azure-workload-identity"
+	if clientAssertion != "" {
+		claims := ParseWebIdentityToken(clientAssertion)
+		if claims.Subject != "" {
+			sub = claims.Subject
+		}
 	}
 
 	scope := form.Get("scope")
 	if scope == "" {
 		scope = "https://management.azure.com/.default"
 	}
-	clientID := form.Get("client_id")
-	if clientID == "" {
-		clientID = "devcloud-sp-app-id"
-	}
 
-	// Mint an Azure AD token via OIDC issuer
-	azureToken, err := c.issuer.MintToken(MintTokenOptions{
-		Subject:   subject,
-		Issuer:    "https://sts.windows.net/72f988bf-86f1-41af-91ab-2d7cd011db47/",
-		Audience:  "https://management.azure.com",
-		ExpiresIn: time.Hour,
-		Claims: map[string]any{
-			"appid": clientID,
-			"tid":   "72f988bf-86f1-41af-91ab-2d7cd011db47",
-			"oid":   "00000000-0000-0000-0000-000000000001",
-			"roles": []string{"Contributor"},
-		},
-	})
-	if err != nil {
-		// Fallback to synthetic bearer token
-		azureToken = fmt.Sprintf("azure-bearer-%s", subject)
-	}
+	bytes := make([]byte, 16)
+	_, _ = rand.Read(bytes)
+	randSuffix := hex.EncodeToString(bytes)
 
-	respPayload := map[string]any{
+	azureToken := fmt.Sprintf("azure-bearer-%s-%s", sub, randSuffix)
+
+	resp := map[string]any{
 		"token_type":     "Bearer",
 		"expires_in":     3600,
 		"ext_expires_in": 3600,
 		"access_token":   azureToken,
 		"scope":          scope,
-	}
-	if jsonBody != nil && jsonBody["include_id_token"] == true {
-		respPayload["id_token"] = azureToken
+		"grant_type":     grantType,
+		"assertion_type": assertionType,
 	}
 
-	respBytes, _ := json.Marshal(respPayload)
+	raw, _ := json.Marshal(resp)
 	return &plugin.Response{
 		StatusCode:  http.StatusOK,
 		ContentType: "application/json",
-		Body:        respBytes,
+		Body:        raw,
 	}, nil
 }
 
-// HandleGCPTokenExchange simulates Google Cloud STS / OAuth2 token endpoint
+// HandleGCPTokenExchange handles Google Cloud STS token exchange requests
 // (e.g. POST /devcloud/identity/gcp/v1/token or POST /devcloud/identity/gcp/token).
-// Exchanges an AWS STS token or OIDC token for a simulated Google OAuth2 access token (ya29...).
 func (c *CrossCSPExchange) HandleGCPTokenExchange(req *http.Request) (*plugin.Response, error) {
 	form, _, err := parseRequestFormOrJSON(req)
 	if err != nil {
@@ -137,35 +115,41 @@ func (c *CrossCSPExchange) HandleGCPTokenExchange(req *http.Request) (*plugin.Re
 		}, nil
 	}
 
+	grantType := form.Get("grant_type")
 	subjectToken := form.Get("subject_token")
-	if subjectToken == "" {
-		subjectToken = form.Get("assertion")
+	subjectTokenType := form.Get("subject_token_type")
+	requestedTokenType := form.Get("requested_token_type")
+	audience := form.Get("audience")
+
+	sub := "gcp-federated-identity"
+	if subjectToken != "" {
+		claims := ParseWebIdentityToken(subjectToken)
+		if claims.Subject != "" {
+			sub = claims.Subject
+		}
 	}
 
-	parsed := ParseWebIdentityToken(subjectToken)
-	subject := parsed.Subject
-	if subject == "" {
-		subject = "gcp-federated-sa"
+	bytes := make([]byte, 16)
+	_, _ = rand.Read(bytes)
+	randSuffix := hex.EncodeToString(bytes)
+
+	gcpToken := fmt.Sprintf("ya29.devcloud-%s-%s", sub, randSuffix)
+
+	resp := map[string]any{
+		"access_token":         gcpToken,
+		"issued_token_type":    "urn:ietf:params:oauth:token-type:access_token",
+		"token_type":           "Bearer",
+		"expires_in":           3600,
+		"grant_type":           grantType,
+		"subject_token_type":   subjectTokenType,
+		"requested_token_type": requestedTokenType,
+		"audience":             audience,
 	}
 
-	b := make([]byte, 16)
-	_, _ = rand.Read(b)
-	hexSuffix := hex.EncodeToString(b)
-
-	// Format matching Google ya29 access tokens
-	gcpToken := fmt.Sprintf("ya29.c.devcloud_%s_%s", strings.ReplaceAll(subject, ":", "_"), hexSuffix)
-
-	respPayload := map[string]any{
-		"access_token":      gcpToken,
-		"issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
-		"token_type":        "Bearer",
-		"expires_in":        3600,
-	}
-
-	respBytes, _ := json.Marshal(respPayload)
+	raw, _ := json.Marshal(resp)
 	return &plugin.Response{
 		StatusCode:  http.StatusOK,
 		ContentType: "application/json",
-		Body:        respBytes,
+		Body:        raw,
 	}, nil
 }

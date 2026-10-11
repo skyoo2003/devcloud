@@ -1,7 +1,12 @@
 {
   "_comment": "The registered services no boto3 test can exercise, and why. Read by test/compatibility/_coverage.py and by cmd/devcloud/coverage_test.go, which derives the Compatibility-tested figure docs/coverage.md publishes. Adding an entry lowers that figure; it is a deliberate edit, and two gates fail until the doc moves with it.",
   "noBoto3Client": {
+    "azurequeue": "Azure Queue Storage uses the azure-storage-queue SDK, not boto3",
+    "azuretable": "Azure Table Storage uses the azure-data-tables SDK, not boto3",
     "blob": "Azure Blob Storage uses the azure-storage-blob SDK, not boto3",
+    "cosmosdb": "Azure Cosmos DB uses the azure-cosmos SDK, not boto3",
+    "gcs": "Google Cloud Storage uses the google-cloud-storage SDK, not boto3",
+    "identity": "DevCloud Federated Identity Playground uses direct OIDC/OAuth2 endpoints, not boto3",
     "sagemakerruntimehttp2": "botocore has no HTTP/2 SageMaker Runtime client",
     "transcribestreaming": "botocore has no streaming Transcribe client"
   },

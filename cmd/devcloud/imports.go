@@ -192,6 +192,7 @@ import (
 	_ "github.com/skyoo2003/devcloud/internal/services/healthlake"
 	_ "github.com/skyoo2003/devcloud/internal/services/iam"
 	_ "github.com/skyoo2003/devcloud/internal/services/iamtoolbox"
+	_ "github.com/skyoo2003/devcloud/internal/services/identity"
 	_ "github.com/skyoo2003/devcloud/internal/services/identitystore"
 	_ "github.com/skyoo2003/devcloud/internal/services/imagebuilder"
 	_ "github.com/skyoo2003/devcloud/internal/services/inspector"

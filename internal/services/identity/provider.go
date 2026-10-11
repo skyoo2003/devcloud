@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
-package iam
+package identity
 
 import (
 	"context"
@@ -11,45 +11,49 @@ import (
 	"strings"
 	"time"
 
+	generated "github.com/skyoo2003/devcloud/internal/generated/identity"
 	"github.com/skyoo2003/devcloud/internal/plugin"
 )
 
-type IdentityProvider struct {
+// Provider implements the DevCloud Federated Identity service.
+type Provider struct {
+	generated.BaseProvider
 	issuer   *OIDCIssuer
 	exchange *CrossCSPExchange
 }
 
-func NewIdentityProvider() *IdentityProvider {
+// NewProvider creates a new Federated Identity Provider instance.
+func NewProvider() *Provider {
 	iss, err := NewOIDCIssuer()
 	if err != nil {
 		panic(fmt.Sprintf("failed to initialize OIDC issuer: %v", err))
 	}
-	return &IdentityProvider{
+	return &Provider{
 		issuer:   iss,
 		exchange: NewCrossCSPExchange(iss),
 	}
 }
 
-func (p *IdentityProvider) ServiceID() string             { return "identity" }
-func (p *IdentityProvider) ServiceName() string           { return "DevCloud Federated Identity" }
-func (p *IdentityProvider) Protocol() plugin.ProtocolType { return plugin.ProtocolRESTJSON }
-func (p *IdentityProvider) Provider() string              { return "devcloud" }
+func (p *Provider) ServiceID() string             { return "identity" }
+func (p *Provider) ServiceName() string           { return "DevCloud Federated Identity" }
+func (p *Provider) Protocol() plugin.ProtocolType { return plugin.ProtocolRESTJSON }
+func (p *Provider) Provider() string              { return "devcloud" }
 
-func (p *IdentityProvider) Init(_ plugin.PluginConfig) error {
+func (p *Provider) Init(_ plugin.PluginConfig) error {
 	return nil
 }
 
-func (p *IdentityProvider) Shutdown(_ context.Context) error {
+func (p *Provider) Shutdown(_ context.Context) error {
 	return nil
 }
 
-func (p *IdentityProvider) ListResources(_ context.Context) ([]plugin.Resource, error) {
+func (p *Provider) ListResources(_ context.Context) ([]plugin.Resource, error) {
 	return []plugin.Resource{
 		{Type: "OIDCProvider", ID: "devcloud-local-oidc", Name: "DevCloud Local OIDC Issuer"},
 	}, nil
 }
 
-func (p *IdentityProvider) HandleRequest(_ context.Context, _ string, req *http.Request) (*plugin.Response, error) {
+func (p *Provider) HandleRequest(_ context.Context, _ string, req *http.Request) (*plugin.Response, error) {
 	path := req.URL.Path
 
 	// 1. OpenID Discovery
@@ -100,7 +104,7 @@ func (p *IdentityProvider) HandleRequest(_ context.Context, _ string, req *http.
 	}, nil
 }
 
-func (p *IdentityProvider) handleMintToken(req *http.Request) (*plugin.Response, error) {
+func (p *Provider) handleMintToken(req *http.Request) (*plugin.Response, error) {
 	form, jsonBody, err := parseRequestFormOrJSON(req)
 	if err != nil {
 		return &plugin.Response{
@@ -138,7 +142,7 @@ func (p *IdentityProvider) handleMintToken(req *http.Request) (*plugin.Response,
 		aud = "sts.devcloud"
 	}
 
-	var expSec int = 3600
+	expSec := 3600
 	if expStr := form.Get("expires_in"); expStr != "" {
 		if n, err := strconv.Atoi(expStr); err == nil && n > 0 {
 			expSec = n
@@ -186,4 +190,10 @@ func (p *IdentityProvider) handleMintToken(req *http.Request) (*plugin.Response,
 		ContentType: "application/json",
 		Body:        raw,
 	}, nil
+}
+
+func init() {
+	plugin.DefaultRegistry.Register("identity", func() plugin.ServicePlugin {
+		return NewProvider()
+	})
 }

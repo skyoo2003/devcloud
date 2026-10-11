@@ -1949,7 +1949,4 @@ func init() {
 	plugin.DefaultRegistry.Register("sts", func() plugin.ServicePlugin {
 		return &STSProvider{}
 	})
-	plugin.DefaultRegistry.Register("identity", func() plugin.ServicePlugin {
-		return NewIdentityProvider()
-	})
 }

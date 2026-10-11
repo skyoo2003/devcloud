@@ -9,7 +9,7 @@ alone.
 | **Registered** | The gateway routes the service, so the call reaches DevCloud instead of real AWS. | **437** |
 | **Serving ≥1 operation** | At least one operation returns a real, store-backed answer. | **437** |
 | **Registered-only** | Routed, but every operation declines with a clean AWS error. | **0** |
-| **Compatibility-tested** | A boto3 test exercises the service in CI and passes. | **432** |
+| **Compatibility-tested** | A boto3 test exercises the service in CI and passes. | **427** |
 
 Per operation, from the [fidelity manifest](fidelity-manifest.md). Two
 denominators, because [routing and depth are two targets](#the-target):
