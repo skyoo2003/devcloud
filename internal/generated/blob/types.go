@@ -10,8 +10,8 @@ type CreateContainerOutput struct {
 }
 
 type DeleteBlobInput struct {
-	Container string `json:"container" xml:"Container"`
 	Blob      string `json:"blob" xml:"Blob"`
+	Container string `json:"container" xml:"Container"`
 }
 
 type DeleteBlobOutput struct {
@@ -25,16 +25,16 @@ type DeleteContainerOutput struct {
 }
 
 type GetBlobInput struct {
-	Container string `json:"container" xml:"Container"`
 	Blob      string `json:"blob" xml:"Blob"`
+	Container string `json:"container" xml:"Container"`
 }
 
 type GetBlobOutput struct {
 }
 
 type GetBlobPropertiesInput struct {
-	Container string `json:"container" xml:"Container"`
 	Blob      string `json:"blob" xml:"Blob"`
+	Container string `json:"container" xml:"Container"`
 }
 
 type GetBlobPropertiesOutput struct {
@@ -61,9 +61,34 @@ type ListContainersOutput struct {
 }
 
 type PutBlobInput struct {
-	Container string `json:"container" xml:"Container"`
 	Blob      string `json:"blob" xml:"Blob"`
+	Container string `json:"container" xml:"Container"`
 }
 
 type PutBlobOutput struct {
+}
+
+type PutBlockInput struct {
+	Blob      string `json:"blob" xml:"Blob"`
+	BlockId   string `json:"blockId" xml:"BlockId"`
+	Container string `json:"container" xml:"Container"`
+}
+
+type PutBlockListInput struct {
+	Blob      string `json:"blob" xml:"Blob"`
+	Container string `json:"container" xml:"Container"`
+}
+
+type PutBlockListOutput struct {
+}
+
+type PutBlockOutput struct {
+}
+
+type SetBlobMetadataInput struct {
+	Blob      string `json:"blob" xml:"Blob"`
+	Container string `json:"container" xml:"Container"`
+}
+
+type SetBlobMetadataOutput struct {
 }

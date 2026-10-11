@@ -215,3 +215,122 @@ func TestBlobProvider_VirtualDirectory(t *testing.T) {
 	assert.Equal(t, http.StatusOK, resp.StatusCode)
 	assert.Equal(t, payload, resp.Body)
 }
+
+func TestBlobProvider_ConditionalPutBlob(t *testing.T) {
+	p := newTestProvider(t)
+	ctx := context.Background()
+
+	// Create container
+	reqCreate := httptest.NewRequest(http.MethodPut, "/devstoreaccount1/cond-container?restype=container", nil)
+	resp, err := p.HandleRequest(ctx, "", reqCreate)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusCreated, resp.StatusCode)
+
+	// 1. Put blob with If-None-Match: * (should succeed since blob does not exist)
+	reqPut1 := httptest.NewRequest(http.MethodPut, "/devstoreaccount1/cond-container/item.txt", bytes.NewReader([]byte("first")))
+	reqPut1.Header.Set("If-None-Match", "*")
+	respPut1, err := p.HandleRequest(ctx, "", reqPut1)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusCreated, respPut1.StatusCode)
+	etag := respPut1.Headers["ETag"]
+	assert.NotEmpty(t, etag)
+
+	// 2. Put blob again with If-None-Match: * (should fail with 409 BlobAlreadyExists)
+	reqPutDup := httptest.NewRequest(http.MethodPut, "/devstoreaccount1/cond-container/item.txt", bytes.NewReader([]byte("duplicate")))
+	reqPutDup.Header.Set("If-None-Match", "*")
+	respPutDup, err := p.HandleRequest(ctx, "", reqPutDup)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusConflict, respPutDup.StatusCode)
+	assert.Equal(t, "BlobAlreadyExists", respPutDup.Headers["x-ms-error-code"])
+
+	// 3. Put blob with valid If-Match (should succeed)
+	reqPutMatch := httptest.NewRequest(http.MethodPut, "/devstoreaccount1/cond-container/item.txt", bytes.NewReader([]byte("updated")))
+	reqPutMatch.Header.Set("If-Match", etag)
+	respPutMatch, err := p.HandleRequest(ctx, "", reqPutMatch)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusCreated, respPutMatch.StatusCode)
+
+	// 4. Put blob with invalid If-Match (should fail with 412 ConditionNotMet)
+	reqPutBadMatch := httptest.NewRequest(http.MethodPut, "/devstoreaccount1/cond-container/item.txt", bytes.NewReader([]byte("bad")))
+	reqPutBadMatch.Header.Set("If-Match", "\"0xINVALID\"")
+	respPutBadMatch, err := p.HandleRequest(ctx, "", reqPutBadMatch)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusPreconditionFailed, respPutBadMatch.StatusCode)
+	assert.Equal(t, "ConditionNotMet", respPutBadMatch.Headers["x-ms-error-code"])
+}
+
+func TestBlobProvider_BlockStagingAndCommit(t *testing.T) {
+	p := newTestProvider(t)
+	ctx := context.Background()
+
+	// Create container
+	reqCreate := httptest.NewRequest(http.MethodPut, "/devstoreaccount1/block-container?restype=container", nil)
+	resp, err := p.HandleRequest(ctx, "", reqCreate)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusCreated, resp.StatusCode)
+
+	// Stage block 1
+	reqStage1 := httptest.NewRequest(http.MethodPut, "/devstoreaccount1/block-container/chunked.txt?comp=block&blockid=YmxvY2sx", bytes.NewReader([]byte("Hello ")))
+	resp1, err := p.HandleRequest(ctx, "", reqStage1)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusCreated, resp1.StatusCode)
+
+	// Stage block 2
+	reqStage2 := httptest.NewRequest(http.MethodPut, "/devstoreaccount1/block-container/chunked.txt?comp=block&blockid=YmxvY2sy", bytes.NewReader([]byte("World!")))
+	resp2, err := p.HandleRequest(ctx, "", reqStage2)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusCreated, resp2.StatusCode)
+
+	// Commit block list
+	blockListXML := `<?xml version="1.0" encoding="utf-8"?><BlockList><Latest>YmxvY2sx</Latest><Latest>YmxvY2sy</Latest></BlockList>`
+	reqCommit := httptest.NewRequest(http.MethodPut, "/devstoreaccount1/block-container/chunked.txt?comp=blocklist", bytes.NewReader([]byte(blockListXML)))
+	respCommit, err := p.HandleRequest(ctx, "", reqCommit)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusCreated, respCommit.StatusCode)
+
+	// Download blob and verify concatenated content
+	reqGet := httptest.NewRequest(http.MethodGet, "/devstoreaccount1/block-container/chunked.txt", nil)
+	respGet, err := p.HandleRequest(ctx, "", reqGet)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, respGet.StatusCode)
+	assert.Equal(t, []byte("Hello World!"), respGet.Body)
+}
+
+func TestBlobProvider_CustomMetadata(t *testing.T) {
+	p := newTestProvider(t)
+	ctx := context.Background()
+
+	// Create container
+	reqCreate := httptest.NewRequest(http.MethodPut, "/devstoreaccount1/meta-container?restype=container", nil)
+	resp, err := p.HandleRequest(ctx, "", reqCreate)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusCreated, resp.StatusCode)
+
+	// Put blob with metadata
+	reqPut := httptest.NewRequest(http.MethodPut, "/devstoreaccount1/meta-container/doc.txt", bytes.NewReader([]byte("meta payload")))
+	reqPut.Header.Set("x-ms-meta-author", "antigravity")
+	reqPut.Header.Set("x-ms-meta-environment", "staging")
+	respPut, err := p.HandleRequest(ctx, "", reqPut)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusCreated, respPut.StatusCode)
+
+	// Get blob properties and verify metadata
+	reqHead := httptest.NewRequest(http.MethodHead, "/devstoreaccount1/meta-container/doc.txt", nil)
+	respHead, err := p.HandleRequest(ctx, "", reqHead)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, respHead.StatusCode)
+	assert.Equal(t, "antigravity", respHead.Headers["x-ms-meta-author"])
+	assert.Equal(t, "staging", respHead.Headers["x-ms-meta-environment"])
+
+	// Update metadata via SetBlobMetadata
+	reqSetMeta := httptest.NewRequest(http.MethodPut, "/devstoreaccount1/meta-container/doc.txt?comp=metadata", nil)
+	reqSetMeta.Header.Set("x-ms-meta-author", "updated-user")
+	respSetMeta, err := p.HandleRequest(ctx, "", reqSetMeta)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, respSetMeta.StatusCode)
+
+	// Re-check properties
+	respHead2, err := p.HandleRequest(ctx, "", reqHead)
+	require.NoError(t, err)
+	assert.Equal(t, "updated-user", respHead2.Headers["x-ms-meta-author"])
+}

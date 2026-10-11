@@ -4,6 +4,23 @@ package blob
 
 import "fmt"
 
+// BlobAlreadyExists is returned with HTTP status 409.
+type BlobAlreadyExists struct {
+	Message string
+}
+
+func (e *BlobAlreadyExists) Error() string {
+	return fmt.Sprintf("BlobAlreadyExists: %s", e.Message)
+}
+
+func (e *BlobAlreadyExists) ErrorCode() string {
+	return "BlobAlreadyExists"
+}
+
+func (e *BlobAlreadyExists) HTTPStatus() int {
+	return 409
+}
+
 // BlobNotFound is returned with HTTP status 404.
 type BlobNotFound struct {
 	Message string
@@ -19,6 +36,23 @@ func (e *BlobNotFound) ErrorCode() string {
 
 func (e *BlobNotFound) HTTPStatus() int {
 	return 404
+}
+
+// ConditionNotMet is returned with HTTP status 412.
+type ConditionNotMet struct {
+	Message string
+}
+
+func (e *ConditionNotMet) Error() string {
+	return fmt.Sprintf("ConditionNotMet: %s", e.Message)
+}
+
+func (e *ConditionNotMet) ErrorCode() string {
+	return "ConditionNotMet"
+}
+
+func (e *ConditionNotMet) HTTPStatus() int {
+	return 412
 }
 
 // ContainerAlreadyExists is returned with HTTP status 409.

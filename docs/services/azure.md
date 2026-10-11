@@ -16,9 +16,12 @@ DevCloud expands its local development runtime to include Microsoft Azure servic
 | Containers | `DeleteContainer` | `DELETE /{container}?restype=container` | Returns `202 Accepted` or `404 ContainerNotFound` |
 | Containers | `GetContainerProperties` | `GET /{container}?restype=container` | Returns lease state and metadata headers |
 | Containers | `ListContainers` | `GET /?comp=list` | Returns XML `EnumerationResults` listing all containers |
-| Blobs | `PutBlob` | `PUT /{container}/{blob}` | Creates or replaces a BlockBlob; stores payload and computes MD5 |
+| Blobs | `PutBlob` | `PUT /{container}/{blob}` | Creates or replaces a BlockBlob; supports preconditions (`If-None-Match: *`, `If-Match`), stores payload and computes MD5 |
+| Blobs | `PutBlock` | `PUT /{container}/{blob}?comp=block&blockid={id}` | Stages an uncommitted block for chunked/streaming blob uploads |
+| Blobs | `PutBlockList` | `PUT /{container}/{blob}?comp=blocklist` | Commits staged blocks in sequence to materialize or update a BlockBlob |
+| Blobs | `SetBlobMetadata` | `PUT /{container}/{blob}?comp=metadata` | Updates user-defined `x-ms-meta-*` headers on the blob |
 | Blobs | `GetBlob` | `GET /{container}/{blob}` | Downloads blob content; supports `Range` and `x-ms-range` requests |
-| Blobs | `GetBlobProperties` | `HEAD /{container}/{blob}` | Returns headers (`x-ms-blob-type: BlockBlob`, size, ETag, Content-MD5) |
+| Blobs | `GetBlobProperties` | `HEAD /{container}/{blob}` | Returns headers (`x-ms-blob-type: BlockBlob`, size, ETag, Content-MD5, `x-ms-meta-*`) |
 | Blobs | `DeleteBlob` | `DELETE /{container}/{blob}` | Permanently removes the blob |
 | Blobs | `ListBlobs` | `GET /{container}?restype=container&comp=list` | Returns XML `EnumerationResults` listing blobs in the container |
 
@@ -76,4 +79,23 @@ print(content.decode("utf-8"))
 # 4. List blobs
 for blob in container_client.list_blobs():
     print(f"Blob: {blob.name}, Size: {blob.size}")
+
+# 5. Conditional upload (fail if exists)
+from azure.core.exceptions import ResourceExistsError
+try:
+    blob_client.upload_blob(b"will not overwrite", overwrite=False)
+except ResourceExistsError:
+    print("Blob already exists!")
+
+# 6. Chunked upload via stage_block & commit_block_list
+from azure.storage.blob import BlobBlock
+chunk_client = container_client.get_blob_client("large.bin")
+chunk_client.stage_block(block_id="AAAAAA==", data=b"Part 1 ")
+chunk_client.stage_block(block_id="AQIDBA==", data=b"Part 2!")
+chunk_client.commit_block_list([BlobBlock(block_id="AAAAAA=="), BlobBlock(block_id="AQIDBA==")])
+
+# 7. Metadata management
+blob_client.set_blob_metadata(metadata={"env": "local", "pilot": "phase3"})
+props = blob_client.get_blob_properties()
+print(f"Metadata: {props.metadata}")
 ```

@@ -207,6 +207,158 @@
         }
       }
     },
+    "/{container}/{blob+}?comp=block": {
+      "put": {
+        "operationId": "PutBlock",
+        "description": "Uploads the specified block to the blob's uncommitted block list",
+        "parameters": [
+          {
+            "name": "container",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "blob+",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "comp",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["block"]
+            }
+          },
+          {
+            "name": "blockid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Block uploaded successfully"
+          },
+          "404": {
+            "description": "Container not found",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{container}/{blob+}?comp=blocklist": {
+      "put": {
+        "operationId": "PutBlockList",
+        "description": "Commits a sequence of blocks that make up the blob",
+        "parameters": [
+          {
+            "name": "container",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "blob+",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "comp",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["blocklist"]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Block list committed successfully"
+          },
+          "404": {
+            "description": "Container not found",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{container}/{blob+}?comp=metadata": {
+      "put": {
+        "operationId": "SetBlobMetadata",
+        "description": "Sets user-defined metadata on the specified blob",
+        "parameters": [
+          {
+            "name": "container",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "blob+",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "comp",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["metadata"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Metadata set successfully"
+          },
+          "404": {
+            "description": "Blob or Container not found",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlobNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/{container}/{blob+}": {
       "put": {
         "operationId": "PutBlob",
@@ -453,6 +605,45 @@
       "BlobNotFound": {
         "type": "object",
         "x-error-status": 404
+      },
+      "BlobAlreadyExists": {
+        "type": "object",
+        "x-error-status": 409
+      },
+      "ConditionNotMet": {
+        "type": "object",
+        "x-error-status": 412
+      },
+      "PutBlockInput": {
+        "type": "object",
+        "properties": {
+          "Container": { "type": "string" },
+          "Blob": { "type": "string" },
+          "BlockId": { "type": "string" }
+        }
+      },
+      "PutBlockOutput": {
+        "type": "object"
+      },
+      "PutBlockListInput": {
+        "type": "object",
+        "properties": {
+          "Container": { "type": "string" },
+          "Blob": { "type": "string" }
+        }
+      },
+      "PutBlockListOutput": {
+        "type": "object"
+      },
+      "SetBlobMetadataInput": {
+        "type": "object",
+        "properties": {
+          "Container": { "type": "string" },
+          "Blob": { "type": "string" }
+        }
+      },
+      "SetBlobMetadataOutput": {
+        "type": "object"
       }
     }
   }

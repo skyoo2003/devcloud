@@ -1,0 +1,4 @@
+kind: Added
+body: Complete Phase 3 Azure Blob Storage pilot with staged block uploads, conditional requests, and custom metadata.
+custom:
+  Issue: 192
