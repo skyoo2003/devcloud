@@ -23,8 +23,14 @@ import (
 //  2. Content-Type application/x-www-form-urlencoded with Action= body → Query protocol (SQS/IAM/STS)
 //  3. Default → REST-XML / S3
 func DetectProtocol(r *http.Request) (protocol string, serviceID string) {
+	if strings.HasPrefix(r.URL.Path, "/devcloud/identity") || strings.HasPrefix(r.URL.Path, "/identity") {
+		return "rest-json", "identity"
+	}
+	if isGCPRequest(r) {
+		return detectGCPService(r)
+	}
 	if isAzureRequest(r) {
-		return "rest-xml", "blob"
+		return detectAzureService(r)
 	}
 	if serviceFromSigV4(r) == "s3express" {
 		return "rest-xml", "s3"
@@ -472,15 +478,73 @@ func isAzureRequest(r *http.Request) bool {
 	if id, ok := (auth.AzureSharedKey{}).Authenticate(r); ok && id.Provider == "azure" {
 		return true
 	}
-	if r.Header.Get("x-ms-version") != "" || r.Header.Get("x-ms-date") != "" {
+	if r.Header.Get("x-ms-version") != "" || r.Header.Get("x-ms-date") != "" ||
+		r.Header.Get("x-ms-documentdb-partitionkey") != "" {
 		return true
 	}
 	if strings.HasPrefix(r.URL.Path, "/devstoreaccount1") {
 		return true
 	}
 	authz := r.Header.Get("Authorization")
-	if strings.HasPrefix(authz, "SharedKey ") || strings.HasPrefix(authz, "SharedKeyLite ") {
+	if strings.HasPrefix(authz, "SharedKey ") || strings.HasPrefix(authz, "SharedKeyLite ") ||
+		strings.HasPrefix(authz, "type=master") {
 		return true
 	}
 	return false
+}
+
+func detectAzureService(r *http.Request) (string, string) {
+	path := r.URL.Path
+	trimmed := strings.TrimPrefix(path, "/devstoreaccount1")
+	trimmed = strings.TrimPrefix(trimmed, "/")
+
+	if strings.HasPrefix(trimmed, "dbs") ||
+		r.Header.Get("x-ms-documentdb-partitionkey") != "" ||
+		strings.Contains(r.Header.Get("Authorization"), "type=master") {
+		return "rest-json", "cosmosdb"
+	}
+
+	if strings.HasPrefix(trimmed, "Tables") ||
+		strings.HasPrefix(trimmed, "table/") ||
+		strings.Contains(r.Header.Get("Accept"), "odata") ||
+		strings.Contains(r.Header.Get("Content-Type"), "odata") {
+		return "rest-json", "azuretable"
+	}
+
+	if strings.Contains(trimmed, "messages") ||
+		trimmed == "queue" ||
+		strings.HasPrefix(trimmed, "queue/") ||
+		strings.HasPrefix(trimmed, "queue?") ||
+		r.URL.Query().Get("comp") == "messages" {
+		return "rest-xml", "azurequeue"
+	}
+
+	return "rest-xml", "blob"
+}
+
+func isGCPRequest(r *http.Request) bool {
+	if id, ok := auth.FromContext(r.Context()); ok && id.Provider == "gcp" {
+		return true
+	}
+	if id, ok := (auth.GCPAuth{}).Authenticate(r); ok && id.Provider == "gcp" {
+		return true
+	}
+	if strings.HasPrefix(r.URL.Path, "/storage/v1/") || strings.HasPrefix(r.URL.Path, "/upload/storage/v1/") {
+		return true
+	}
+	if r.Header.Get("x-goog-api-client") != "" || r.Header.Get("x-goog-project-id") != "" {
+		return true
+	}
+	ua := r.Header.Get("User-Agent")
+	if strings.Contains(ua, "google-cloud") || strings.Contains(ua, "gl-python") {
+		return true
+	}
+	return false
+}
+
+func detectGCPService(r *http.Request) (string, string) {
+	if strings.HasPrefix(r.URL.Path, "/storage/v1/") || strings.HasPrefix(r.URL.Path, "/upload/storage/v1/") {
+		return "rest-json", "gcs"
+	}
+	return "rest-json", "gcs"
 }

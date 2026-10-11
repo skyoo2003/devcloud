@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
+	"github.com/skyoo2003/devcloud/internal/services/identity"
 )
 
 // --- Response structs ---
@@ -130,11 +131,10 @@ func (p *STSProvider) handleAssumeRoleWithWebIdentity(_ context.Context, form ur
 	expiration := time.Now().UTC().Add(time.Hour).Format(time.RFC3339)
 	assumedArn := deriveAssumedRoleArn(roleArn, sessionName)
 
-	subject := "sub-devcloud-user"
-	if len(webToken) > 0 {
-		end := min(len(webToken), 16)
-		subject = "sub-" + webToken[:end]
-	}
+	parsed := identity.ParseWebIdentityToken(webToken)
+	subject := parsed.Subject
+	provider := parsed.Issuer
+	audience := parsed.Audience
 
 	return stsXMLResponse(http.StatusOK, assumeRoleWithWebIdentityResponse{
 		AssumeRoleWithWebIdentityResult: assumeRoleWithWebIdentityResult{
@@ -150,8 +150,8 @@ func (p *STSProvider) handleAssumeRoleWithWebIdentity(_ context.Context, form ur
 				AssumedRoleID: fmt.Sprintf("%s:%s", roaID, sessionName),
 			},
 			PackedPolicySize: 1,
-			Provider:         "https://sts.amazonaws.com",
-			Audience:         "sts.devcloud",
+			Provider:         provider,
+			Audience:         audience,
 		},
 	})
 }

@@ -1,0 +1,335 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Azure Cosmos DB",
+    "version": "2018-12-31",
+    "description": "Azure Cosmos DB SQL API REST API",
+    "x-service-id": "cosmosdb",
+    "x-provider": "azure",
+    "x-protocol": "rest-json"
+  },
+  "paths": {
+    "/dbs": {
+      "get": {
+        "operationId": "ListDatabases",
+        "description": "Lists all databases in the account",
+        "responses": {
+          "200": {
+            "description": "List of databases"
+          }
+        }
+      },
+      "post": {
+        "operationId": "CreateDatabase",
+        "description": "Creates a new database",
+        "responses": {
+          "201": {
+            "description": "Database created"
+          }
+        }
+      }
+    },
+    "/dbs/{db}": {
+      "get": {
+        "operationId": "GetDatabase",
+        "description": "Retrieves a database by ID",
+        "parameters": [
+          {
+            "name": "db",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Database retrieved"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteDatabase",
+        "description": "Deletes the specified database",
+        "parameters": [
+          {
+            "name": "db",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Database deleted"
+          }
+        }
+      }
+    },
+    "/dbs/{db}/colls": {
+      "get": {
+        "operationId": "ListContainers",
+        "description": "Lists containers in the database",
+        "parameters": [
+          {
+            "name": "db",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of containers"
+          }
+        }
+      },
+      "post": {
+        "operationId": "CreateContainer",
+        "description": "Creates a new container",
+        "parameters": [
+          {
+            "name": "db",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Container created"
+          }
+        }
+      }
+    },
+    "/dbs/{db}/colls/{coll}": {
+      "get": {
+        "operationId": "GetContainer",
+        "description": "Retrieves container properties",
+        "parameters": [
+          {
+            "name": "db",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "coll",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Container retrieved"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteContainer",
+        "description": "Deletes the container",
+        "parameters": [
+          {
+            "name": "db",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "coll",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Container deleted"
+          }
+        }
+      }
+    },
+    "/dbs/{db}/colls/{coll}/docs": {
+      "get": {
+        "operationId": "ListDocuments",
+        "description": "Lists documents in the container",
+        "parameters": [
+          {
+            "name": "db",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "coll",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of documents"
+          }
+        }
+      },
+      "post": {
+        "operationId": "CreateDocument",
+        "description": "Creates a new document",
+        "parameters": [
+          {
+            "name": "db",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "coll",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Document created"
+          }
+        }
+      }
+    },
+    "/dbs/{db}/colls/{coll}/docs/{doc}": {
+      "get": {
+        "operationId": "GetDocument",
+        "description": "Retrieves a document",
+        "parameters": [
+          {
+            "name": "db",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "coll",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "doc",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document retrieved"
+          }
+        }
+      },
+      "put": {
+        "operationId": "ReplaceDocument",
+        "description": "Replaces an existing document",
+        "parameters": [
+          {
+            "name": "db",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "coll",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "doc",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Document replaced"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteDocument",
+        "description": "Deletes the document",
+        "parameters": [
+          {
+            "name": "db",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "coll",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "doc",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Document deleted"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

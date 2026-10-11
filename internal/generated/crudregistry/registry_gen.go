@@ -1277,6 +1277,28 @@ func init() {
 		"GetScalingPlanResourceForecastData": {Verb: "Get", Resource: "ScalingPlanResourceForecastData", OutputListKey: "Datapoints", OutputItemKey: ""},
 		"UpdateScalingPlan":                  {Verb: "Update", Resource: "ScalingPlan", OutputListKey: "", OutputItemKey: ""},
 	})
+	crud.Register("azurequeue", map[string]crud.OpMeta{
+		"GetQueueMetadata": {Verb: "Get", Resource: "QueueMetadata", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/{queue}?comp=metadata"},
+		"ListQueues":       {Verb: "List", Resource: "Queue", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/?comp=list"},
+		"PeekMessages":     {Verb: "", Resource: "", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/{queue}/messages?peekonly=true"},
+		"SetQueueMetadata": {Verb: "Update", Resource: "QueueMetadata", OutputListKey: "", OutputItemKey: "", Method: "PUT", URI: "/{queue}?comp=metadata"},
+		"ClearMessages":    {Verb: "", Resource: "", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/{queue}/messages"},
+		"CreateQueue":      {Verb: "Create", Resource: "Queue", OutputListKey: "", OutputItemKey: "", Method: "PUT", URI: "/{queue}"},
+		"DeleteMessage":    {Verb: "Delete", Resource: "Message", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/{queue}/messages/{messageid}"},
+		"DeleteQueue":      {Verb: "Delete", Resource: "Queue", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/{queue}"},
+		"GetMessages":      {Verb: "Get", Resource: "Message", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/{queue}/messages"},
+		"PutMessage":       {Verb: "Update", Resource: "Message", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/{queue}/messages"},
+	})
+	crud.Register("azuretable", map[string]crud.OpMeta{
+		"CreateTable":   {Verb: "Create", Resource: "Table", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/Tables"},
+		"DeleteEntity":  {Verb: "Delete", Resource: "Entity", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/{table}(PartitionKey='{partitionKey}',RowKey='{rowKey}')"},
+		"DeleteTable":   {Verb: "Delete", Resource: "Table", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/Tables('{table}')"},
+		"GetEntity":     {Verb: "Get", Resource: "Entity", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/{table}(PartitionKey='{partitionKey}',RowKey='{rowKey}')"},
+		"InsertEntity":  {Verb: "", Resource: "", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/{table}"},
+		"QueryEntities": {Verb: "List", Resource: "Entity", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/{table}()"},
+		"QueryTables":   {Verb: "List", Resource: "Table", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/Tables"},
+		"UpdateEntity":  {Verb: "Update", Resource: "Entity", OutputListKey: "", OutputItemKey: "", Method: "PUT", URI: "/{table}(PartitionKey='{partitionKey}',RowKey='{rowKey}')"},
+	})
 	crud.Register("b2bi", map[string]crud.OpMeta{
 		"CreateCapability":             {Verb: "Create", Resource: "Capability", OutputListKey: "instructionsDocuments", OutputItemKey: "", Method: "POST", URI: "/capabilities"},
 		"CreatePartnership":            {Verb: "Create", Resource: "Partnership", OutputListKey: "capabilities", OutputItemKey: "capabilityOptions", Method: "POST", URI: "/partnerships"},
@@ -4728,6 +4750,21 @@ func init() {
 		"UpdateEnabledControl":      {Verb: "Update", Resource: "EnabledControl", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/update-enabled-control"},
 		"UpdateLandingZone":         {Verb: "Update", Resource: "LandingZone", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/update-landingzone"},
 	})
+	crud.Register("cosmosdb", map[string]crud.OpMeta{
+		"CreateContainer": {Verb: "Create", Resource: "Container", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/dbs/{db}/colls"},
+		"CreateDatabase":  {Verb: "Create", Resource: "Database", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/dbs"},
+		"CreateDocument":  {Verb: "Create", Resource: "Document", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/dbs/{db}/colls/{coll}/docs"},
+		"DeleteContainer": {Verb: "Delete", Resource: "Container", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/dbs/{db}/colls/{coll}"},
+		"DeleteDatabase":  {Verb: "Delete", Resource: "Database", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/dbs/{db}"},
+		"DeleteDocument":  {Verb: "Delete", Resource: "Document", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/dbs/{db}/colls/{coll}/docs/{doc}"},
+		"GetContainer":    {Verb: "Get", Resource: "Container", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/dbs/{db}/colls/{coll}"},
+		"GetDatabase":     {Verb: "Get", Resource: "Database", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/dbs/{db}"},
+		"GetDocument":     {Verb: "Get", Resource: "Document", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/dbs/{db}/colls/{coll}/docs/{doc}"},
+		"ListContainers":  {Verb: "List", Resource: "Container", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/dbs/{db}/colls"},
+		"ListDatabases":   {Verb: "List", Resource: "Database", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/dbs"},
+		"ListDocuments":   {Verb: "List", Resource: "Document", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/dbs/{db}/colls/{coll}/docs"},
+		"ReplaceDocument": {Verb: "Update", Resource: "Document", OutputListKey: "", OutputItemKey: "", Method: "PUT", URI: "/dbs/{db}/colls/{coll}/docs/{doc}"},
+	})
 	crud.Register("costandusagereportservice", map[string]crud.OpMeta{
 		"DeleteReportDefinition":    {Verb: "Delete", Resource: "ReportDefinition", OutputListKey: "", OutputItemKey: ""},
 		"DescribeReportDefinitions": {Verb: "Get", Resource: "ReportDefinition", OutputListKey: "ReportDefinitions", OutputItemKey: ""},
@@ -8041,6 +8078,16 @@ func init() {
 		"UpdateApplication":             {Verb: "Update", Resource: "Application", OutputListKey: "ApplicationLogPaths", OutputItemKey: "RuntimeEnvironment", Method: "PATCH", URI: "/applications/{Identifier}"},
 		"UpdateStreamGroup":             {Verb: "Update", Resource: "StreamGroup", OutputListKey: "AssociatedApplications", OutputItemKey: "DefaultApplication", Method: "PATCH", URI: "/streamgroups/{Identifier}"},
 	})
+	crud.Register("gcs", map[string]crud.OpMeta{
+		"DeleteBucket": {Verb: "Delete", Resource: "Bucket", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/storage/v1/b/{bucket}"},
+		"DeleteObject": {Verb: "Delete", Resource: "Object", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/storage/v1/b/{bucket}/o/{object+}"},
+		"GetBucket":    {Verb: "Get", Resource: "Bucket", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/storage/v1/b/{bucket}"},
+		"GetObject":    {Verb: "Get", Resource: "Object", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/storage/v1/b/{bucket}/o/{object+}"},
+		"InsertBucket": {Verb: "", Resource: "", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/storage/v1/b"},
+		"InsertObject": {Verb: "", Resource: "", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/upload/storage/v1/b/{bucket}/o"},
+		"ListBuckets":  {Verb: "List", Resource: "Bucket", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/storage/v1/b"},
+		"ListObjects":  {Verb: "List", Resource: "Object", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/storage/v1/b/{bucket}/o"},
+	})
 	crud.Register("geomaps", map[string]crud.OpMeta{
 		"GetGlyphs":          {Verb: "Get", Resource: "Glyph", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/v2/glyphs/{FontStack}/{FontUnicodeRange}"},
 		"GetSprites":         {Verb: "Get", Resource: "Sprite", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/v2/styles/{Style}/{ColorScheme}/{Variant}/sprites/{FileName}"},
@@ -8922,6 +8969,13 @@ func init() {
 	})
 	crud.Register("iamtoolbox", map[string]crud.OpMeta{
 		"GetRequestAuthorizationDetails": {Verb: "Get", Resource: "RequestAuthorizationDetail", OutputListKey: "evaluations", OutputItemKey: "", Method: "GET", URI: "/authorization-details/{authorizationId}"},
+	})
+	crud.Register("identity", map[string]crud.OpMeta{
+		"ExchangeAzureToken":     {Verb: "", Resource: "", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/devcloud/identity/azure/oauth2/v2.0/token"},
+		"ExchangeGCPToken":       {Verb: "", Resource: "", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/devcloud/identity/gcp/v1/token"},
+		"GetJWKS":                {Verb: "Get", Resource: "JWKS", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/devcloud/identity/jwks.json"},
+		"GetOpenIDConfiguration": {Verb: "Get", Resource: "OpenIDConfiguration", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/devcloud/identity/.well-known/openid-configuration"},
+		"MintToken":              {Verb: "", Resource: "", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/devcloud/identity/token"},
 	})
 	crud.Register("imagebuilder", map[string]crud.OpMeta{
 		"CancelImageCreation":               {Verb: "Toggle", Resource: "ImageCreation", OutputListKey: "", OutputItemKey: "", Method: "PUT", URI: "/CancelImageCreation"},

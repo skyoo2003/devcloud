@@ -6,8 +6,8 @@ alone.
 
 | Number | What it means | Today |
 |---|---|---|
-| **Registered** | The gateway routes the service, so the call reaches DevCloud instead of real AWS. | **432** |
-| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer. | **432** |
+| **Registered** | The gateway routes the service, so the call reaches DevCloud instead of real AWS. | **437** |
+| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer. | **437** |
 | **Registered-only** | Routed, but every operation declines with a clean AWS error. | **0** |
 | **Compatibility-tested** | A boto3 test exercises the service in CI and passes. | **427** |
 
@@ -16,11 +16,11 @@ denominators, because [routing and depth are two targets](#the-target):
 
 | Tier | Serving target | All registered |
 |---|---|---|
-| `hand-verified` | 4,623 | 4,654 |
+| `hand-verified` | 4,668 | 4,699 |
 | `auto-crud` | 7,529 | 14,082 |
 | `unimplemented` | 267 | 477 |
-| **total known** | **12,419** | **19,213** |
-| **hand-verified share** | **37.2%** | **24.2%** |
+| **total known** | **12,464** | **19,258** |
+| **hand-verified share** | **37.5%** | **24.4%** |
 
 The **serving target** column is the depth promise: every registered service
 except the 226 the [demand study](demand.md) found nobody building. The **all
@@ -36,10 +36,10 @@ hand-written providers for the services the engine cannot classify — and that 
 the whole intended depth of the long tail. Promotion out of it happens
 [on request, with a use case](fidelity-manifest.md#getting-an-operation-promoted).
 
-> **Two targets, not one: routing is 432 of 432, depth is 205.** Every service
+> **Two targets, not one: routing is 437 of 437, depth is 211.** Every service
 > AWS publishes is registered, so no call can leave for a billable account — that
 > is a safety property and it admits no smaller number. Depth is the separate,
-> smaller promise, and the evidence still puts it at 205. See
+> smaller promise, and the evidence still puts it at 211. See
 > [The target](#the-target).
 
 Every figure on this page is asserted against the binary by
@@ -152,14 +152,14 @@ one as the other is the mistake this page exists to prevent.
   call leaves the machine and bills a real AWS account. That is a safety
   property, not a capability claim, and the only number that satisfies it is all
   of them.
-- **Serving depth — 206 services, decided 2026-09-05, and it is met.** Depth is
+- **Serving depth — 211 services, decided 2026-09-05, and it is met.** Depth is
   what costs, so it follows evidence of demand rather than the shape of AWS's
   catalogue. The study below is that evidence, and it is unchanged.
 
 | Axis | Services | Governed by |
 |---|---|---|
-| **Routing target** | **432 / 432 — met** | leak-zero; every published model is registered |
-| **Serving target** | **206 — met** | the demand study below, sampled 2026-09-05 |
+| **Routing target** | **437 / 437 — met** | leak-zero; every published model is registered |
+| **Serving target** | **211 — met** | the demand study below, sampled 2026-09-05 |
 | Registered and engine-served, outside the serving target | 226 | no depth promise — see the [CRUD engine](crud-engine.md) |
 
 ### How the depth target was set

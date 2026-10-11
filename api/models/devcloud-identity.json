@@ -1,0 +1,68 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "DevCloud Federated Identity",
+    "version": "v1",
+    "description": "DevCloud Federated Identity & Cross-CSP Playground",
+    "x-service-id": "identity",
+    "x-provider": "devcloud",
+    "x-protocol": "rest-json"
+  },
+  "paths": {
+    "/devcloud/identity/.well-known/openid-configuration": {
+      "get": {
+        "operationId": "GetOpenIDConfiguration",
+        "description": "Retrieves OIDC discovery document",
+        "responses": {
+          "200": {
+            "description": "OIDC discovery configuration"
+          }
+        }
+      }
+    },
+    "/devcloud/identity/jwks.json": {
+      "get": {
+        "operationId": "GetJWKS",
+        "description": "Retrieves public JSON Web Key Set",
+        "responses": {
+          "200": {
+            "description": "Public JWKS keys"
+          }
+        }
+      }
+    },
+    "/devcloud/identity/token": {
+      "post": {
+        "operationId": "MintToken",
+        "description": "Mints a simulated OIDC RS256 JWT",
+        "responses": {
+          "200": {
+            "description": "Minted token"
+          }
+        }
+      }
+    },
+    "/devcloud/identity/azure/oauth2/v2.0/token": {
+      "post": {
+        "operationId": "ExchangeAzureToken",
+        "description": "Exchanges subject assertion for Azure AD Bearer token",
+        "responses": {
+          "200": {
+            "description": "Azure AD token"
+          }
+        }
+      }
+    },
+    "/devcloud/identity/gcp/v1/token": {
+      "post": {
+        "operationId": "ExchangeGCPToken",
+        "description": "Exchanges subject token for Google OAuth2 access token",
+        "responses": {
+          "200": {
+            "description": "GCP access token"
+          }
+        }
+      }
+    }
+  }
+}

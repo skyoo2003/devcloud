@@ -1,0 +1,247 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Azure Table Storage",
+    "version": "2023-11-03",
+    "description": "Azure Table Storage REST API",
+    "x-service-id": "azuretable",
+    "x-provider": "azure",
+    "x-protocol": "rest-json"
+  },
+  "paths": {
+    "/Tables": {
+      "get": {
+        "operationId": "QueryTables",
+        "description": "Queries all tables in the account",
+        "responses": {
+          "200": {
+            "description": "Table query result"
+          }
+        }
+      },
+      "post": {
+        "operationId": "CreateTable",
+        "description": "Creates a new table",
+        "responses": {
+          "201": {
+            "description": "Table created"
+          },
+          "204": {
+            "description": "Table created without content"
+          }
+        }
+      }
+    },
+    "/Tables('{table}')": {
+      "delete": {
+        "operationId": "DeleteTable",
+        "description": "Deletes the specified table",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Table deleted"
+          }
+        }
+      }
+    },
+    "/{table}()": {
+      "get": {
+        "operationId": "QueryEntities",
+        "description": "Queries entities in the table",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entity query results"
+          }
+        }
+      }
+    },
+    "/{table}": {
+      "post": {
+        "operationId": "InsertEntity",
+        "description": "Inserts a new entity",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Entity created"
+          },
+          "204": {
+            "description": "Entity created without content"
+          }
+        }
+      }
+    },
+    "/{table}(PartitionKey='{partitionKey}',RowKey='{rowKey}')": {
+      "get": {
+        "operationId": "GetEntity",
+        "description": "Retrieves an entity by PartitionKey and RowKey",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partitionKey",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rowKey",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entity returned"
+          }
+        }
+      },
+      "put": {
+        "operationId": "UpdateEntity",
+        "description": "Replaces an entity",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partitionKey",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rowKey",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Entity updated"
+          }
+        }
+      },
+      "merge": {
+        "operationId": "MergeEntity",
+        "description": "Merges properties into an entity",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partitionKey",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rowKey",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Entity merged"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteEntity",
+        "description": "Deletes an entity",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partitionKey",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rowKey",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Entity deleted"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

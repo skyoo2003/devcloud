@@ -110,16 +110,16 @@ func TestProviderService_ProviderBlockWinsOverLegacy(t *testing.T) {
 func TestProviderService_UnknownProviderWarnsButLoads(t *testing.T) {
 	isolateEnv(t)
 	cfg, warnings, err := parse([]byte(
-		"providers:\n  gcp:\n    services:\n      gcs:\n        enabled: true\n"))
+		"providers:\n  oracle:\n    services:\n      storage:\n        enabled: true\n"))
 	require.NoError(t, err)
 	require.Len(t, warnings, 1)
-	assert.Contains(t, warnings[0], "providers.gcp")
+	assert.Contains(t, warnings[0], "providers.oracle")
 
 	// No AWS block was written, so AWS still runs everything.
 	assert.True(t, cfg.Service("s3").Enabled)
 	// A non-AWS provider nests its data so a same-named service cannot collide.
-	assert.Equal(t, filepath.Join("./data", "gcp", "gcs"),
-		cfg.ProviderService("gcp", "gcs").DataDir)
+	assert.Equal(t, filepath.Join("./data", "oracle", "storage"),
+		cfg.ProviderService("oracle", "storage").DataDir)
 }
 
 func TestProviderService_KnownAzureProviderLoadsWithoutWarning(t *testing.T) {
@@ -131,6 +131,17 @@ func TestProviderService_KnownAzureProviderLoadsWithoutWarning(t *testing.T) {
 	assert.True(t, cfg.ProviderService("azure", "blob").Enabled)
 	assert.Equal(t, filepath.Join("./data", "azure", "blob"),
 		cfg.ProviderService("azure", "blob").DataDir)
+}
+
+func TestProviderService_KnownGCPProviderLoadsWithoutWarning(t *testing.T) {
+	isolateEnv(t)
+	cfg, warnings, err := parse([]byte(
+		"providers:\n  gcp:\n    services:\n      gcs:\n        enabled: true\n"))
+	require.NoError(t, err)
+	assert.Empty(t, warnings)
+	assert.True(t, cfg.ProviderService("gcp", "gcs").Enabled)
+	assert.Equal(t, filepath.Join("./data", "gcp", "gcs"),
+		cfg.ProviderService("gcp", "gcs").DataDir)
 }
 
 // TestProviderService_EnvFilterIsAWSScoped: DEVCLOUD_SERVICES has no syntax for
