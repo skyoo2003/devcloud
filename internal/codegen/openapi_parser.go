@@ -172,8 +172,15 @@ func ParseOpenAPIJSON(data []byte) (*ir.Model, error) {
 		}
 	}
 
-	// Parse component schemas
-	for name, schema := range doc.Components.Schemas {
+	// Parse component schemas in deterministic order
+	schemaNames := make([]string, 0, len(doc.Components.Schemas))
+	for name := range doc.Components.Schemas {
+		schemaNames = append(schemaNames, name)
+	}
+	sort.Strings(schemaNames)
+
+	for _, name := range schemaNames {
+		schema := doc.Components.Schemas[name]
 		shape := &ir.Shape{
 			Name: name,
 			Type: ir.ShapeStructure,
@@ -186,7 +193,14 @@ func ParseOpenAPIJSON(data []byte) (*ir.Model, error) {
 			}
 		}
 
-		for propName, prop := range schema.Properties {
+		propNames := make([]string, 0, len(schema.Properties))
+		for propName := range schema.Properties {
+			propNames = append(propNames, propName)
+		}
+		sort.Strings(propNames)
+
+		for _, propName := range propNames {
+			prop := schema.Properties[propName]
 			goType := "string"
 			switch prop.Type {
 			case "integer":

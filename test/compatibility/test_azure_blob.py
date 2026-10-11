@@ -1,5 +1,5 @@
 from azure.core.exceptions import ResourceExistsError, ResourceNotFoundError
-from azure.storage.blob import BlobServiceClient
+from azure.storage.blob import BlobBlock, BlobServiceClient
 from conftest import DEVCLOUD_URL
 import pytest
 
@@ -81,4 +81,107 @@ def test_blob_crud_lifecycle(azure_blob_client):
             blob_client.get_blob_properties()
     finally:
         # Clean up container
+        client.delete_container(container_name)
+
+
+def test_blob_conditional_upload(azure_blob_client):
+    client = azure_blob_client
+    container_name = "test-blob-conditional"
+    container_client = client.create_container(container_name)
+
+    try:
+        blob_name = "conditional.txt"
+        blob_client = container_client.get_blob_client(blob_name)
+
+        # 1. Upload initial blob with overwrite=False
+        blob_client.upload_blob(b"initial data", overwrite=False)
+
+        # 2. Attempting upload with overwrite=False raises ResourceExistsError (If-None-Match: *)
+        with pytest.raises(ResourceExistsError):
+            blob_client.upload_blob(b"new data", overwrite=False)
+
+        # 3. Uploading with overwrite=True succeeds
+        blob_client.upload_blob(b"overwritten data", overwrite=True)
+        assert blob_client.download_blob().readall() == b"overwritten data"
+    finally:
+        client.delete_container(container_name)
+
+
+def test_blob_staged_block_upload(azure_blob_client):
+    client = azure_blob_client
+    container_name = "test-blob-staged-blocks"
+    container_client = client.create_container(container_name)
+
+    try:
+        blob_name = "chunked.bin"
+        blob_client = container_client.get_blob_client(blob_name)
+
+        block1_id = "AAAAAA=="
+        block2_id = "AQIDBA=="
+        part1 = b"DevCloud Azure Blob "
+        part2 = b"Staged Blocks Verified!"
+
+        # 1. Stage block 1 and block 2
+        blob_client.stage_block(block_id=block1_id, data=part1)
+        blob_client.stage_block(block_id=block2_id, data=part2)
+
+        # 2. Commit block list
+        blob_client.commit_block_list(
+            [BlobBlock(block_id=block1_id), BlobBlock(block_id=block2_id)]
+        )
+
+        # 3. Verify downloaded content is full concatenated payload
+        downloaded = blob_client.download_blob().readall()
+        assert downloaded == part1 + part2
+    finally:
+        client.delete_container(container_name)
+
+
+def test_blob_custom_metadata(azure_blob_client):
+    client = azure_blob_client
+    container_name = "test-blob-metadata"
+    container_client = client.create_container(container_name)
+
+    try:
+        blob_name = "report.pdf"
+        blob_client = container_client.get_blob_client(blob_name)
+        initial_meta = {"author": "devcloud", "phase": "3"}
+
+        # 1. Upload blob with metadata
+        blob_client.upload_blob(b"sample report", metadata=initial_meta)
+        props = blob_client.get_blob_properties()
+        assert props.metadata.get("author") == "devcloud"
+        assert props.metadata.get("phase") == "3"
+
+        # 2. Update metadata
+        updated_meta = {
+            "author": "devcloud",
+            "phase": "3-complete",
+            "status": "verified",
+        }
+        blob_client.set_blob_metadata(metadata=updated_meta)
+
+        # 3. Verify updated metadata
+        props2 = blob_client.get_blob_properties()
+        assert props2.metadata.get("phase") == "3-complete"
+        assert props2.metadata.get("status") == "verified"
+    finally:
+        client.delete_container(container_name)
+
+
+def test_blob_byte_range_download(azure_blob_client):
+    client = azure_blob_client
+    container_name = "test-blob-range"
+    container_client = client.create_container(container_name)
+
+    try:
+        blob_name = "stream.txt"
+        blob_client = container_client.get_blob_client(blob_name)
+        payload = b"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        blob_client.upload_blob(payload)
+
+        # Download range (offset 10, length 5 -> "ABCDE")
+        chunk = blob_client.download_blob(offset=10, length=5).readall()
+        assert chunk == b"ABCDE"
+    finally:
         client.delete_container(container_name)

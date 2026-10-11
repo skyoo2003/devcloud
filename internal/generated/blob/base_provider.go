@@ -31,6 +31,18 @@ func (b *BaseProvider) ListContainers(ctx context.Context, input *ListContainers
 	return nil, fmt.Errorf("ListContainers: %w", ErrNotImplemented)
 }
 
+func (b *BaseProvider) PutBlock(ctx context.Context, input *PutBlockInput) (*PutBlockOutput, error) {
+	return nil, fmt.Errorf("PutBlock: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) PutBlockList(ctx context.Context, input *PutBlockListInput) (*PutBlockListOutput, error) {
+	return nil, fmt.Errorf("PutBlockList: %w", ErrNotImplemented)
+}
+
+func (b *BaseProvider) SetBlobMetadata(ctx context.Context, input *SetBlobMetadataInput) (*SetBlobMetadataOutput, error) {
+	return nil, fmt.Errorf("SetBlobMetadata: %w", ErrNotImplemented)
+}
+
 func (b *BaseProvider) DeleteBlob(ctx context.Context, input *DeleteBlobInput) (*DeleteBlobOutput, error) {
 	return nil, fmt.Errorf("DeleteBlob: %w", ErrNotImplemented)
 }

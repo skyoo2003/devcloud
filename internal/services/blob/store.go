@@ -20,27 +20,39 @@ var (
 	ErrContainerNotFound      = errors.New("ContainerNotFound")
 	ErrContainerAlreadyExists = errors.New("ContainerAlreadyExists")
 	ErrBlobNotFound           = errors.New("BlobNotFound")
+	ErrBlobAlreadyExists      = errors.New("BlobAlreadyExists")
+	ErrConditionNotMet        = errors.New("ConditionNotMet")
 	ErrInvalidName            = errors.New("InvalidName")
+	ErrInvalidBlock           = errors.New("InvalidBlock")
 )
 
 type ContainerInfo struct {
-	Name      string    `json:"name"`
-	Account   string    `json:"account"`
-	CreatedAt time.Time `json:"createdAt"`
-	ETag      string    `json:"etag"`
+	Name      string            `json:"name"`
+	Account   string            `json:"account"`
+	CreatedAt time.Time         `json:"createdAt"`
+	ETag      string            `json:"etag"`
+	Metadata  map[string]string `json:"metadata,omitempty"`
 }
 
 type BlobInfo struct {
-	Name         string    `json:"name"`
-	Container    string    `json:"container"`
-	Account      string    `json:"account"`
-	Size         int64     `json:"size"`
-	ContentType  string    `json:"contentType"`
-	MD5          string    `json:"md5"`
-	ETag         string    `json:"etag"`
-	CreatedAt    time.Time `json:"createdAt"`
-	LastModified time.Time `json:"lastModified"`
-	BlobType     string    `json:"blobType"`
+	Name         string            `json:"name"`
+	Container    string            `json:"container"`
+	Account      string            `json:"account"`
+	Size         int64             `json:"size"`
+	ContentType  string            `json:"contentType"`
+	MD5          string            `json:"md5"`
+	ETag         string            `json:"etag"`
+	CreatedAt    time.Time         `json:"createdAt"`
+	LastModified time.Time         `json:"lastModified"`
+	BlobType     string            `json:"blobType"`
+	Metadata     map[string]string `json:"metadata,omitempty"`
+}
+
+type PutBlobOptions struct {
+	ContentType string
+	IfNoneMatch string
+	IfMatch     string
+	Metadata    map[string]string
 }
 
 type FileStore struct {
@@ -259,6 +271,10 @@ func (fs *FileStore) ListContainers(account string) ([]ContainerInfo, error) {
 }
 
 func (fs *FileStore) PutBlob(account, container, blob string, contentType string, r io.Reader) (*BlobInfo, error) {
+	return fs.PutBlobWithOptions(account, container, blob, PutBlobOptions{ContentType: contentType}, r)
+}
+
+func (fs *FileStore) PutBlobWithOptions(account, container, blob string, opts PutBlobOptions, r io.Reader) (*BlobInfo, error) {
 	fs.mu.Lock()
 	defer fs.mu.Unlock()
 
@@ -274,6 +290,23 @@ func (fs *FileStore) PutBlob(account, container, blob string, contentType string
 	dataPath, metaPath, err := fs.safeBlobPaths(account, container, blob)
 	if err != nil {
 		return nil, err
+	}
+
+	var existing *BlobInfo
+	if existingData, err := os.ReadFile(metaPath); err == nil {
+		var ex BlobInfo
+		if json.Unmarshal(existingData, &ex) == nil {
+			existing = &ex
+		}
+	}
+
+	if opts.IfNoneMatch == "*" && existing != nil {
+		return nil, ErrBlobAlreadyExists
+	}
+	if opts.IfMatch != "" {
+		if existing == nil || existing.ETag != opts.IfMatch {
+			return nil, ErrConditionNotMet
+		}
 	}
 
 	if err := os.MkdirAll(filepath.Dir(dataPath), 0755); err != nil {
@@ -316,17 +349,14 @@ func (fs *FileStore) PutBlob(account, container, blob string, contentType string
 	md5Sum := hex.EncodeToString(hasher.Sum(nil))
 	now := time.Now().UTC()
 	etag := fmt.Sprintf("\"0x%X\"", now.UnixNano())
+	contentType := opts.ContentType
 	if contentType == "" {
 		contentType = "application/octet-stream"
 	}
 
-	// Check existing metadata to preserve creation time
 	createdAt := now
-	if existingData, err := os.ReadFile(metaPath); err == nil {
-		var existing BlobInfo
-		if json.Unmarshal(existingData, &existing) == nil && !existing.CreatedAt.IsZero() {
-			createdAt = existing.CreatedAt
-		}
+	if existing != nil && !existing.CreatedAt.IsZero() {
+		createdAt = existing.CreatedAt
 	}
 
 	info := &BlobInfo{
@@ -340,6 +370,7 @@ func (fs *FileStore) PutBlob(account, container, blob string, contentType string
 		CreatedAt:    createdAt,
 		LastModified: now,
 		BlobType:     "BlockBlob",
+		Metadata:     opts.Metadata,
 	}
 
 	metaBytes, err := json.Marshal(info)
@@ -350,6 +381,260 @@ func (fs *FileStore) PutBlob(account, container, blob string, contentType string
 		return nil, err
 	}
 	return info, nil
+}
+
+func (fs *FileStore) StageBlock(account, container, blob, blockID string, r io.Reader) error {
+	fs.mu.Lock()
+	defer fs.mu.Unlock()
+
+	containerDir, err := fs.safeContainerDir(account, container)
+	if err != nil {
+		return err
+	}
+	if _, err := os.Stat(filepath.Join(containerDir, "container.json")); os.IsNotExist(err) {
+		return ErrContainerNotFound
+	}
+	if blob == "" || blockID == "" {
+		return ErrInvalidName
+	}
+
+	blocksBase := filepath.Clean(filepath.Join(containerDir, "blocks"))
+	_ = os.MkdirAll(blocksBase, 0755)
+
+	blobKey := hex.EncodeToString([]byte(blob))
+	blocksDir := filepath.Clean(filepath.Join(blocksBase, blobKey))
+	if !strings.HasPrefix(blocksDir, blocksBase+string(filepath.Separator)) {
+		return ErrInvalidName
+	}
+	if err := os.MkdirAll(blocksDir, 0755); err != nil {
+		return err
+	}
+
+	blockFile := filepath.Clean(filepath.Join(blocksDir, hex.EncodeToString([]byte(blockID))+".block"))
+	if !strings.HasPrefix(blockFile, blocksDir+string(filepath.Separator)) {
+		return ErrInvalidName
+	}
+
+	f, err := os.Create(blockFile)
+	if err != nil {
+		return err
+	}
+	_, err = io.Copy(f, r)
+	_ = f.Close()
+	return err
+}
+
+func (fs *FileStore) CommitBlockList(account, container, blob string, blockIDs []string, opts PutBlobOptions) (*BlobInfo, error) {
+	fs.mu.Lock()
+	defer fs.mu.Unlock()
+
+	containerDir, err := fs.safeContainerDir(account, container)
+	if err != nil {
+		return nil, err
+	}
+	if _, err := os.Stat(filepath.Join(containerDir, "container.json")); os.IsNotExist(err) {
+		return nil, ErrContainerNotFound
+	}
+
+	dataPath, metaPath, err := fs.safeBlobPaths(account, container, blob)
+	if err != nil {
+		return nil, err
+	}
+
+	var existing *BlobInfo
+	if existingData, err := os.ReadFile(metaPath); err == nil {
+		var ex BlobInfo
+		if json.Unmarshal(existingData, &ex) == nil {
+			existing = &ex
+		}
+	}
+
+	if opts.IfNoneMatch == "*" && existing != nil {
+		return nil, ErrBlobAlreadyExists
+	}
+	if opts.IfMatch != "" {
+		if existing == nil || existing.ETag != opts.IfMatch {
+			return nil, ErrConditionNotMet
+		}
+	}
+
+	blocksBase := filepath.Clean(filepath.Join(containerDir, "blocks"))
+	blobKey := hex.EncodeToString([]byte(blob))
+	blocksDir := filepath.Clean(filepath.Join(blocksBase, blobKey))
+
+	for _, bid := range blockIDs {
+		bf := filepath.Clean(filepath.Join(blocksDir, hex.EncodeToString([]byte(bid))+".block"))
+		if _, err := os.Stat(bf); os.IsNotExist(err) {
+			return nil, ErrInvalidBlock
+		}
+	}
+
+	if err := os.MkdirAll(filepath.Dir(dataPath), 0755); err != nil {
+		return nil, err
+	}
+	if err := os.MkdirAll(filepath.Dir(metaPath), 0755); err != nil {
+		return nil, err
+	}
+
+	tmpFile := filepath.Clean(dataPath + ".tmp")
+	dataDir := filepath.Clean(filepath.Join(containerDir, "data"))
+	dataPrefix := dataDir + string(filepath.Separator)
+	if !strings.HasPrefix(tmpFile, dataPrefix) {
+		return nil, ErrInvalidName
+	}
+	relTmp, err := filepath.Rel(dataDir, tmpFile)
+	if err != nil || !filepath.IsLocal(relTmp) || relTmp == "." {
+		return nil, ErrInvalidName
+	}
+
+	outFile, err := os.Create(tmpFile)
+	if err != nil {
+		return nil, err
+	}
+
+	hasher := md5.New()
+	mw := io.MultiWriter(outFile, hasher)
+	var totalSize int64
+	for _, bid := range blockIDs {
+		bf := filepath.Clean(filepath.Join(blocksDir, hex.EncodeToString([]byte(bid))+".block"))
+		bfHandle, err := os.Open(bf)
+		if err != nil {
+			_ = outFile.Close()
+			_ = os.Remove(tmpFile)
+			return nil, err
+		}
+		n, err := io.Copy(mw, bfHandle)
+		_ = bfHandle.Close()
+		if err != nil {
+			_ = outFile.Close()
+			_ = os.Remove(tmpFile)
+			return nil, err
+		}
+		totalSize += n
+	}
+	_ = outFile.Close()
+
+	if err := os.Rename(tmpFile, dataPath); err != nil {
+		_ = os.Remove(tmpFile)
+		return nil, err
+	}
+	_ = os.RemoveAll(blocksDir)
+
+	md5Sum := hex.EncodeToString(hasher.Sum(nil))
+	now := time.Now().UTC()
+	etag := fmt.Sprintf("\"0x%X\"", now.UnixNano())
+	contentType := opts.ContentType
+	if contentType == "" {
+		contentType = "application/octet-stream"
+	}
+
+	createdAt := now
+	if existing != nil && !existing.CreatedAt.IsZero() {
+		createdAt = existing.CreatedAt
+	}
+
+	info := &BlobInfo{
+		Name:         blob,
+		Container:    container,
+		Account:      account,
+		Size:         totalSize,
+		ContentType:  contentType,
+		MD5:          md5Sum,
+		ETag:         etag,
+		CreatedAt:    createdAt,
+		LastModified: now,
+		BlobType:     "BlockBlob",
+		Metadata:     opts.Metadata,
+	}
+
+	metaBytes, err := json.Marshal(info)
+	if err != nil {
+		return nil, err
+	}
+	if err := os.WriteFile(metaPath, metaBytes, 0644); err != nil {
+		return nil, err
+	}
+	return info, nil
+}
+
+func (fs *FileStore) SetBlobMetadata(account, container, blob string, metadata map[string]string) (*BlobInfo, error) {
+	fs.mu.Lock()
+	defer fs.mu.Unlock()
+
+	containerDir, err := fs.safeContainerDir(account, container)
+	if err != nil {
+		return nil, err
+	}
+	if _, err := os.Stat(filepath.Join(containerDir, "container.json")); os.IsNotExist(err) {
+		return nil, ErrContainerNotFound
+	}
+
+	_, metaPath, err := fs.safeBlobPaths(account, container, blob)
+	if err != nil {
+		return nil, err
+	}
+
+	metaBytes, err := os.ReadFile(metaPath)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return nil, ErrBlobNotFound
+		}
+		return nil, err
+	}
+
+	var info BlobInfo
+	if err := json.Unmarshal(metaBytes, &info); err != nil {
+		return nil, err
+	}
+
+	info.Metadata = metadata
+	now := time.Now().UTC()
+	info.LastModified = now
+	info.ETag = fmt.Sprintf("\"0x%X\"", now.UnixNano())
+
+	newBytes, err := json.Marshal(&info)
+	if err != nil {
+		return nil, err
+	}
+	if err := os.WriteFile(metaPath, newBytes, 0644); err != nil {
+		return nil, err
+	}
+	return &info, nil
+}
+
+func (fs *FileStore) SetContainerMetadata(account, container string, metadata map[string]string) (*ContainerInfo, error) {
+	fs.mu.Lock()
+	defer fs.mu.Unlock()
+
+	containerDir, err := fs.safeContainerDir(account, container)
+	if err != nil {
+		return nil, err
+	}
+	metaFile := filepath.Join(containerDir, "container.json")
+	data, err := os.ReadFile(metaFile)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return nil, ErrContainerNotFound
+		}
+		return nil, err
+	}
+
+	var info ContainerInfo
+	if err := json.Unmarshal(data, &info); err != nil {
+		return nil, err
+	}
+
+	info.Metadata = metadata
+	info.ETag = fmt.Sprintf("\"0x%X\"", time.Now().UTC().UnixNano())
+
+	newBytes, err := json.Marshal(&info)
+	if err != nil {
+		return nil, err
+	}
+	if err := os.WriteFile(metaFile, newBytes, 0644); err != nil {
+		return nil, err
+	}
+	return &info, nil
 }
 
 func (fs *FileStore) GetBlob(account, container, blob string) (*BlobInfo, []byte, error) {

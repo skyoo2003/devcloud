@@ -34,6 +34,9 @@ func TestParseOpenAPIJSON(t *testing.T) {
 		"DeleteContainer":        "DELETE /{container}?restype=container",
 		"GetContainerProperties": "GET /{container}?restype=container",
 		"ListBlobs":              "GET /{container}?restype=container&comp=list",
+		"PutBlock":               "PUT /{container}/{blob+}?comp=block",
+		"PutBlockList":           "PUT /{container}/{blob+}?comp=blocklist",
+		"SetBlobMetadata":        "PUT /{container}/{blob+}?comp=metadata",
 		"PutBlob":                "PUT /{container}/{blob+}",
 		"GetBlob":                "GET /{container}/{blob+}",
 		"GetBlobProperties":      "HEAD /{container}/{blob+}",
@@ -65,4 +68,26 @@ func TestParseOpenAPIJSON(t *testing.T) {
 	require.True(t, ok)
 	require.NotNil(t, errShape.ErrorTrait)
 	assert.Equal(t, 404, errShape.ErrorTrait.HTTPStatus)
+
+	existsShape, ok := model.Shapes["BlobAlreadyExists"]
+	require.True(t, ok)
+	require.NotNil(t, existsShape.ErrorTrait)
+	assert.Equal(t, 409, existsShape.ErrorTrait.HTTPStatus)
+
+	condShape, ok := model.Shapes["ConditionNotMet"]
+	require.True(t, ok)
+	require.NotNil(t, condShape.ErrorTrait)
+	assert.Equal(t, 412, condShape.ErrorTrait.HTTPStatus)
+
+	// Verify determinism: parsing multiple times produces identical member ordering
+	model2, err := ParseOpenAPIJSON(data)
+	require.NoError(t, err)
+	for shapeName, s1 := range model.Shapes {
+		s2 := model2.Shapes[shapeName]
+		require.NotNil(t, s2)
+		require.Equal(t, len(s1.Members), len(s2.Members))
+		for idx := range s1.Members {
+			assert.Equal(t, s1.Members[idx].Name, s2.Members[idx].Name)
+		}
+	}
 }

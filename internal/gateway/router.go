@@ -139,7 +139,11 @@ func (sr *ServiceRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	// Write response headers from the plugin.
 	for k, v := range resp.Headers {
-		w.Header().Set(k, v)
+		if strings.HasPrefix(strings.ToLower(k), "x-ms-") {
+			w.Header()[strings.ToLower(k)] = []string{v}
+		} else {
+			w.Header().Set(k, v)
+		}
 	}
 	ct := resp.ContentType
 	if ct == "" {

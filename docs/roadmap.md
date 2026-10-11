@@ -92,7 +92,7 @@ Phase 2 deliberately shipped **no** non-AWS service, no second `ModelSource`, an
 no signature verification. Those are Phase 3 and beyond; Phase 2's job was to make
 each of them an addition rather than a fork.
 
-## Phase 3 — First non-AWS service (next, v2.0, exploratory)
+## Phase 3 — First non-AWS service (complete, v2.0 groundwork)
 
 Validate the multi-CSP architecture with one well-scoped pilot.
 
@@ -101,6 +101,17 @@ Validate the multi-CSP architecture with one well-scoped pilot.
 - [x] Azure authentication adapter (Shared Key to start)
 - [x] Compatibility tests against `azure-sdk-for-python`
 - [x] Documentation pattern for multi-CSP service docs
+
+Phase 3 execution completed: Azure Blob Storage (`blob`) is implemented as the first
+non-AWS pilot under `providers.azure.services.blob`. The OpenAPI model in `api/models/`
+compiles through `OpenAPISource` into deterministic IR and generated routers, types, and
+error shapes. The storage engine (`internal/services/blob`) provides local filesystem-backed
+persistence supporting container CRUD, BlockBlob CRUD, staged chunk uploads (`PutBlock`,
+`PutBlockList`), conditional requests (`If-None-Match: *`, `If-Match`), custom metadata
+(`x-ms-meta-*`), and byte-range downloads. The gateway router and auth adapters validate
+Azure Shared Key and emulator signatures, and integration tests verify complete end-to-end
+compatibility against `azure-sdk-for-python` in CI. See [Azure Services](services/azure.md)
+for configuration and local limits.
 
 ## Phase 4 — Breadth expansion (v2.x+)
 
@@ -128,6 +139,6 @@ Validate the multi-CSP architecture with one well-scoped pilot.
 | Version | Focus |
 |---------|-------|
 | 0.x | AWS services, unstable API |
-| 1.x ← current | AWS depth, stable plugin API, multi-CSP groundwork |
-| 2.x | Multi-CSP architecture, Azure pilot |
+| 1.x | AWS depth, stable plugin API, multi-CSP groundwork |
+| 2.x ← current | Multi-CSP architecture, Azure pilot |
 | 3.x+ | Broad CSP coverage, community-owned providers |

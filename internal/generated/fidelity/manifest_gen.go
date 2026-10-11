@@ -2293,6 +2293,9 @@ var Services = map[string]Service{
 		"ListBlobs":              TierHandVerified,
 		"ListContainers":         TierHandVerified,
 		"PutBlob":                TierHandVerified,
+		"PutBlock":               TierHandVerified,
+		"PutBlockList":           TierHandVerified,
+		"SetBlobMetadata":        TierHandVerified,
 	}},
 	"braket": {Protocol: "rest-json", ModelBacked: true, EngineWired: true, Operations: map[string]Tier{
 		"CancelJob":            TierAutoCRUD,

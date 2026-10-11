@@ -9,6 +9,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"strings"
 	"time"
@@ -41,6 +42,24 @@ func (p *Provider) Init(cfg plugin.PluginConfig) error {
 
 func (p *Provider) Shutdown(ctx context.Context) error {
 	return nil
+}
+
+func extractMetadata(h http.Header) map[string]string {
+	meta := make(map[string]string)
+	for k, vv := range h {
+		lower := strings.ToLower(k)
+		if strings.HasPrefix(lower, "x-ms-meta-") && len(vv) > 0 {
+			metaKey := strings.TrimPrefix(lower, "x-ms-meta-")
+			meta[metaKey] = vv[0]
+		}
+	}
+	return meta
+}
+
+func writeMetadataHeaders(headers map[string]string, meta map[string]string) {
+	for k, v := range meta {
+		headers["x-ms-meta-"+strings.ToLower(k)] = v
+	}
 }
 
 func randomRequestID() string {
@@ -189,6 +208,7 @@ func (p *Provider) HandleRequest(ctx context.Context, _ string, req *http.Reques
 			"x-ms-default-encryption-scope":       "$account-encryption-key",
 			"x-ms-deny-encryption-scope-override": "false",
 		}
+		writeMetadataHeaders(headers, info.Metadata)
 		return p.reply(req, http.StatusOK, headers, nil), nil
 
 	case "ListContainers":
@@ -234,9 +254,21 @@ func (p *Provider) HandleRequest(ctx context.Context, _ string, req *http.Reques
 		container := params["container"]
 		blob := params["blob"]
 		contentType := req.Header.Get("Content-Type")
-		info, err := p.store.PutBlob(account, container, blob, contentType, req.Body)
+		opts := PutBlobOptions{
+			ContentType: contentType,
+			IfNoneMatch: req.Header.Get("If-None-Match"),
+			IfMatch:     req.Header.Get("If-Match"),
+			Metadata:    extractMetadata(req.Header),
+		}
+		info, err := p.store.PutBlobWithOptions(account, container, blob, opts, req.Body)
 		if errors.Is(err, ErrContainerNotFound) {
 			return p.errorReply(req, http.StatusNotFound, "ContainerNotFound", "The specified container does not exist."), nil
+		}
+		if errors.Is(err, ErrBlobAlreadyExists) {
+			return p.errorReply(req, http.StatusConflict, "BlobAlreadyExists", "The specified blob already exists."), nil
+		}
+		if errors.Is(err, ErrConditionNotMet) {
+			return p.errorReply(req, http.StatusPreconditionFailed, "ConditionNotMet", "The condition specified in the conditional header(s) was not met."), nil
 		}
 		if errors.Is(err, ErrInvalidName) {
 			return p.errorReply(req, http.StatusBadRequest, "InvalidResourceName", "The specified resource name contains invalid characters."), nil
@@ -251,6 +283,105 @@ func (p *Provider) HandleRequest(ctx context.Context, _ string, req *http.Reques
 			"x-ms-request-server-encrypted": "true",
 		}
 		return p.reply(req, http.StatusCreated, headers, nil), nil
+
+	case "PutBlock":
+		container := params["container"]
+		blob := params["blob"]
+		blockID := req.URL.Query().Get("blockid")
+		if blockID == "" {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidQueryParameterValue", "Value for one of the query parameters specified in the request is invalid."), nil
+		}
+		err := p.store.StageBlock(account, container, blob, blockID, req.Body)
+		if errors.Is(err, ErrContainerNotFound) {
+			return p.errorReply(req, http.StatusNotFound, "ContainerNotFound", "The specified container does not exist."), nil
+		}
+		if errors.Is(err, ErrInvalidName) {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidResourceName", "The specified resource name contains invalid characters."), nil
+		}
+		if err != nil {
+			return p.errorReply(req, http.StatusInternalServerError, "InternalError", err.Error()), nil
+		}
+		headers := map[string]string{
+			"x-ms-request-server-encrypted": "true",
+		}
+		return p.reply(req, http.StatusCreated, headers, nil), nil
+
+	case "PutBlockList":
+		container := params["container"]
+		blob := params["blob"]
+		contentType := req.Header.Get("Content-Type")
+		bodyBytes, err := io.ReadAll(req.Body)
+		if err != nil {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidXmlDocument", "XML specified is not syntactically valid."), nil
+		}
+		var blockListReq XMLBlockListRequest
+		if len(bodyBytes) > 0 {
+			if err := xml.Unmarshal(bodyBytes, &blockListReq); err != nil {
+				return p.errorReply(req, http.StatusBadRequest, "InvalidXmlDocument", "XML specified is not syntactically valid."), nil
+			}
+		}
+		var blockIDs []string
+		for _, item := range blockListReq.Blocks {
+			id := strings.TrimSpace(item.ID)
+			if id != "" {
+				blockIDs = append(blockIDs, id)
+			}
+		}
+		opts := PutBlobOptions{
+			ContentType: contentType,
+			IfNoneMatch: req.Header.Get("If-None-Match"),
+			IfMatch:     req.Header.Get("If-Match"),
+			Metadata:    extractMetadata(req.Header),
+		}
+		info, err := p.store.CommitBlockList(account, container, blob, blockIDs, opts)
+		if errors.Is(err, ErrContainerNotFound) {
+			return p.errorReply(req, http.StatusNotFound, "ContainerNotFound", "The specified container does not exist."), nil
+		}
+		if errors.Is(err, ErrInvalidBlock) {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidBlockList", "The specified block list is invalid."), nil
+		}
+		if errors.Is(err, ErrBlobAlreadyExists) {
+			return p.errorReply(req, http.StatusConflict, "BlobAlreadyExists", "The specified blob already exists."), nil
+		}
+		if errors.Is(err, ErrConditionNotMet) {
+			return p.errorReply(req, http.StatusPreconditionFailed, "ConditionNotMet", "The condition specified in the conditional header(s) was not met."), nil
+		}
+		if errors.Is(err, ErrInvalidName) {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidResourceName", "The specified resource name contains invalid characters."), nil
+		}
+		if err != nil {
+			return p.errorReply(req, http.StatusInternalServerError, "InternalError", err.Error()), nil
+		}
+		headers := map[string]string{
+			"ETag":                          info.ETag,
+			"Last-Modified":                 info.LastModified.Format(http.TimeFormat),
+			"Content-MD5":                   info.MD5,
+			"x-ms-request-server-encrypted": "true",
+		}
+		return p.reply(req, http.StatusCreated, headers, nil), nil
+
+	case "SetBlobMetadata":
+		container := params["container"]
+		blob := params["blob"]
+		metadata := extractMetadata(req.Header)
+		info, err := p.store.SetBlobMetadata(account, container, blob, metadata)
+		if errors.Is(err, ErrContainerNotFound) {
+			return p.errorReply(req, http.StatusNotFound, "ContainerNotFound", "The specified container does not exist."), nil
+		}
+		if errors.Is(err, ErrBlobNotFound) {
+			return p.errorReply(req, http.StatusNotFound, "BlobNotFound", "The specified blob does not exist."), nil
+		}
+		if errors.Is(err, ErrInvalidName) {
+			return p.errorReply(req, http.StatusBadRequest, "InvalidResourceName", "The specified resource name contains invalid characters."), nil
+		}
+		if err != nil {
+			return p.errorReply(req, http.StatusInternalServerError, "InternalError", err.Error()), nil
+		}
+		headers := map[string]string{
+			"ETag":          info.ETag,
+			"Last-Modified": info.LastModified.Format(http.TimeFormat),
+		}
+		return p.reply(req, http.StatusOK, headers, nil), nil
 
 	case "GetBlob":
 		container := params["container"]
@@ -281,6 +412,7 @@ func (p *Provider) HandleRequest(ctx context.Context, _ string, req *http.Reques
 			"x-ms-creation-time":    info.CreatedAt.Format(http.TimeFormat),
 			"Accept-Ranges":         "bytes",
 		}
+		writeMetadataHeaders(headers, info.Metadata)
 
 		rangeHeader := req.Header.Get("x-ms-range")
 		if rangeHeader == "" {
@@ -350,6 +482,7 @@ func (p *Provider) HandleRequest(ctx context.Context, _ string, req *http.Reques
 			"x-ms-access-tier":      "Hot",
 			"x-ms-creation-time":    info.CreatedAt.Format(http.TimeFormat),
 		}
+		writeMetadataHeaders(headers, info.Metadata)
 		return p.reply(req, http.StatusOK, headers, nil), nil
 
 	case "DeleteBlob":
@@ -504,6 +637,16 @@ type XMLBlobProperties struct {
 	LeaseStatus        string `xml:"LeaseStatus"`
 	LeaseState         string `xml:"LeaseState"`
 	ServerEncrypted    string `xml:"ServerEncrypted"`
+}
+
+type XMLBlockItem struct {
+	XMLName xml.Name
+	ID      string `xml:",chardata"`
+}
+
+type XMLBlockListRequest struct {
+	XMLName xml.Name       `xml:"BlockList"`
+	Blocks  []XMLBlockItem `xml:",any"`
 }
 
 func init() {

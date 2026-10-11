@@ -2325,7 +2325,10 @@
       "GetContainerProperties",
       "ListBlobs",
       "ListContainers",
-      "PutBlob"
+      "PutBlob",
+      "PutBlock",
+      "PutBlockList",
+      "SetBlobMetadata"
     ]
   },
   "braket": {
