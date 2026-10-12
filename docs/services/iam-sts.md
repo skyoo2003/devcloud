@@ -8,7 +8,7 @@ Both services use the Query protocol (form-encoded requests, XML responses).
 
 ## Supported IAM APIs
 
-These 86 operations are `hand-verified` — implemented by the provider, not by
+These 86 operations are `hand-verified`, implemented by the provider, not by
 the [CRUD engine](../crud-engine.md). Grouped by the resource they act on;
 [fidelity-manifest.md](../fidelity-manifest.md) is the per-operation answer.
 

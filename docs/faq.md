@@ -11,9 +11,9 @@ No. It is a local development tool, not designed or tested for production, and s
 **How is it different from other local cloud emulators?**
 DevCloud positions itself as an *on-ramp* rather than a replacement:
 
-- Go single binary — starts in under a second, no JVM or Python runtime
+- Go single binary: starts in under a second, no JVM or Python runtime
 - Smithy-driven codegen from official AWS models, with a weekly sync
-- Multi-CSP vision — AWS today, Azure and GCP planned ([roadmap](roadmap.md))
+- Multi-cloud architecture: AWS, Azure, and GCP served on unified port 4747 ([roadmap](roadmap.md))
 - Apache 2.0 with an explicit patent grant
 
 It does not aim to displace any existing tool. Use whatever works for your workflow.
@@ -30,10 +30,10 @@ See [coverage.md](coverage.md) for the counts and what they promise, and [servic
 Developed and tested on Linux and macOS. WSL2 is expected to work but is not in the CI matrix; native Windows is unsupported. Contributions welcome.
 
 **Can I run it in CI?**
-Yes — start DevCloud as a service container and point your tests at `http://localhost:4747`. The image starts in well under a second and needs no external dependencies.
+Yes: start DevCloud as a service container and point your tests at `http://localhost:4747`. The image starts in well under a second and needs no external dependencies.
 
 **Does data persist across restarts?**
-For services with a persistent backend (S3, DynamoDB, Lambda, IAM/STS), yes — under each service's `data_dir`. SQS is in-memory and loses state. See [configuration.md](configuration.md#data-directories).
+For services with a persistent backend (S3, DynamoDB, Lambda, IAM/STS), yes, under each service's `data_dir`. SQS is in-memory and loses state. See [configuration.md](configuration.md#data-directories).
 
 ## Compatibility
 

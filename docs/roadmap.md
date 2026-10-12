@@ -1,149 +1,74 @@
 # Roadmap
 
-DevCloud aims to be a **local development companion for cloud-native apps across
-every major CSP** — not a production replacement, but an on-ramp that lets you
-iterate without cloud bills and deploy to your target CSP with confidence. It gets
-there in phases, to keep scope, architectural complexity and community
-expectations manageable.
+DevCloud serves as a local development companion for cloud-native applications across major cloud providers: an on-ramp to iterate without cloud bills and deploy to production cloud providers with confidence.
 
-## Guiding principles
+## Guiding Principles
 
-1. **Local-first, cost-free** — no cloud charges for inner-loop development.
-2. **On-ramp, not replacement** — DevCloud helps you *land on* a CSP, not avoid it.
-3. **API-compatible, not behaviour-perfect** — SDK compatibility over edge-case parity.
-4. **Community-owned** — the scope is too large for one maintainer, so the plugin architecture and contributor experience are first-class.
-5. **Trademark-respectful** — see [TRADEMARKS.md](../TRADEMARKS.md).
+1. **Local-first, cost-free**: zero cloud charges for inner-loop development.
+2. **On-ramp, not replacement**: DevCloud helps teams land cleanly on target cloud providers, not avoid them.
+3. **API-compatible, not behavior-perfect**: SDK and CLI compatibility prioritized over obscure provider-internal edge cases.
+4. **Extensible architecture**: clean plugin architecture and code generation pipelines for broad community contributions.
+5. **Trademark-respectful**: see [TRADEMARKS.md](../TRADEMARKS.md).
 
-## Phase 1 — AWS depth and stabilization (complete, shipped as v1.0)
+## Phase 1: AWS Depth and Stabilization (Complete, shipped as v1.0)
 
-Mature the already-broad AWS surface into a stable, well-tested v1.0.
+Matured the core AWS surface into a stable v1.0 release:
 
-- [x] AWS services scaffolded from official Smithy models via in-tree codegen — counts in [coverage.md](coverage.md)
-- [x] Deep hand-written coverage on core and integration services
-- [x] Cross-service integration — CloudFormation, DynamoDB Streams → Lambda, SQS → Lambda, S3 → Lambda, EventBridge, SNS → SQS
-- [x] boto3 compatibility suite green in CI; a failing test fails the build
-- [x] Unimplemented operations return an AWS-shaped error instead of a false `200`
-- [x] Stable `ServicePlugin` API ([plugin-api.md](plugin-api.md)), enforced by a conformance test over every registered service
-- [x] Generic [CRUD fallback engine](crud-engine.md) serving the long tail with plausible, store-backed responses. **Follow-up:** promote high-value `auto-crud` operations to hand-verified fidelity.
-- [x] v1.0 release — see [compatibility-policy.md](compatibility-policy.md)
+- [x] AWS services scaffolded from official Smithy models via in-tree codegen.
+- [x] Deep hand-written coverage on core and integration services.
+- [x] Cross-service integrations: CloudFormation, DynamoDB Streams to Lambda, SQS to Lambda, S3 to Lambda, EventBridge, SNS to SQS.
+- [x] Automated compatibility test suites validated in CI.
+- [x] Clean error handling: unimplemented operations decline with authentic cloud error formats.
+- [x] Stable `ServicePlugin` API ([plugin-api.md](plugin-api.md)).
+- [x] Generic [CRUD fallback engine](crud-engine.md) serving the long tail with plausible, store-backed responses.
 
-Phase 1 execution follow-up: Lambda Python 3.12/Node 22 handlers execute in
-Docker, published code is immutable, failed SQS/Streams batches preserve source
-state, and SNS ARN subscriptions preserve message contents. A required
-`lambda-runtime` job verifies actual handler results and S3/SQS/Streams/EventBridge
-delivery; the ordinary suite verifies Docker-free contracts. See
-[Lambda](services/lambda.md) for runtime requirements and local limits.
+## Phase 2: Architectural Preparation (Complete, v1.x)
 
-AWS operation expansion follow-up: EventBridge's ActivateEventSource,
-DeactivateEventSource, DeauthorizeConnection and RemovePermission now share
-durable state with their companion APIs. SDK tests verify source-controlled local
-delivery, connection reuse and bus policy removal. SNS's six missing operations
-now support actual SQS batch/FIFO delivery, mobile/SMS attribute readback, opt-in
-and verification with a local outbox OTP. S3 UploadPartCopy now copies actual
-source bytes/ranges with condition checks, error rollback and restart persistence.
-Directory RenameObject now preserves bytes, metadata and tags with conditional checks,
-persistent token replay and scoped CreateSession credentials.
-Phase 1A Core Integrations completed native support for all remaining operations
-across S3 (RestoreObject, SelectObjectContent, WriteGetObjectResponse),
-DynamoDB (PartiQL engine, Kinesis destinations, PITR and table restores),
-Lambda (Layer versioning, response streaming, async and durable callbacks), and
-CloudFormation (CancelUpdateStack, drift detection, resource scans and orgs access).
-Phase 1B Core Identity & Access completed native support for all remaining operations
-across IAM (MFA devices, password changes, service credentials, SSH/server/signing certificates,
-OIDC provider client IDs, delegation requests, access/credential reports, policy simulation,
-and org root credentials/sessions) and STS (AssumeRoleWithWebIdentity, AssumeRoleWithSAML,
-AssumeRoot, DecodeAuthorizationMessage, GetDelegatedAccessToken, GetFederationToken, GetWebIdentityToken).
-Phase 1C Compute & Network added `aws.protocols#ec2Query` protocol detection,
-CRUD engine XML response support (`<requestId>`, item list tags), gateway error routing,
-and wired EC2 unhandled operations into the fallback CRUD engine, promoting 498 EC2
-operations into `auto-crud`.
-Phase 1D Generic CRUD Engine Semantic Verb Expansion added comprehensive
-classification for lifecycle and association verbs (Relate, Toggle, Lifecycle, Batch)
-across the entire fleet, promoting 2,014 operations into `auto-crud`.
-Phase 1E Non-CRUD Data Planes implemented SQLite-backed query execution for `rdsdata`
-(`ExecuteStatement`, `BatchExecuteStatement`, `BeginTransaction`, `CommitTransaction`,
-`RollbackTransaction`, `ExecuteSql`) and dedicated mock inference backends for
-`sagemakerruntime` and `sagemakerruntimehttp2` (`InvokeEndpoint`, `InvokeEndpointAsync`,
-`InvokeEndpointWithResponseStream`, `InvokeEndpointWithBidirectionalStream`), promoting
-10 operations to `hand-verified` and leaving only 1 registered-only service in the fleet.
-Phase 1F 100% Service Fleet Activation implemented native CBOR encoding/decoding
-(`internal/shared/cbor`), `smithy.protocols#rpcv2Cbor` protocol detection, and gateway
-RPC-v2 routing, bringing `partnercentralrevenuemeasurement` into `auto-crud`. Every
-single registered service in the AWS fleet (431 of 431, 100.0%) now serves $\ge 1$ operation,
-leaving **zero** registered-only services.
-The original 3,085-operation unimplemented baseline has **477 remaining** across all registered services (267 within the serving target);
-complete AWS operation support is still in progress across subsequent bundles. See
-[EventBridge](services/eventbridge.md), [SNS](services/sns.md), [S3](services/s3.md) and
-[IAM/STS](services/iam-sts.md) for local limits.
+Refactored internally so adding new cloud providers is an addition rather than a rewrite:
 
-## Phase 2 — Architectural preparation (complete, v1.x)
+- [x] Intermediate Representation (IR) decoupling models from generators ([`internal/codegen/ir`](../internal/codegen/ir/ir.go)).
+- [x] Extensible `ModelSource` interface ([`internal/codegen/source.go`](../internal/codegen/source.go)).
+- [x] Namespaced provider configuration: `providers.<name>.services.*`.
+- [x] Provider-scoped plugin contracts via `ProviderScoped` interface.
+- [x] Pluggable authentication adapters ([`internal/auth`](../internal/auth/auth.go)).
 
-Refactor internally so adding a CSP does not require forking the project. Each
-item made a future provider an *addition* rather than an edit — the seams are
-tabulated in [architecture.md](architecture.md#multi-csp-seams).
+## Phase 3: First Non-AWS Service (Complete, v2.0 groundwork)
 
-- [x] Intermediate Representation between models and codegen ([`internal/codegen/ir`](../internal/codegen/ir/ir.go)). Generators read `*ir.Model`; nothing in the IR names Smithy.
-- [x] Parser refactored behind [`ModelSource`](../internal/codegen/source.go). `SmithySource` owns its own format detection, so `tools/codegen` never names a format.
-- [x] Provider namespacing in config — `providers.aws.services.*`, forward-compatible with `providers.azure.*` ([configuration.md](configuration.md#provider-namespacing)).
-- [x] Plugin interface review — `ServicePlugin` needed no change; the CSP is carried by the optional [`ProviderScoped`](plugin-api.md#providers-and-csp-neutrality).
-- [x] Per-provider auth adapters ([`internal/auth`](../internal/auth/auth.go)). `SigV4` is the AWS implementation; AAD/SAS and OAuth2 slot in beside it without touching the gateway.
+Validated multi-cloud architecture with an initial Azure pilot:
 
-Phase 2 deliberately shipped **no** non-AWS service, no second `ModelSource`, and
-no signature verification. Those are Phase 3 and beyond; Phase 2's job was to make
-each of them an addition rather than a fork.
+- [x] Azure Blob Storage (`blob`) pilot implemented with container and block blob lifecycle.
+- [x] OpenAPI to IR to codegen pipeline established.
+- [x] Azure Shared Key credential adapter and emulator signature support.
+- [x] End-to-end integration tests with official Azure SDK for Python.
 
-## Phase 3 — First non-AWS service (complete, v2.0 groundwork)
+## Phase 4: Multi-CSP Breadth and Workload Runtime (Complete, v2.1)
 
-Validate the multi-CSP architecture with one well-scoped pilot.
+Expanded multi-cloud services, unified routing, and universal execution:
 
-- [x] Pick an Azure pilot service — candidate: **Azure Blob Storage**, closest to S3 semantically
-- [x] OpenAPI → IR → codegen proof of concept
-- [x] Azure authentication adapter (Shared Key to start)
-- [x] Compatibility tests against `azure-sdk-for-python`
-- [x] Documentation pattern for multi-CSP service docs
+- [x] **Unified Single Port (4747) Routing**: Eliminated separate ports (`4566`, `4577`, `4588`) by routing AWS, Azure, and GCP transparently through port 4747.
+- [x] **Azure Core Expansion**: Added Queue Storage (`azurequeue`), Table Storage (`azuretable`), Cosmos DB (`cosmosdb`), Key Vault (`azurekeyvault`), and App Configuration (`azureappconfig`).
+- [x] **Google Cloud Platform Services**: Added Cloud Storage (`gcs`), Secret Manager (`gcpsecrets`), and Cloud Pub/Sub (`gcppubsub`) with complete lifecycle operations.
+- [x] **Universal Workload Runtime**: Implemented `internal/shared/workload` supporting OCI container engines (Docker, Podman, nerdctl), WebAssembly, and local process sandboxing (Zero-Daemon).
+- [x] **Federated Identity Playground**: Built-in OIDC discovery issuer, JWKS endpoint, and cross-cloud STS token exchange.
+- [x] **100% Client Compatibility Verification**: Automated smoke tests across all registered Azure and GCP services on port 4747.
 
-Phase 3 execution completed: Azure Blob Storage (`blob`) is implemented as the first
-non-AWS pilot under `providers.azure.services.blob`. The OpenAPI model in `api/models/`
-compiles through `OpenAPISource` into deterministic IR and generated routers, types, and
-error shapes. The storage engine (`internal/services/blob`) provides local filesystem-backed
-persistence supporting container CRUD, BlockBlob CRUD, staged chunk uploads (`PutBlock`,
-`PutBlockList`), conditional requests (`If-None-Match: *`, `If-Match`), custom metadata
-(`x-ms-meta-*`), and byte-range downloads. The gateway router and auth adapters validate
-Azure Shared Key and emulator signatures, and integration tests verify complete end-to-end
-compatibility against `azure-sdk-for-python` in CI. See [Azure Services](services/azure.md)
-for configuration and local limits.
+## Out of Scope
 
-## Phase 4 — Breadth expansion (complete, v2.1)
+- Production multi-tenant hosting or high-availability clustering
+- Real billing, metering, or cloud quota enforcement
+- Exact replication of proprietary cloud backend internals
+- Redistribution of provider-owned branding assets, logos, or documentation
 
-- [x] More Azure services — Queue Storage, Table Storage, Cosmos DB
-- [x] Google Cloud pilot — candidate: **Google Cloud Storage**
-- [x] Federated identity playground (cross-CSP IAM simulation)
-- [ ] Other providers as community interest justifies
+## Feedback and Contributions
 
-Phase 4 execution completed:
-- **Google Cloud Pilot (GCS)**: First-class GCP provider (`providers.gcp.services.gcs`) with OAuth2 Bearer auth adapter, OpenAPI-backed REST-JSON router, complete bucket/object CRUD, multipart and media uploads, Alt=media downloads, Castagnoli CRC32c and MD5 checksums, and Python integration tests.
-- **Azure Expansion**: Added Azure Queue Storage (`azurequeue`) with FIFO queues, message visibility timeouts, pop receipts, and XML payloads; Azure Table Storage (`azuretable`) with SQLite-backed OData JSON table and entity indexing; and Azure Cosmos DB (`cosmosdb`) NoSQL/SQL REST API with SQLite document storage, collections, and metadata headers. Multi-service Azure routing runs seamlessly on unified port 4747.
-- **Federated Identity Playground**: Built-in local OIDC issuer providing discovery (`/devcloud/identity/.well-known/openid-configuration`), public JWKS (`/devcloud/identity/jwks.json`), RS256 token minting (`/devcloud/identity/token`), cross-CSP token exchanges for Azure AD and Google Cloud STS, and integration with AWS STS `AssumeRoleWithWebIdentity`.
+- **Feature or service requests**: open an issue or pull request on GitHub.
+- **Contributions**: see [contributing.md](contributing.md).
 
-## Out of scope
-
-- Production hosting or high-availability guarantees
-- Billing and quota simulation matching real CSP pricing
-- Exact replication of CSP-internal behaviour (consistency timing, rate limits)
-- Redistribution of CSP-owned branding assets, logos or documentation
-
-## Influencing the roadmap
-
-- **Missing service?** File a [service request](https://github.com/skyoo2003/devcloud/issues/new?template=service_request.yml) with `GET /devcloud/api/unrouted` output — that is what moves a service into the target ([coverage.md](coverage.md#service-not-supported)).
-- **Missing operation or capability?** File a [feature request](https://github.com/skyoo2003/devcloud/issues/new?template=feature_request.yml).
-- Upvote existing requests with reactions; vote counts inform prioritization.
-- Or contribute it — see [contributing.md](contributing.md).
-
-## Version mapping
+## Version Mapping
 
 | Version | Focus |
 |---------|-------|
-| 0.x | AWS services, unstable API |
+| 0.x | Initial AWS services, exploratory API |
 | 1.x | AWS depth, stable plugin API, multi-CSP groundwork |
-| 2.x ← current | Multi-CSP architecture, Azure pilot |
-| 3.x+ | Broad CSP coverage, community-owned providers |
+| 2.x (Current) | Multi-cloud architecture (AWS, Azure, GCP), universal workload runtime, unified port 4747 |
+| 3.x+ | Extended community providers, distributed orchestration |

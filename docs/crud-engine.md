@@ -6,7 +6,7 @@ This is what lets the long tail respond to SDK calls without hand-coding each on
 
 **Fidelity is deliberately "plausible, not faithful."** Responses are store-backed
 and echo the caller's input plus synthesized ids and ARNs, so SDKs round-trip
-create → get → list → delete. There is **no** validation, cross-resource
+create -> get -> list -> delete. There is **no** validation, cross-resource
 integrity, pagination correctness, or business logic. Treat engine-served
 operations as scaffolding for local wiring, not as behavioural parity.
 
@@ -22,7 +22,7 @@ operation carries is in the [fidelity manifest](fidelity-manifest.md).
 | Integration | [`internal/gateway/router.go`](../internal/gateway/router.go) | Calls the engine when a provider returns `plugin.ErrUnhandledOp`; returns `InvalidAction` if the engine cannot classify the operation |
 
 A provider opts in by returning `plugin.ErrUnhandledOp` from its dispatch
-`default:` case. Hand-written operations always win — the engine is reached only
+`default:` case. Hand-written operations always win: the engine is reached only
 on fall-through, so it never shadows a real implementation. **Never a fabricated
 success for an unclassifiable op.**
 
@@ -34,10 +34,10 @@ The engine has to know which operation a request is for before it can classify i
 |---|---|---|
 | `json-1.0`, `json-1.1` | the `X-Amz-Target` header | yes |
 | `rest-json` | method + path, matched against the model's URI templates (`internal/shared/httproute`) | yes |
-| `rest-xml` | the same — every `restXml` operation binds to a method and URI | yes |
+| `rest-xml` | the same: every `restXml` operation binds to a method and URI | yes |
 | `query` | the `Action` field of the form body | yes |
 | `ec2-query` | the `Action` field of the form body or query parameter | yes |
-| `rpcv2-cbor` | the path — RPC-v2 routes by service and operation name segments | yes |
+| `rpcv2-cbor` | the path: RPC-v2 routes by service and operation name segments | yes |
 
 Every protocol DevCloud registers is readable, so a service that serves nothing
 does so because none of its operations is CRUD-shaped, not because of how it
@@ -46,28 +46,27 @@ XML responses with `<requestId>` and `<item>` list elements.
 
 ### Where parameters come from
 
-For the two REST protocols, three places — least authoritative first: values the
+For the two REST protocols, three places, least authoritative first: values the
 model binds with `httpQuery`, then the request body, then the path labels. The URI
 addresses the resource, so a path label wins. A REST model never binds one member
 to two of these, so real SDK traffic never exercises the precedence; it is defined
 so a hand-rolled request cannot redirect a lookup.
 
-For `query`, the form body, flat keys only. `Action` and `Version` are dropped —
+For `query`, the form body, flat keys only. `Action` and `Version` are dropped;
 they describe the request, not the resource, and storing them would echo
 `<Action>CreateLoadBalancer</Action>` back inside a result element. A structured
 member arrives flattened as `Listeners.member.1.Protocol`; the engine has no
 nested shape to put it in, so it is not emitted in the response.
 
-**`rest-xml` request bodies are never read.** The gateway does not buffer them —
-S3 speaks `rest-xml` and its bodies are multi-gigabyte uploads that must keep
-streaming — so a `rest-xml` operation is served from its path and query alone.
-Every CRUD-shaped S3 Control operation addresses its resource that way, so nothing
-is lost; an operation carrying its identifier only in a body would get a generated
-id.
+**`rest-xml` request bodies are never read.** The gateway does not buffer them because
+S3 speaks `rest-xml` with multi-gigabyte streaming uploads, so a `rest-xml` operation
+is served from its path and query alone. Every CRUD-shaped S3 Control operation addresses
+its resource that way, so nothing is lost; an operation carrying its identifier only in a
+body would get a generated id.
 
 The engine does **not** read `httpHeader` members, `httpPayload` blobs, or
 streaming bodies. An operation whose identifier arrives only in a header is served
-with a generated id rather than the caller's — plausible, not faithful, which is
+with a generated id rather than the caller's: plausible, not faithful, which is
 the stated contract.
 
 ### Responses
@@ -78,7 +77,7 @@ inside `<OperationResponse>` and, given anything else, returns an empty result
 rather than an error, while its `rest-xml` parser maps the root element's children
 straight onto the output shape. List entries are wrapped in `<member>`, AWS's
 default for both dialects; a model that flattens a list gets the unflattened form,
-because the engine has no flattening information. No `xmlns` is emitted — botocore
+because the engine has no flattening information. No `xmlns` is emitted; botocore
 strips namespaces before matching element names.
 
 ### Declining
@@ -86,7 +85,7 @@ strips namespaces before matching element names.
 A request whose method and path match no route in the service's table, or whose
 `Action` names an operation the service did not register, is **declined** with
 `InvalidAction` and never served from the store. That is what keeps a registered
-service from answering for operations it does not model — and it matters most for
+service from answering for operations it does not model, and it matters most for
 `rest-xml`, because `DetectProtocol` routes anything it cannot classify to S3.
 
 ## Known limits

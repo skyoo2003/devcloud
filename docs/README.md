@@ -4,43 +4,43 @@
 
 | Page | What it covers |
 |---|---|
-| [Getting Started](getting-started.md) | Install, first run, boto3 / AWS CLI / Terraform examples |
-| [Configuration](configuration.md) | YAML options, env-var overrides, tier shortcuts |
-| [Architecture](architecture.md) | System design, plugin model, codegen pipeline, multi-CSP vision |
-| [Roadmap](roadmap.md) | Phased plan toward multi-CSP support |
+| [Getting Started](getting-started.md) | Installation, first run, and multi-cloud SDK examples |
+| [Configuration](configuration.md) | YAML options, environment variable overrides, and runtime settings |
+| [Architecture](architecture.md) | System design, universal workload runtime, codegen pipeline, and multi-CSP routing |
+| [Roadmap](roadmap.md) | Multi-cloud milestones, delivered capabilities, and upcoming priorities |
 
-## What you can rely on
+## Reliability and coverage
 
 | Page | What it covers |
 |---|---|
-| [Coverage](coverage.md) | 441 registered / 441 serving — the routing and depth targets, and what each promises |
-| [Compatibility Policy](compatibility-policy.md) | What v1.0 guarantees across 1.x, what it does not, and how deprecation works |
-| [Fidelity Manifest](fidelity-manifest.md) | Per-operation tiers: how much to trust any given call |
-| [CRUD Engine](crud-engine.md) | How engine-served operations behave, and where they stop |
-| [Services Matrix](services-matrix.md) | Depth by group, cross-service integrations, protocols |
-| [Demand](demand.md) | Which services have demonstrated demand, and how it was measured |
+| [Coverage](coverage.md) | 441 registered / 441 serving, routing and depth targets and their guarantees |
+| [Compatibility Policy](compatibility-policy.md) | Stability guarantees across 1.x releases and boundary definitions |
+| [Fidelity Manifest](fidelity-manifest.md) | Per-operation tiers and reliability classifications |
+| [CRUD Engine](crud-engine.md) | Generic fallback engine behavior and operational limits |
+| [Services Matrix](services-matrix.md) | Depth by service group, cross-service wiring, and wire protocols |
+| [Demand](demand.md) | Evaluated cloud services and demand measurement methodology |
 
-## Per-service references
+## Service references
 
-[S3](services/s3.md) · [SQS](services/sqs.md) · [SNS](services/sns.md) · [DynamoDB](services/dynamodb.md) · [Lambda](services/lambda.md) · [IAM / STS](services/iam-sts.md) · [EventBridge](services/eventbridge.md)
+[S3](services/s3.md) | [SQS](services/sqs.md) | [SNS](services/sns.md) | [DynamoDB](services/dynamodb.md) | [Lambda](services/lambda.md) | [IAM / STS](services/iam-sts.md) | [EventBridge](services/eventbridge.md) | [Azure](services/azure.md) | [GCP](services/gcp.md) | [Federated Identity](services/federated-identity.md)
 
 ## Problem solving
 
-- [FAQ](faq.md) — scope, compatibility, CI use
-- [Troubleshooting](troubleshooting.md) — common errors and fixes
-- [Support](../SUPPORT.md) — where to ask
+- [FAQ](faq.md): scope, compatibility expectations, and CI usage
+- [Troubleshooting](troubleshooting.md): common errors and solutions
+- [Support](../SUPPORT.md): community support and help channels
 
 ## Contributing
 
-- [Contributing Guide](contributing.md) — dev setup, testing, codegen, adding a service
-- [Plugin API](plugin-api.md) — the in-tree `ServicePlugin` contract
-- [Releasing](../RELEASE.md) — Changie + GoReleaser, versioning, Homebrew tap, dry runs
-- Root pointers: [CONTRIBUTING.md](../CONTRIBUTING.md) · [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) · [SECURITY.md](../SECURITY.md) · [GOVERNANCE.md](../GOVERNANCE.md)
+- [Contributing Guide](contributing.md): local environment setup, testing, codegen, and adding new services
+- [Plugin API](plugin-api.md): in-tree ServicePlugin interfaces and lifecycle contracts
+- [Releasing](../RELEASE.md): release workflows, versioning conventions, and distribution packaging
+- Core guidelines: [CONTRIBUTING.md](../CONTRIBUTING.md) | [CODE_OF_CONDUCT.md](../CODE_OF_CONDUCT.md) | [SECURITY.md](../SECURITY.md) | [GOVERNANCE.md](../GOVERNANCE.md)
 
-## Meta
+## Project information
 
-[Changelog](../CHANGELOG.md) · [License (Apache 2.0)](../LICENSE) · [Trademarks](../TRADEMARKS.md) · [NOTICE](../NOTICE)
+[Changelog](../CHANGELOG.md) | [License (Apache 2.0)](../LICENSE) | [Trademarks](../TRADEMARKS.md) | [NOTICE](../NOTICE)
 
 ---
 
-If something is missing from this index, that's a bug — please file an [issue](https://github.com/skyoo2003/devcloud/issues) or open a PR.
+If something is missing from this index, please file an [issue](https://github.com/skyoo2003/devcloud/issues) or open a pull request.

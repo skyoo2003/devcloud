@@ -1,48 +1,41 @@
 # Getting Started
 
-## Run with Docker (recommended)
+## Run with Docker
 
 ```bash
 docker run -p 4747:4747 ghcr.io/skyoo2003/devcloud:latest
 ```
 
-To persist data across restarts, mount a volume:
-
-Generic CRUD resources are persisted by default alongside service data. To
-start from a clean local environment, run `devcloud --reset-data`; with the
-admin API enabled, `DELETE /devcloud/api/data` performs the same full reset.
+To persist data across restarts, mount a local volume:
 
 ```bash
 docker run -p 4747:4747 -v $(pwd)/data:/app/data ghcr.io/skyoo2003/devcloud:latest
 ```
 
-## Docker Compose (development)
+Generic resources persist by default alongside service data. To reset local environment data, run `devcloud --reset-data`. When the admin API is enabled, `DELETE /devcloud/api/data` performs the same reset via HTTP.
+
+## Docker Compose
 
 ```bash
 docker compose -f deployments/docker-compose.yml up
 ```
 
-Builds the image from source and starts the Go server on port 4747 with `./data`
-mounted. It runs a subset, not everything —
-[`docker-compose.yml`](../deployments/docker-compose.yml) sets
-`DEVCLOUD_SERVICES=s3,sqs,dynamodb,iam,sts,lambda`. Edit that line, or see
-[Configuration](configuration.md#devcloud_services), to run more.
+Builds from source and starts the server on port 4747 with `./data` mounted. To select specific services, set `DEVCLOUD_SERVICES` (for example, `DEVCLOUD_SERVICES=s3,sqs,dynamodb,iam,sts,lambda`). See [Configuration](configuration.md#devcloud_services) for details.
 
-## Build from source
-
-Recommended only for contributors — see [contributing.md](contributing.md) for
-full prerequisites and workflow.
+## Build from Source
 
 ```bash
 git clone https://github.com/skyoo2003/devcloud.git
 cd devcloud
-make build   # builds the Go binaries (devcloud + codegen)
+make build   # builds devcloud and codegen binaries
 make run     # starts the server on port 4747
 ```
 
-## Verify it works
+## Verify Your Setup
 
-### boto3
+All AWS, Azure, and GCP services listen on port 4747.
+
+### AWS (boto3)
 
 ```python
 import boto3
@@ -57,47 +50,62 @@ s3 = boto3.client(
 
 s3.create_bucket(Bucket="test-bucket")
 print(s3.list_buckets()["Buckets"])
-# [{'Name': 'test-bucket', 'CreationDate': ...}]
 ```
-
-Any dummy credentials work — DevCloud reads them but never verifies them. They
-must be non-empty.
 
 ### AWS CLI
 
 ```bash
-# Configure a profile (one-time)
+# Configure a local profile
 aws configure set aws_access_key_id test --profile devcloud
 aws configure set aws_secret_access_key test --profile devcloud
 aws configure set region us-east-1 --profile devcloud
 
+# Use the endpoint
 aws --endpoint-url http://localhost:4747 --profile devcloud s3 mb s3://test-bucket
 aws --endpoint-url http://localhost:4747 --profile devcloud s3 ls
 ```
 
-Or alias it: `alias awslocal='aws --endpoint-url http://localhost:4747'`.
+### Azure (Python SDK)
 
-### Terraform / CDK
+```python
+from azure.storage.blob import BlobServiceClient
 
-Point the AWS provider at `http://localhost:4747` with dummy credentials. See the
-[FAQ](faq.md#compatibility) for what works and what does not.
+client = BlobServiceClient(
+    account_url="http://localhost:4747/devstoreaccount1",
+    credential="Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==",
+)
+
+container = client.create_container("test-container")
+print("Container created:", container.container_name)
+```
+
+### GCP (Python SDK)
+
+```python
+import os
+from google.cloud import storage
+
+os.environ["STORAGE_EMULATOR_HOST"] = "http://127.0.0.1:4747"
+client = storage.Client(project="test-project")
+
+bucket = client.create_bucket("test-bucket")
+print("GCS bucket created:", bucket.name)
+```
 
 ## Admin API
 
-Opt-in — set `admin.enabled: true` in config, then:
+Opt-in by setting `admin.enabled: true` in your configuration:
 
 | Route | Returns |
 |---|---|
 | `GET /devcloud/api/services` | Service status overview |
-| `GET /devcloud/api/services/{id}/resources` | Buckets, queues, tables, functions |
-| `GET /devcloud/api/logs` | Recent API call logs (`?limit=`) |
-| `GET /devcloud/api/fidelity` | Per-operation tiers (`?service=`) — [fidelity-manifest.md](fidelity-manifest.md) |
-| `GET /devcloud/api/unrouted` | Calls to services this build does not register — [coverage.md](coverage.md) |
+| `GET /devcloud/api/services/{id}/resources` | Inventory of created resources (buckets, queues, tables, functions) |
+| `GET /devcloud/api/logs` | Recent API request logs (`?limit=100`) |
+| `GET /devcloud/api/fidelity` | Per-operation fidelity tiers (`?service=s3`) |
+| `GET /devcloud/api/unrouted` | Log of requests sent to unhandled or unmapped services |
 
-The web dashboard UI that consumes this API lives in a separate repository.
+## Next Steps
 
-## Next steps
-
-- [Configuration](configuration.md) — all options and env-var overrides
-- [Services](services/) — per-service API reference and examples
-- [Troubleshooting](troubleshooting.md) — when something does not work
+- Explore the [Architecture](architecture.md) and workload execution runtime.
+- Check [Configuration](configuration.md) options for multi-provider deployments.
+- Review [Coverage](coverage.md) for registered service details.

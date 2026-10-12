@@ -64,107 +64,132 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 		queryLabel = &lbl
 	}
 
-	if path == "/kv" || path == "/kv/" {
-		if req.Method == http.MethodGet {
-			keyFilter := q.Get("key")
-			labelFilter := q.Get("label")
-			items, err := p.store.ListKeyValues(storeName, keyFilter, labelFilter)
-			if err != nil {
-				return appConfigErrorResponse(http.StatusInternalServerError, "InternalError", err.Error())
-			}
-			if items == nil {
-				items = []*KeyValue{}
-			}
-			body, _ := json.Marshal(map[string]any{"items": items})
-			return &plugin.Response{
-				StatusCode: http.StatusOK,
-				Headers: map[string]string{
-					"Content-Type": "application/vnd.microsoft.appconfig.kvset+json; charset=utf-8",
-				},
-				Body: body,
-			}, nil
-		}
+	matchedOp, params := matchAppConfigRoute(req.Method, path)
+	if matchedOp != "" {
+		op = matchedOp
 	}
 
+	switch op {
+	case "ListKeyValues":
+		keyFilter := q.Get("key")
+		labelFilter := q.Get("label")
+		items, err := p.store.ListKeyValues(storeName, keyFilter, labelFilter)
+		if err != nil {
+			return appConfigErrorResponse(http.StatusInternalServerError, "InternalError", err.Error())
+		}
+		if items == nil {
+			items = []*KeyValue{}
+		}
+		body, _ := json.Marshal(map[string]any{"items": items})
+		return &plugin.Response{
+			StatusCode: http.StatusOK,
+			Headers: map[string]string{
+				"Content-Type": "application/vnd.microsoft.appconfig.kvset+json; charset=utf-8",
+			},
+			Body: body,
+		}, nil
+
+	case "SetKeyValue":
+		key := params["key"]
+		var payload struct {
+			Value       string            `json:"value"`
+			ContentType string            `json:"content_type"`
+			Tags        map[string]string `json:"tags"`
+		}
+		bodyBytes, err := io.ReadAll(req.Body)
+		if err == nil && len(bodyBytes) > 0 {
+			_ = json.Unmarshal(bodyBytes, &payload)
+		}
+
+		kv, err := p.store.SetKeyValue(storeName, key, queryLabel, payload.Value, payload.ContentType, payload.Tags)
+		if err != nil {
+			return appConfigErrorResponse(http.StatusInternalServerError, "InternalError", err.Error())
+		}
+
+		body, _ := json.Marshal(kv)
+		return &plugin.Response{
+			StatusCode: http.StatusOK,
+			Headers: map[string]string{
+				"Content-Type": "application/vnd.microsoft.appconfig.kv+json; charset=utf-8",
+				"ETag":         kv.ETag,
+			},
+			Body: body,
+		}, nil
+
+	case "GetKeyValue":
+		key := params["key"]
+		kv, err := p.store.GetKeyValue(storeName, key, queryLabel)
+		if err != nil {
+			if errors.Is(err, ErrKeyNotFound) {
+				return appConfigErrorResponse(http.StatusNotFound, "ResourceNotFound", "The key-value was not found.")
+			}
+			return appConfigErrorResponse(http.StatusInternalServerError, "InternalError", err.Error())
+		}
+
+		body, _ := json.Marshal(kv)
+		return &plugin.Response{
+			StatusCode: http.StatusOK,
+			Headers: map[string]string{
+				"Content-Type": "application/vnd.microsoft.appconfig.kv+json; charset=utf-8",
+				"ETag":         kv.ETag,
+			},
+			Body: body,
+		}, nil
+
+	case "DeleteKeyValue":
+		key := params["key"]
+		kv, err := p.store.DeleteKeyValue(storeName, key, queryLabel)
+		if err != nil {
+			if errors.Is(err, ErrKeyNotFound) {
+				return &plugin.Response{
+					StatusCode: http.StatusNoContent,
+					Headers:    map[string]string{},
+					Body:       nil,
+				}, nil
+			}
+			return appConfigErrorResponse(http.StatusInternalServerError, "InternalError", err.Error())
+		}
+
+		body, _ := json.Marshal(kv)
+		return &plugin.Response{
+			StatusCode: http.StatusOK,
+			Headers: map[string]string{
+				"Content-Type": "application/vnd.microsoft.appconfig.kv+json; charset=utf-8",
+				"ETag":         kv.ETag,
+			},
+			Body: body,
+		}, nil
+
+	default:
+		return appConfigErrorResponse(http.StatusNotFound, "NotFound", "The requested resource does not exist.")
+	}
+}
+
+func matchAppConfigRoute(method, path string) (string, map[string]string) {
+	if path == "/kv" || path == "/kv/" {
+		if method == http.MethodGet {
+			return "ListKeyValues", nil
+		}
+		return "", nil
+	}
 	if strings.HasPrefix(path, "/kv/") {
 		rawKey := strings.TrimPrefix(path, "/kv/")
 		key, err := url.PathUnescape(rawKey)
 		if err != nil {
 			key = rawKey
 		}
-
-		switch req.Method {
+		params := map[string]string{"key": key}
+		switch method {
 		case http.MethodPut:
-			var payload struct {
-				Value       string            `json:"value"`
-				ContentType string            `json:"content_type"`
-				Tags        map[string]string `json:"tags"`
-			}
-			bodyBytes, err := io.ReadAll(req.Body)
-			if err == nil && len(bodyBytes) > 0 {
-				_ = json.Unmarshal(bodyBytes, &payload)
-			}
-
-			kv, err := p.store.SetKeyValue(storeName, key, queryLabel, payload.Value, payload.ContentType, payload.Tags)
-			if err != nil {
-				return appConfigErrorResponse(http.StatusInternalServerError, "InternalError", err.Error())
-			}
-
-			body, _ := json.Marshal(kv)
-			return &plugin.Response{
-				StatusCode: http.StatusOK,
-				Headers: map[string]string{
-					"Content-Type": "application/vnd.microsoft.appconfig.kv+json; charset=utf-8",
-					"ETag":         kv.ETag,
-				},
-				Body: body,
-			}, nil
-
+			return "SetKeyValue", params
 		case http.MethodGet:
-			kv, err := p.store.GetKeyValue(storeName, key, queryLabel)
-			if err != nil {
-				if errors.Is(err, ErrKeyNotFound) {
-					return appConfigErrorResponse(http.StatusNotFound, "ResourceNotFound", "The key-value was not found.")
-				}
-				return appConfigErrorResponse(http.StatusInternalServerError, "InternalError", err.Error())
-			}
-
-			body, _ := json.Marshal(kv)
-			return &plugin.Response{
-				StatusCode: http.StatusOK,
-				Headers: map[string]string{
-					"Content-Type": "application/vnd.microsoft.appconfig.kv+json; charset=utf-8",
-					"ETag":         kv.ETag,
-				},
-				Body: body,
-			}, nil
-
+			return "GetKeyValue", params
 		case http.MethodDelete:
-			kv, err := p.store.DeleteKeyValue(storeName, key, queryLabel)
-			if err != nil {
-				if errors.Is(err, ErrKeyNotFound) {
-					return &plugin.Response{
-						StatusCode: http.StatusNoContent,
-						Headers:    map[string]string{},
-						Body:       nil,
-					}, nil
-				}
-				return appConfigErrorResponse(http.StatusInternalServerError, "InternalError", err.Error())
-			}
-
-			body, _ := json.Marshal(kv)
-			return &plugin.Response{
-				StatusCode: http.StatusOK,
-				Headers: map[string]string{
-					"Content-Type": "application/vnd.microsoft.appconfig.kv+json; charset=utf-8",
-					"ETag":         kv.ETag,
-				},
-				Body: body,
-			}, nil
+			return "DeleteKeyValue", params
 		}
+		return "", nil
 	}
-
-	return appConfigErrorResponse(http.StatusNotFound, "NotFound", "The requested resource does not exist.")
+	return "", nil
 }
 
 func extractStoreName(req *http.Request) string {

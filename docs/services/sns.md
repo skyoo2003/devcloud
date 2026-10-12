@@ -8,7 +8,7 @@ The local account is `000000000000` and region is `us-east-1`.
 
 ## Supported APIs
 
-These 41 operations are `hand-verified` — implemented by the provider, not by the CRUD engine.
+These 41 operations are `hand-verified`, implemented by the provider, not by the CRUD engine.
 
 | Operation | Description |
 |-----------|-------------|
@@ -27,8 +27,8 @@ These 41 operations are `hand-verified` — implemented by the provider, not by 
 
 ## Publication and FIFO
 
-Publish and PublishBatch share validation and delivery. Batches contain 1–10
-entries with distinct IDs of 1–80 ASCII letters, numbers, underscores or hyphens.
+Publish and PublishBatch share validation and delivery. Batches contain 1-10
+entries with distinct IDs of 1-80 ASCII letters, numbers, underscores or hyphens.
 Each message and the sum of message/attribute payloads must fit 256 KiB.
 Structural, duplicate-ID and size errors reject the request before delivery.
 Invalid messages fail individually; every ID appears once in Successful or
@@ -60,7 +60,7 @@ same dedup ID. There is no background delivery retry worker.
 ## Platform applications and endpoints
 
 Create/Get/List/Set/Delete APIs use durable shared records. Supported platforms
-are ADM, APNS, APNS_SANDBOX and GCM. Names contain 1–256 ASCII letters, numbers,
+are ADM, APNS, APNS_SANDBOX and GCM. Names contain 1-256 ASCII letters, numbers,
 underscores, hyphens or periods. Credentials, principals and notification/feedback
 fields are configuration; DevCloud does not authenticate with APNS/FCM or invoke
 IAM, CloudWatch or notification callbacks.
@@ -86,7 +86,7 @@ restriction is not enforced locally.
 
 CreateSMSSandboxPhoneNumber creates an UNVERIFIED challenge and a random six-digit
 OTP atomically with a local SMS outbox receipt. Account status is IsInSandbox=true.
-List exposes phone numbers/statuses with MaxResults 1–100 and NextToken.
+List exposes phone numbers/statuses with MaxResults 1-100 and NextToken.
 
 With DEVCLOUD_DATA_DIR=/path/to/data, the receipt database is
 `/path/to/data/sns/sns/sns.db`; the default root is ./data. Open SQLite read-only
