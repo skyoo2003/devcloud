@@ -1277,6 +1277,23 @@ func init() {
 		"GetScalingPlanResourceForecastData": {Verb: "Get", Resource: "ScalingPlanResourceForecastData", OutputListKey: "Datapoints", OutputItemKey: ""},
 		"UpdateScalingPlan":                  {Verb: "Update", Resource: "ScalingPlan", OutputListKey: "", OutputItemKey: ""},
 	})
+	crud.Register("azureappconfig", map[string]crud.OpMeta{
+		"DeleteKeyValue": {Verb: "Delete", Resource: "KeyValue", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/kv/{key}"},
+		"GetKeyValue":    {Verb: "Get", Resource: "KeyValue", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/kv/{key}"},
+		"ListKeyValues":  {Verb: "List", Resource: "KeyValue", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/kv"},
+		"SetKeyValue":    {Verb: "Update", Resource: "KeyValue", OutputListKey: "", OutputItemKey: "", Method: "PUT", URI: "/kv/{key}"},
+	})
+	crud.Register("azurekeyvault", map[string]crud.OpMeta{
+		"CreateKey":        {Verb: "Create", Resource: "Key", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/keys/{key-name}/create?api-version"},
+		"DeleteKey":        {Verb: "Delete", Resource: "Key", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/keys/{key-name}?api-version"},
+		"DeleteSecret":     {Verb: "Delete", Resource: "Secret", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/secrets/{secret-name}?api-version"},
+		"GetKey":           {Verb: "Get", Resource: "Key", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/keys/{key-name}?api-version"},
+		"GetSecret":        {Verb: "Get", Resource: "Secret", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/secrets/{secret-name}?api-version"},
+		"GetSecretVersion": {Verb: "Get", Resource: "SecretVersion", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/secrets/{secret-name}/{secret-version}?api-version"},
+		"ListKeys":         {Verb: "List", Resource: "Key", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/keys?api-version"},
+		"ListSecrets":      {Verb: "List", Resource: "Secret", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/secrets?api-version"},
+		"SetSecret":        {Verb: "Update", Resource: "Secret", OutputListKey: "", OutputItemKey: "", Method: "PUT", URI: "/secrets/{secret-name}?api-version"},
+	})
 	crud.Register("azurequeue", map[string]crud.OpMeta{
 		"GetQueueMetadata": {Verb: "Get", Resource: "QueueMetadata", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/{queue}?comp=metadata"},
 		"ListQueues":       {Verb: "List", Resource: "Queue", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/?comp=list"},
@@ -8077,6 +8094,29 @@ func init() {
 		"UntagResource":                 {Verb: "Untag", Resource: "Resource", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/tags/{ResourceArn}"},
 		"UpdateApplication":             {Verb: "Update", Resource: "Application", OutputListKey: "ApplicationLogPaths", OutputItemKey: "RuntimeEnvironment", Method: "PATCH", URI: "/applications/{Identifier}"},
 		"UpdateStreamGroup":             {Verb: "Update", Resource: "StreamGroup", OutputListKey: "AssociatedApplications", OutputItemKey: "DefaultApplication", Method: "PATCH", URI: "/streamgroups/{Identifier}"},
+	})
+	crud.Register("gcppubsub", map[string]crud.OpMeta{
+		"Acknowledge":        {Verb: "", Resource: "", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/v1/projects/{project}/subscriptions/{subscription}:acknowledge"},
+		"CreateSubscription": {Verb: "Create", Resource: "Subscription", OutputListKey: "", OutputItemKey: "", Method: "PUT", URI: "/v1/projects/{project}/subscriptions/{subscription}"},
+		"CreateTopic":        {Verb: "Create", Resource: "Topic", OutputListKey: "", OutputItemKey: "", Method: "PUT", URI: "/v1/projects/{project}/topics/{topic}"},
+		"DeleteSubscription": {Verb: "Delete", Resource: "Subscription", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/v1/projects/{project}/subscriptions/{subscription}"},
+		"DeleteTopic":        {Verb: "Delete", Resource: "Topic", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/v1/projects/{project}/topics/{topic}"},
+		"GetSubscription":    {Verb: "Get", Resource: "Subscription", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/v1/projects/{project}/subscriptions/{subscription}"},
+		"GetTopic":           {Verb: "Get", Resource: "Topic", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/v1/projects/{project}/topics/{topic}"},
+		"ListSubscriptions":  {Verb: "List", Resource: "Subscription", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/v1/projects/{project}/subscriptions"},
+		"ListTopics":         {Verb: "List", Resource: "Topic", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/v1/projects/{project}/topics"},
+		"Publish":            {Verb: "", Resource: "", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/v1/projects/{project}/topics/{topic}:publish"},
+		"Pull":               {Verb: "", Resource: "", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/v1/projects/{project}/subscriptions/{subscription}:pull"},
+	})
+	crud.Register("gcpsecrets", map[string]crud.OpMeta{
+		"CreateSecret":         {Verb: "Create", Resource: "Secret", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/v1/projects/{project}/secrets?secretId"},
+		"AccessSecretVersion":  {Verb: "", Resource: "", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/v1/projects/{project}/secrets/{secret}/versions/{version}:access"},
+		"AddSecretVersion":     {Verb: "Relate", Resource: "SecretVersion", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/v1/projects/{project}/secrets/{secret}:addVersion"},
+		"DeleteSecret":         {Verb: "Delete", Resource: "Secret", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/v1/projects/{project}/secrets/{secret}"},
+		"DestroySecretVersion": {Verb: "", Resource: "", OutputListKey: "", OutputItemKey: "", Method: "POST", URI: "/v1/projects/{project}/secrets/{secret}/versions/{version}:destroy"},
+		"GetSecret":            {Verb: "Get", Resource: "Secret", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/v1/projects/{project}/secrets/{secret}"},
+		"ListSecretVersions":   {Verb: "List", Resource: "SecretVersion", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/v1/projects/{project}/secrets/{secret}/versions"},
+		"ListSecrets":          {Verb: "List", Resource: "Secret", OutputListKey: "", OutputItemKey: "", Method: "GET", URI: "/v1/projects/{project}/secrets"},
 	})
 	crud.Register("gcs", map[string]crud.OpMeta{
 		"DeleteBucket": {Verb: "Delete", Resource: "Bucket", OutputListKey: "", OutputItemKey: "", Method: "DELETE", URI: "/storage/v1/b/{bucket}"},

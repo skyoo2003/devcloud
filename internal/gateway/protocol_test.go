@@ -265,6 +265,14 @@ func TestDetectProtocol_AzureBlob(t *testing.T) {
 		assert.Equal(t, "rest-json", proto)
 		assert.Equal(t, "cosmosdb", service)
 	})
+
+	t.Run("azure keyvault detection", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/secrets/my-secret?api-version=7.4", nil)
+		req.Host = "myvault.vault.azure.net"
+		proto, service := DetectProtocol(req)
+		assert.Equal(t, "rest-json", proto)
+		assert.Equal(t, "azurekeyvault", service)
+	})
 }
 
 func TestDetectProtocol_GCP(t *testing.T) {
@@ -281,6 +289,20 @@ func TestDetectProtocol_GCP(t *testing.T) {
 		proto, service := DetectProtocol(req)
 		assert.Equal(t, "rest-json", proto)
 		assert.Equal(t, "gcs", service)
+	})
+
+	t.Run("GCP Secret Manager path detection", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/v1/projects/my-proj/secrets", nil)
+		proto, service := DetectProtocol(req)
+		assert.Equal(t, "rest-json", proto)
+		assert.Equal(t, "gcpsecrets", service)
+	})
+
+	t.Run("GCP PubSub path detection", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/v1/projects/my-proj/topics", nil)
+		proto, service := DetectProtocol(req)
+		assert.Equal(t, "rest-json", proto)
+		assert.Equal(t, "gcppubsub", service)
 	})
 
 	t.Run("GCS via x-goog-api-client header", func(t *testing.T) {

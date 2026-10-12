@@ -1,0 +1,308 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Google Cloud PubSub",
+    "version": "v1",
+    "description": "Google Cloud Pub/Sub REST API v1",
+    "x-service-id": "gcppubsub",
+    "x-provider": "gcp",
+    "x-protocol": "rest-json"
+  },
+  "paths": {
+    "/v1/projects/{project}/topics": {
+      "get": {
+        "operationId": "ListTopics",
+        "description": "Lists topics in a given project",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of topics"
+          }
+        }
+      }
+    },
+    "/v1/projects/{project}/topics/{topic}": {
+      "put": {
+        "operationId": "CreateTopic",
+        "description": "Creates a topic",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "topic",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Created topic"
+          }
+        }
+      },
+      "get": {
+        "operationId": "GetTopic",
+        "description": "Gets a topic",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "topic",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Topic details"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteTopic",
+        "description": "Deletes a topic",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "topic",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Topic deleted"
+          }
+        }
+      }
+    },
+    "/v1/projects/{project}/topics/{topic}:publish": {
+      "post": {
+        "operationId": "Publish",
+        "description": "Publishes messages to a topic",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "topic",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Message IDs"
+          }
+        }
+      }
+    },
+    "/v1/projects/{project}/subscriptions": {
+      "get": {
+        "operationId": "ListSubscriptions",
+        "description": "Lists subscriptions in a given project",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of subscriptions"
+          }
+        }
+      }
+    },
+    "/v1/projects/{project}/subscriptions/{subscription}": {
+      "put": {
+        "operationId": "CreateSubscription",
+        "description": "Creates a subscription",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subscription",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Created subscription"
+          }
+        }
+      },
+      "get": {
+        "operationId": "GetSubscription",
+        "description": "Gets a subscription",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subscription",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Subscription details"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteSubscription",
+        "description": "Deletes a subscription",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subscription",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Subscription deleted"
+          }
+        }
+      }
+    },
+    "/v1/projects/{project}/subscriptions/{subscription}:pull": {
+      "post": {
+        "operationId": "Pull",
+        "description": "Pulls messages from a subscription",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subscription",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Received messages"
+          }
+        }
+      }
+    },
+    "/v1/projects/{project}/subscriptions/{subscription}:acknowledge": {
+      "post": {
+        "operationId": "Acknowledge",
+        "description": "Acknowledges messages received from a subscription",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subscription",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Acknowledged"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,260 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Azure Key Vault",
+    "version": "7.4",
+    "description": "Azure Key Vault REST API 7.4",
+    "x-service-id": "azurekeyvault",
+    "x-provider": "azure",
+    "x-protocol": "rest-json"
+  },
+  "paths": {
+    "/secrets": {
+      "get": {
+        "operationId": "ListSecrets",
+        "description": "Lists secrets in a specified vault",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of secrets"
+          }
+        }
+      }
+    },
+    "/secrets/{secret-name}": {
+      "put": {
+        "operationId": "SetSecret",
+        "description": "Sets a secret in a specified key vault",
+        "parameters": [
+          {
+            "name": "secret-name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Secret set"
+          }
+        }
+      },
+      "get": {
+        "operationId": "GetSecret",
+        "description": "Gets a specified secret from a given key vault",
+        "parameters": [
+          {
+            "name": "secret-name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Secret object"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteSecret",
+        "description": "Deletes a secret from a specified key vault",
+        "parameters": [
+          {
+            "name": "secret-name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Secret deleted"
+          }
+        }
+      }
+    },
+    "/secrets/{secret-name}/{secret-version}": {
+      "get": {
+        "operationId": "GetSecretVersion",
+        "description": "Gets a specified version of a secret from a given key vault",
+        "parameters": [
+          {
+            "name": "secret-name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "secret-version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Secret object version"
+          }
+        }
+      }
+    },
+    "/keys": {
+      "get": {
+        "operationId": "ListKeys",
+        "description": "Lists keys in a specified vault",
+        "parameters": [
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of keys"
+          }
+        }
+      }
+    },
+    "/keys/{key-name}/create": {
+      "post": {
+        "operationId": "CreateKey",
+        "description": "Creates a new key in a specified key vault",
+        "parameters": [
+          {
+            "name": "key-name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Key created"
+          }
+        }
+      }
+    },
+    "/keys/{key-name}": {
+      "get": {
+        "operationId": "GetKey",
+        "description": "Gets the public part of a key from a specified key vault",
+        "parameters": [
+          {
+            "name": "key-name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Key details"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "DeleteKey",
+        "description": "Deletes a key from a specified key vault",
+        "parameters": [
+          {
+            "name": "key-name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Key deleted"
+          }
+        }
+      }
+    }
+  }
+}
