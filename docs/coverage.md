@@ -9,17 +9,17 @@ alone.
 | **Registered** | The gateway routes the service, so the call reaches DevCloud instead of real AWS. | **441** |
 | **Serving ≥1 operation** | At least one operation returns a real, store-backed answer. | **441** |
 | **Registered-only** | Routed, but every operation declines with a clean AWS error. | **0** |
-| **Compatibility-tested** | A boto3 test exercises the service in CI and passes. | **431** |
+| **Compatibility-tested** | A boto3 test exercises the service in CI and passes. | **427** |
 
 Per operation, from the [fidelity manifest](fidelity-manifest.md). Two
 denominators, because [routing and depth are two targets](#the-target):
 
 | Tier | Serving target | All registered |
 |---|---|---|
-| `hand-verified` | 4,695 | 4,726 |
-| `auto-crud` | 7,534 | 14,087 |
+| `hand-verified` | 4,700 | 4,731 |
+| `auto-crud` | 7,530 | 14,083 |
 | `unimplemented` | 267 | 477 |
-| **total known** | **12,496** | **19,290** |
+| **total known** | **12,497** | **19,291** |
 | **hand-verified share** | **37.6%** | **24.5%** |
 
 The **serving target** column is the depth promise: every registered service

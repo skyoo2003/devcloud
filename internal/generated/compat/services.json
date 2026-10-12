@@ -1448,6 +1448,7 @@
       "GetKey",
       "GetSecret",
       "GetSecretVersion",
+      "GetSecretVersions",
       "ListKeys",
       "ListSecrets",
       "SetSecret"

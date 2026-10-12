@@ -3,8 +3,6 @@
 package gcpsecrets
 
 import (
-	"crypto/rand"
-	"encoding/hex"
 	"errors"
 	"fmt"
 	"os"
@@ -237,10 +235,4 @@ func (s *Store) resolveVersionNumber(sec *Secret, versionId string) (int, error)
 		return 0, ErrVersionNotFound
 	}
 	return vNum, nil
-}
-
-func randomID() string {
-	b := make([]byte, 16)
-	_, _ = rand.Read(b)
-	return hex.EncodeToString(b)
 }
