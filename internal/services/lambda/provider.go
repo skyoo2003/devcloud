@@ -225,98 +225,100 @@ func (p *LambdaProvider) HandleRequest(_ context.Context, _ string, req *http.Re
 		}
 	}
 
-	sub := strings.TrimPrefix(path, lambdaAPIPrefix)
-	sub = strings.TrimPrefix(sub, "/")
+	if strings.HasPrefix(path, lambdaAPIPrefix) {
+		sub := strings.TrimPrefix(path, lambdaAPIPrefix)
+		sub = strings.TrimPrefix(sub, "/")
 
-	switch {
-	// POST /2015-03-31/functions  →  CreateFunction
-	case req.Method == http.MethodPost && sub == "":
-		return p.createFunction(req)
+		switch {
+		// POST /2015-03-31/functions  ->  CreateFunction
+		case req.Method == http.MethodPost && sub == "":
+			return p.createFunction(req)
 
-	// GET /2015-03-31/functions  →  ListFunctions
-	case req.Method == http.MethodGet && sub == "":
-		return p.listFunctions()
+		// GET /2015-03-31/functions  ->  ListFunctions
+		case req.Method == http.MethodGet && sub == "":
+			return p.listFunctions()
 
-	// POST /2015-03-31/functions/{name}/versions  →  PublishVersion
-	case req.Method == http.MethodPost && strings.HasSuffix(sub, "/versions"):
-		name := strings.TrimSuffix(sub, "/versions")
-		return p.publishVersion(name)
+		// POST /2015-03-31/functions/{name}/versions  ->  PublishVersion
+		case req.Method == http.MethodPost && strings.HasSuffix(sub, "/versions"):
+			name := strings.TrimSuffix(sub, "/versions")
+			return p.publishVersion(name)
 
-	// GET /2015-03-31/functions/{name}/versions  →  ListVersionsByFunction
-	case req.Method == http.MethodGet && strings.HasSuffix(sub, "/versions"):
-		name := strings.TrimSuffix(sub, "/versions")
-		return p.listVersionsByFunction(name)
+		// GET /2015-03-31/functions/{name}/versions  ->  ListVersionsByFunction
+		case req.Method == http.MethodGet && strings.HasSuffix(sub, "/versions"):
+			name := strings.TrimSuffix(sub, "/versions")
+			return p.listVersionsByFunction(name)
 
-	// POST /2015-03-31/functions/{name}/aliases  →  CreateAlias
-	case req.Method == http.MethodPost && strings.HasSuffix(sub, "/aliases"):
-		name := strings.TrimSuffix(sub, "/aliases")
-		return p.createAlias(name, req)
+		// POST /2015-03-31/functions/{name}/aliases  ->  CreateAlias
+		case req.Method == http.MethodPost && strings.HasSuffix(sub, "/aliases"):
+			name := strings.TrimSuffix(sub, "/aliases")
+			return p.createAlias(name, req)
 
-	// GET /2015-03-31/functions/{name}/aliases  →  ListAliases
-	case req.Method == http.MethodGet && strings.HasSuffix(sub, "/aliases"):
-		name := strings.TrimSuffix(sub, "/aliases")
-		return p.listAliases(name)
+		// GET /2015-03-31/functions/{name}/aliases  ->  ListAliases
+		case req.Method == http.MethodGet && strings.HasSuffix(sub, "/aliases"):
+			name := strings.TrimSuffix(sub, "/aliases")
+			return p.listAliases(name)
 
-	// GET/PUT/DELETE /2015-03-31/functions/{name}/aliases/{alias}
-	case (req.Method == http.MethodGet || req.Method == http.MethodPut || req.Method == http.MethodDelete) &&
-		strings.Contains(sub, "/aliases/"):
-		parts := strings.SplitN(sub, "/aliases/", 2)
-		if len(parts) == 2 {
-			name, aliasName := parts[0], parts[1]
-			switch req.Method {
-			case http.MethodGet:
-				return p.getAlias(name, aliasName)
-			case http.MethodPut:
-				return p.updateAlias(name, aliasName, req)
-			case http.MethodDelete:
-				return p.deleteAlias(name, aliasName)
+		// GET/PUT/DELETE /2015-03-31/functions/{name}/aliases/{alias}
+		case (req.Method == http.MethodGet || req.Method == http.MethodPut || req.Method == http.MethodDelete) &&
+			strings.Contains(sub, "/aliases/"):
+			parts := strings.SplitN(sub, "/aliases/", 2)
+			if len(parts) == 2 {
+				name, aliasName := parts[0], parts[1]
+				switch req.Method {
+				case http.MethodGet:
+					return p.getAlias(name, aliasName)
+				case http.MethodPut:
+					return p.updateAlias(name, aliasName, req)
+				case http.MethodDelete:
+					return p.deleteAlias(name, aliasName)
+				}
 			}
+
+		// POST /2015-03-31/functions/{name}/policy  ->  AddPermission
+		case req.Method == http.MethodPost && strings.HasSuffix(sub, "/policy"):
+			name := strings.TrimSuffix(sub, "/policy")
+			return p.addPermission(name, req)
+
+		// GET /2015-03-31/functions/{name}/policy  ->  GetPolicy
+		case req.Method == http.MethodGet && strings.HasSuffix(sub, "/policy"):
+			name := strings.TrimSuffix(sub, "/policy")
+			return p.getPolicy(name)
+
+		// DELETE /2015-03-31/functions/{name}/policy/{statementId}  ->  RemovePermission
+		case req.Method == http.MethodDelete && strings.Contains(sub, "/policy/"):
+			parts := strings.SplitN(sub, "/policy/", 2)
+			if len(parts) == 2 {
+				return p.removePermission(parts[0], parts[1])
+			}
+
+		// GET /2015-03-31/functions/{name}  ->  GetFunction
+		case req.Method == http.MethodGet && !strings.Contains(sub, "/"):
+			return p.getFunctionQualified(sub, req.URL.Query().Get("Qualifier"))
+
+		// DELETE /2015-03-31/functions/{name}  ->  DeleteFunction
+		case req.Method == http.MethodDelete && !strings.Contains(sub, "/"):
+			return p.deleteFunction(sub)
+
+		// PUT /2015-03-31/functions/{name}/configuration  ->  UpdateFunctionConfiguration
+		case req.Method == http.MethodPut && strings.HasSuffix(sub, "/configuration"):
+			name := strings.TrimSuffix(sub, "/configuration")
+			return p.updateFunctionConfiguration(name, req)
+
+		// PUT /2015-03-31/functions/{name}/code  ->  UpdateFunctionCode
+		case req.Method == http.MethodPut && strings.HasSuffix(sub, "/code"):
+			name := strings.TrimSuffix(sub, "/code")
+			return p.updateFunctionCode(name, req)
+
+		// POST /2015-03-31/functions/{name}/invocations  ->  Invoke
+		case req.Method == http.MethodPost && strings.HasSuffix(sub, "/invocations"):
+			name := strings.TrimSuffix(sub, "/invocations")
+			return p.invoke(name, req)
+
+		// POST /2015-03-31/functions/{name}/response-streaming-invocations  ->  InvokeWithResponseStream
+		case req.Method == http.MethodPost && strings.HasSuffix(sub, "/response-streaming-invocations"):
+			name := strings.TrimSuffix(sub, "/response-streaming-invocations")
+			return p.invokeWithResponseStream(name, req)
 		}
-
-	// POST /2015-03-31/functions/{name}/policy  →  AddPermission
-	case req.Method == http.MethodPost && strings.HasSuffix(sub, "/policy"):
-		name := strings.TrimSuffix(sub, "/policy")
-		return p.addPermission(name, req)
-
-	// GET /2015-03-31/functions/{name}/policy  →  GetPolicy
-	case req.Method == http.MethodGet && strings.HasSuffix(sub, "/policy"):
-		name := strings.TrimSuffix(sub, "/policy")
-		return p.getPolicy(name)
-
-	// DELETE /2015-03-31/functions/{name}/policy/{statementId}  →  RemovePermission
-	case req.Method == http.MethodDelete && strings.Contains(sub, "/policy/"):
-		parts := strings.SplitN(sub, "/policy/", 2)
-		if len(parts) == 2 {
-			return p.removePermission(parts[0], parts[1])
-		}
-
-	// GET /2015-03-31/functions/{name}  →  GetFunction
-	case req.Method == http.MethodGet && !strings.Contains(sub, "/"):
-		return p.getFunctionQualified(sub, req.URL.Query().Get("Qualifier"))
-
-	// DELETE /2015-03-31/functions/{name}  →  DeleteFunction
-	case req.Method == http.MethodDelete && !strings.Contains(sub, "/"):
-		return p.deleteFunction(sub)
-
-	// PUT /2015-03-31/functions/{name}/configuration  →  UpdateFunctionConfiguration
-	case req.Method == http.MethodPut && strings.HasSuffix(sub, "/configuration"):
-		name := strings.TrimSuffix(sub, "/configuration")
-		return p.updateFunctionConfiguration(name, req)
-
-	// PUT /2015-03-31/functions/{name}/code  →  UpdateFunctionCode
-	case req.Method == http.MethodPut && strings.HasSuffix(sub, "/code"):
-		name := strings.TrimSuffix(sub, "/code")
-		return p.updateFunctionCode(name, req)
-
-	// POST /2015-03-31/functions/{name}/invocations  →  Invoke
-	case req.Method == http.MethodPost && strings.HasSuffix(sub, "/invocations"):
-		name := strings.TrimSuffix(sub, "/invocations")
-		return p.invoke(name, req)
-
-	// POST /2015-03-31/functions/{name}/response-streaming-invocations  →  InvokeWithResponseStream
-	case req.Method == http.MethodPost && strings.HasSuffix(sub, "/response-streaming-invocations"):
-		name := strings.TrimSuffix(sub, "/response-streaming-invocations")
-		return p.invokeWithResponseStream(name, req)
 	}
 
 	return lambdaError("ResourceNotFoundException",

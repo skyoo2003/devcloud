@@ -33,7 +33,7 @@ removed or repurposed. Defined in [`internal/config/config.go`](../internal/conf
 | Key | Type | Meaning |
 |---|---|---|
 | `server.port` | int | Listen port. Default `4747` when absent or `0`. |
-| `services` | map | Presence of the block is authoritative — only the services it lists run, and an empty block runs nothing. Absent means every registered service runs. |
+| `services` | map | Presence of the block is authoritative: only the services it lists run, and an empty block runs nothing. Absent means every registered service runs. |
 | `services.<id>.enabled` | bool | Whether that service starts. |
 | `services.<id>.data_dir` | string | Where that service stores data. |
 | `providers.aws.services` | map | The same block as `services`, namespaced by provider. Identical semantics; wins over `services` when both are written, with a warning. |
@@ -54,19 +54,19 @@ Environment overrides config file, and that precedence is guaranteed.
 When `DEVCLOUD_SERVICES` names services, it decides membership on its own: it
 starts a service the `services` block omits and stops one the block enables. It
 replaces the block's selection rather than intersecting with it. The literal
-`all` is the exception — it switches the filter off and hands the decision back
+`all` is the exception: it switches the filter off and hands the decision back
 to the `services` block, which is what "all" has always meant here
 ([configuration.md](configuration.md#devcloud_services)).
 
 ### Command line
 
 `-config <path>` keeps its meaning. With no flag, DevCloud uses `./devcloud.yaml` if present
-and the embedded defaults otherwise — zero-config startup keeps working.
+and the embedded defaults otherwise; zero-config startup keeps working.
 
 ### Admin API
 
 Served at `/devcloud/api/` when `admin.enabled: true`. These routes keep responding, and their
-JSON responses **only gain fields** — no documented key is removed or repurposed.
+JSON responses **only gain fields**: no documented key is removed or repurposed.
 
 | Route | Guaranteed response keys |
 |---|---|
@@ -83,7 +83,7 @@ reused for a different meaning.
 
 Every operation the manifest lists carries a tier from that set, every registered service
 appears, and every operation the CRUD engine serves is present and not filed as
-`unimplemented` — all three fail the build, in
+`unimplemented`; all three fail the build, in
 [`cmd/devcloud/fidelity_test.go`](../cmd/devcloud/fidelity_test.go).
 
 What no test can catch is an operation that never reaches the manifest at all. That is bounded
@@ -93,10 +93,10 @@ instead of disappearing. For the 11 without one, the universe *is* what the prov
 the manifest lists no unimplemented tail for them. `modelBacked` on
 `GET /devcloud/api/fidelity` reports which is which.
 
-### Wire behaviour — scoped to the compatibility suite
+### Wire behaviour: scoped to the compatibility suite
 
 **Whatever a test in [`test/compatibility/`](../test/compatibility/) asserts about a response
-keeps holding across 1.x — that property, and nothing wider.**
+keeps holding across 1.x (that property, and nothing wider).**
 
 The promise is as wide as each individual assertion: not as wide as the field, and not as wide as
 the operation. `CreateFunction` in `test_lambda.py` shows all three cases at once:
@@ -104,7 +104,7 @@ the operation. `CreateFunction` in `test_lambda.py` shows all three cases at onc
 | Field | Asserted as | Promised |
 |---|---|---|
 | `FunctionName` | equal to the name sent | key *and* value |
-| `FunctionArn` | present | presence only — not that it stays ARN-shaped |
+| `FunctionArn` | present | presence only, not that it stays ARN-shaped |
 | `Runtime`, `Handler`, `MemorySize` | not asserted | nothing, though today's response includes them |
 
 That narrowness is the point: it is the promise the repo can actually keep. The suite driving real boto3 clients runs in CI on every push and again against the tagged commit
@@ -126,13 +126,13 @@ Depending on any of the following will break, and breaking it is **not** a major
 - **Data durability.** Stores are local development stores. Several are in-memory and
   per-process; on-disk layouts under `data_dir` may change format between releases without a
   migration. Do not treat DevCloud as a database.
-- **`unimplemented` → served transitions.** An operation that returns an error today may start
+- **`unimplemented` -> served transitions.** An operation that returns an error today may start
   returning a response. This is additive, and ships in a minor release.
 - **Service coverage.** New services may be added in a minor release. The 431 services registered
-  today are a floor, not a ceiling — and all of them serve at least one operation.
+  today are a floor, not a ceiling, and all of them serve at least one operation.
   See [coverage.md](coverage.md).
 - **Error codes, HTTP status and message wording.** What *is* guaranteed for an `unimplemented`
-  operation is that it **fails** — an AWS-shaped error, never a fabricated success. *Which* error
+  operation is that it **fails**: an AWS-shaped error, never a fabricated success. *Which* error
   is not guaranteed: it comes from whichever provider handles the request, and `sqs` even differs
   by protocol. [fidelity-manifest.md](fidelity-manifest.md#what-an-unimplemented-call-returns)
   records the current behaviour; normalizing it is a minor release, not a major one.
@@ -141,7 +141,7 @@ Depending on any of the following will break, and breaking it is **not** a major
   restructures it freely across 1.x. The Phase 2 refactor is the precedent: the IR,
   `ModelSource`, `ProviderScoped` and the `auth` adapters all landed inside a 1.x minor without
   a compatibility event, because nothing outside this module can reach them. The in-tree
-  `ServicePlugin` contract in [plugin-api.md](plugin-api.md#api-stability) is no exception — it
+  `ServicePlugin` contract in [plugin-api.md](plugin-api.md#api-stability) is no exception; it
   is a convention that keeps in-tree plugins compiling, and it does not gate release versioning.
 - **Behavioural parity with AWS.** No release of DevCloud promises AWS's validation, business
   logic, eventual-consistency timing, rate limits, or IAM enforcement. Credentials are accepted
@@ -152,15 +152,15 @@ Depending on any of the following will break, and breaking it is **not** a major
 Removing anything from the guaranteed list is a **major** version bump. Before that can happen:
 
 1. **Deprecate in a minor release.** The old form keeps working and emits a runtime warning
-   naming its replacement. The precedent is the `dashboard` → `admin` config rename: the old key
+   naming its replacement. The precedent is the `dashboard` -> `admin` config rename: the old key
    still enables the admin API, warns, and yields to an explicit `admin` block
    ([`config.go`](../internal/config/config.go)).
-2. **Document it** — in the release notes for that version, and here.
+2. **Document it**: in the release notes for that version, and here.
 3. **Remove no earlier than the next major.** At least one released version must have shipped
    the warning.
 
 Silence is not deprecation. A removed key that YAML would otherwise drop without comment is
-kept in the parser purely to warn — that is why `auth` still produces a message telling you
+kept in the parser purely to warn: that is why `auth` still produces a message telling you
 SigV4 is not enforced rather than being ignored.
 
 The pre-flight checklist in [RELEASE.md](../RELEASE.md#pre-flight-checklist) makes this a step in
@@ -168,7 +168,7 @@ cutting a release, not a thing to remember.
 
 ## Reporting a break
 
-If a 1.x release breaks something on the guaranteed list, that is a bug — please
+If a 1.x release breaks something on the guaranteed list, that is a bug; please
 [open an issue](https://github.com/skyoo2003/devcloud/issues) with the DevCloud version and a
 reproducing snippet. If it breaks something on the not-guaranteed list, an issue is still
 useful: it is evidence for tightening the policy in a future major.
@@ -176,10 +176,10 @@ useful: it is evidence for tightening the policy in a future major.
 ## Lambda execution scope
 
 Wire compatibility and code execution have separate gates. Python 3.12 and Node
-22 execute in Docker with actual payload, environment, exception, timeout,
+22 execute via standardized workload runtimes (Container, WASM, or Process) with actual payload, environment, exception, timeout,
 version and event delivery assertions in `test_lambda_runtime.py`. The required
 `lambda-runtime` CI job enables them with `DEVCLOUD_LAMBDA_RUNTIME_TESTS=1`; its
-missing Docker/image failures cannot be skipped. The ordinary suite checks
-management and explicit Docker-unavailable errors. This does not promise AWS
+missing runtime/image failures cannot be skipped. The ordinary suite checks
+management and explicit runtime-unavailable errors. This does not promise AWS
 parity for warm containers, IAM policy evaluation, async retry/DLQ, partial
 batches or durable stream records. See [Lambda limits](services/lambda.md).

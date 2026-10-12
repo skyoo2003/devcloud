@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: Apache-2.0
-"""scripts/demand_rank.py — rank the AWS services DevCloud does not register by
+"""scripts/demand_rank.py: rank the AWS services DevCloud does not register by
 how much demand three independent emulator/provider projects have already met.
 
 DevCloud has no usage telemetry, so it cannot measure which missing services its
@@ -10,7 +10,7 @@ own users reach for. What it can read is revealed demand: `moto`, LocalStack and
 when somebody asks. A service all three have built is one all three were asked
 for. That is a proxy, not a measurement, and docs/demand.md says so.
 
-Run by hand, like scripts/download-smithy-models.sh — never in CI. The three
+Run by hand, like scripts/download-smithy-models.sh: never in CI. The three
 sources are third-party and change under us; the committed docs/demand.md is the
 evidence, and this script is how it is re-derived. A source that returns nothing
 exits non-zero rather than writing a file that silently under-counts, which is
@@ -66,10 +66,10 @@ FILENAME_TO_SERVICE_ID = {
 # Names absent from this map are absent on purpose. `elastictranscoder`, `qldb`,
 # `iotanalytics` and `evidently` are services these projects support that AWS
 # publishes no model for, so they cannot be in the missing set and must stay
-# unmatched — silently mapping them somewhere would invent demand for a service
+# unmatched - silently mapping them somewhere would invent demand for a service
 # that is not in the denominator.
 SOURCE_NAME_ALIASES = {
-    # → services DevCloud already registers
+    # -> services DevCloud already registers
     "appautoscaling": "applicationautoscaling",
     "ce": "costexplorer",
     "cognitoidp": "cognitoidentityprovider",
@@ -84,7 +84,7 @@ SOURCE_NAME_ALIASES = {
     "lexv2models": "lexmodelsv2",
     "logs": "cloudwatchlogs",
     "stepfunctions": "sfn",
-    # → services in the missing set
+    # -> services in the missing set
     "cur": "costandusagereportservice",
     "ds": "directoryservice",
     "elb": "elasticloadbalancing",
@@ -119,7 +119,7 @@ def fetch(url: str) -> bytes:
     except urllib.error.HTTPError as exc:
         hint = ""
         if exc.code in (403, 429):
-            hint = " — GitHub rate limit; set GITHUB_TOKEN and retry"
+            hint = " - GitHub rate limit; set GITHUB_TOKEN and retry"
         die(f"{url} returned HTTP {exc.code}{hint}")
     except urllib.error.URLError as exc:
         die(f"{url} unreachable: {exc.reason}")
@@ -160,7 +160,7 @@ def intree_model_service_ids() -> dict[str, str]:
     """Map each in-tree model filename to the service ID codegen derives from it.
 
     codegen.detectServiceID takes the last dotted segment of the Smithy
-    namespace, so `com.amazonaws.acmpca#...` becomes `acmpca` — which is neither
+    namespace, so `com.amazonaws.acmpca#...` becomes `acmpca` - which is neither
     the filename (`acm-pca`) nor anything derivable from it.
     """
     out: dict[str, str] = {}
@@ -292,15 +292,15 @@ def render(
         "|---|---|",
         f"| Upstream model files | {stats['upstream_total']:.0f} |",
         f"| Registered by DevCloud | {stats['registered_total']:.0f} |",
-        f"| **R1 — missing set `M`** | **{stats['missing_total']:.0f}** |",
-        f"| R2 — `M` with support 3 | {counts[3]} |",
-        f"| R2 — `M` with support 2 | {counts[2]} |",
-        f"| R2 — `M` with support 1 | {counts[1]} |",
-        f"| R2 — `M` with support 0 | {counts[0]} |",
-        f"| **R2 — `M` with support ≥ 2** | **{stats['support_ge2']:.0f} "
+        f"| **R1: missing set `M`** | **{stats['missing_total']:.0f}** |",
+        f"| R2: `M` with support 3 | {counts[3]} |",
+        f"| R2: `M` with support 2 | {counts[2]} |",
+        f"| R2: `M` with support 1 | {counts[1]} |",
+        f"| R2: `M` with support 0 | {counts[0]} |",
+        f"| **R2: `M` with support ≥ 2** | **{stats['support_ge2']:.0f} "
         f"({stats['support_ge2_pct']:.1f}% of `M`)** |",
         "",
-        "Join diagnostics — a name a source publishes that matches neither `M` nor a",
+        "Join diagnostics: a name a source publishes that matches neither `M` nor a",
         "registered DevCloud service. A large number here means the name",
         "normalisation is dropping matches and the support counts are too low:",
         "",
@@ -319,7 +319,7 @@ def render(
         "|---|---|---|---|---|",
     ]
     for name in sorted(missing, key=lambda n: (-sum(support[n]), n)):
-        cells = ["yes" if hit else "—" for hit in support[name]]
+        cells = ["yes" if hit else "-" for hit in support[name]]
         lines.append(
             f"| `{name}` | {cells[0]} | {cells[1]} | {cells[2]} | {sum(support[name])} |"
         )

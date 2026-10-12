@@ -1,11 +1,11 @@
 # ServicePlugin API
 
 The stable contract every DevCloud service implements. As of **v1.0** this is a
-public API — see [API stability](#api-stability).
+public API; see [API stability](#api-stability).
 
 The interface and registry live in [`internal/plugin/`](../internal/plugin/).
 Plugins are compiled in-tree and register themselves at startup; there is no
-dynamic loading. (That is why the package is under `internal/` — it is imported
+dynamic loading. (That is why the package is under `internal/`: it is imported
 by DevCloud's own binaries, not by third-party modules.)
 
 ## The interface
@@ -24,12 +24,12 @@ type ServicePlugin interface {
 
 | Method | Contract |
 |--------|----------|
-| `ServiceID()` | Stable lowercase identifier, e.g. `"s3"`. **Must equal the key the plugin is registered under** — the gateway routes by it. Constant; safe before `Init`. |
+| `ServiceID()` | Stable lowercase identifier, e.g. `"s3"`. **Must equal the key the plugin is registered under**: the gateway routes by it. Constant; safe before `Init`. |
 | `ServiceName()` | Human-readable name for logs and the admin API. Non-empty, constant, safe before `Init`. |
 | `Protocol()` | One of the [`ProtocolType`](#protocols) constants. Constant; safe before `Init`. |
 | `Init(config)` | Called once at startup before any request. Open stores, read `config.Options`. A non-nil error aborts startup (services in the fixed init order) or skips the service (others). |
 | `Shutdown(ctx)` | Called once at graceful shutdown, 15s budget. Flush and close. Idempotent-friendly. |
-| `HandleRequest(ctx, op, req)` | Handle one API call. See [operation names](#operation-names) — `op` may be `""` for REST protocols, in which case derive it yourself. Return a `*Response`; return a Go `error` only for unexpected internal failures (the gateway wraps those as `500 InternalError`). **Model AWS errors as a normal `*Response`.** |
+| `HandleRequest(ctx, op, req)` | Handle one API call. See [operation names](#operation-names): `op` may be `""` for REST protocols, in which case derive it yourself. Return a `*Response`; return a Go `error` only for unexpected internal failures (the gateway wraps those as `500 InternalError`). **Model AWS errors as a normal `*Response`.** |
 | `ListResources(ctx)` | The resources this service currently holds, for the admin API. May be empty. |
 
 These invariants are enforced for every registered service by
@@ -53,13 +53,13 @@ for the service:
 The gateway derives `op` in
 [`extractOperationName`](../internal/gateway/router.go):
 
-- **JSON protocols** — the suffix of `X-Amz-Target` after the last `.`
-  (`DynamoDB_20120810.GetItem` → `GetItem`).
-- **Query protocol** — the `Action` parameter.
-- **REST protocols** — `""`; the operation is implicit in method + URL, so the
+- **JSON protocols**: the suffix of `X-Amz-Target` after the last `.`
+  (`DynamoDB_20120810.GetItem` -> `GetItem`).
+- **Query protocol**: the `Action` parameter.
+- **REST protocols**: `""`; the operation is implicit in method + URL, so the
   plugin resolves it itself.
 
-Service routing uses the target prefix or signing name — see
+Service routing uses the target prefix or signing name; see
 [`serviceFromTarget` and `normalizeServiceID`](../internal/gateway/protocol.go).
 Target prefixes may be dotted
 (`com.amazonaws.codeconnections.CodeConnections_20231201`); the last dotted
@@ -74,12 +74,12 @@ type PluginConfig struct {
 }
 ```
 
-- `DataDir` — the per-service directory from config (`data_dir:`).
-- `Options` — cross-cutting values injected by
+- `DataDir`: the per-service directory from config (`data_dir:`).
+- `Options`: cross-cutting values injected by
   [`buildOptions`](../cmd/devcloud/main.go). Keys a plugin may rely on:
-  - `server_port` (`int`) — the HTTP port, for building resource URLs such as SQS
+  - `server_port` (`int`): the HTTP port, for building resource URLs such as SQS
     queue URLs. Passed to every service.
-  - `iam_store` — set for `sts` so it shares the IAM store. A service needing a
+  - `iam_store`: set for `sts` so it shares the IAM store. A service needing a
     peer's store receives it here.
 
 ## Caller identity
@@ -94,7 +94,7 @@ if id, ok := auth.FromContext(ctx); ok {
 ```
 
 `auth.Identity` carries `Provider`, `AccessKeyID`, `Region`, `Service` (the
-signing name as presented) and `SessionToken`. **None of it is verified** —
+signing name as presented) and `SessionToken`. **None of it is verified**:
 DevCloud accepts any credentials, so treat these as a claim, never as an
 authorization decision. Adapters live in [`internal/auth`](../internal/auth/);
 `SigV4` is AWS's, and Azure (AAD/SAS) and GCP (OAuth2) join by implementing
@@ -105,8 +105,8 @@ authorization decision. Adapters live in [`internal/auth`](../internal/auth/);
 Return AWS-shaped errors as a `*Response`, using the helpers in
 [`internal/shared/response.go`](../internal/shared/response.go):
 
-- JSON protocols → `shared.JSONError(code, message, status)` (`{"__type", "message"}`)
-- Query/XML protocols → `shared.QueryXMLError(...)` or the service's XML helper
+- JSON protocols -> `shared.JSONError(code, message, status)` (`{"__type", "message"}`)
+- Query/XML protocols -> `shared.QueryXMLError(...)` or the service's XML helper
 
 **Unknown or unimplemented operations must return an error, never a false
 success.** The convention is `InvalidAction` with HTTP 400:
@@ -118,7 +118,7 @@ default:
 
 A silent `200 OK {}` is a bug: it makes an SDK believe the call succeeded. To opt
 into the [generic CRUD engine](crud-engine.md) instead, return
-`plugin.ErrUnhandledOp` from the `default:` case — the gateway falls back to the
+`plugin.ErrUnhandledOp` from the `default:` case: the gateway falls back to the
 engine and emits `InvalidAction` itself if the engine cannot classify the
 operation.
 
@@ -170,8 +170,8 @@ to every service in the tree just to state the value it already defaults to, and
 would break the [v1.x contract](#api-stability) for no gain. Always read the
 provider through `ProviderOf`, never by type-asserting.
 
-Startup uses it to resolve configuration —
-`cfg.ProviderService(plugin.ProviderOf(p), id)` — so a plugin lands in its own
+Startup uses it to resolve configuration via
+`cfg.ProviderService(plugin.ProviderOf(p), id)`, so a plugin lands in its own
 provider's config namespace without the config package needing to know which
 services exist. See [configuration.md](configuration.md#provider-namespacing).
 
@@ -179,7 +179,7 @@ services exist. See [configuration.md](configuration.md#provider-namespacing).
 
 This section is the **in-tree** contract: it constrains contributors writing
 service plugins inside this repository. `internal/plugin` cannot be imported from
-another Go module, so it is not the promise a *user* of DevCloud depends on —
+another Go module, so it is not the promise a *user* of DevCloud depends on;
 that is [compatibility-policy.md](compatibility-policy.md).
 
 Starting at **v1.0**, `ServicePlugin`, `PluginConfig`, `Response`, `Resource` and
@@ -194,6 +194,6 @@ the `ProtocolType` constants are stable within `v1.x`:
   it. Release versioning is governed by
   [compatibility-policy.md](compatibility-policy.md).
 
-New optional capability is introduced additively — new `Options` keys, new
-`ProtocolType` values, optional side interfaces such as `ProviderScoped` — so
+New optional capability is introduced additively (new `Options` keys, new
+`ProtocolType` values, optional side interfaces such as `ProviderScoped`), so
 existing plugins keep compiling and behaving.

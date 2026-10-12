@@ -1,7 +1,7 @@
 # Fidelity Manifest
 
 Not every operation is served the same way. The **fidelity manifest** answers, per
-operation, *how much you can trust this call* — so a green response never leaves
+operation, *how much you can trust this call*, so a green response never leaves
 you guessing whether DevCloud implemented the operation or made something
 plausible up.
 
@@ -14,8 +14,8 @@ totals are published in [coverage.md](coverage.md).
 | Tier | Meaning | Trust it for |
 |------|---------|--------------|
 | `hand-verified` | The service's provider implements the operation explicitly. | Behaviour, not just shape. Covered by the boto3 suite where tests exist. |
-| `auto-crud` | Served by the [generic CRUD engine](crud-engine.md): store-backed, plausible responses with no validation, business logic, or cross-resource integrity. | Wiring your SDK up and round-tripping create → get → list → delete. Nothing else. |
-| `unimplemented` | Not served — the call fails instead of inventing a success. | Knowing early that DevCloud will not serve this call. |
+| `auto-crud` | Served by the [generic CRUD engine](crud-engine.md): store-backed, plausible responses with no validation, business logic, or cross-resource integrity. | Wiring your SDK up and round-tripping create -> get -> list -> delete. Nothing else. |
+| `unimplemented` | Not served: the call fails instead of inventing a success. | Knowing early that DevCloud will not serve this call. |
 
 `hand-verified` always wins: the CRUD engine is reached only when a provider's
 dispatch falls through, so a hand-written implementation is never shadowed.
@@ -26,7 +26,7 @@ There is no single error. It depends on how the owning provider declines:
 
 | How the provider declines | Error | Status | Providers |
 |---|---|---|---|
-| Returns `ErrUnhandledOp`, and the CRUD engine cannot classify the operation either — [`gateway/router.go`](../internal/gateway/router.go) emits the fallback | `InvalidAction` | 400 | 155 |
+| Returns `ErrUnhandledOp`, and the CRUD engine cannot classify the operation either; [`gateway/router.go`](../internal/gateway/router.go) emits the fallback | `InvalidAction` | 400 | 155 |
 | Its dispatch `default:` answers directly | `NotImplemented` | 501 | 32 |
 | Its dispatch `default:` answers in its own vocabulary | `UnsupportedOperation` / `MethodNotAllowed` | 400 / 405 | `iot`, `iotwireless`, `apigatewayv2`, `backup`, `bedrock`, `s3` |
 
@@ -34,13 +34,13 @@ A service can even differ by protocol: `sqs` returns `NotImplemented` (501) on
 Query and `InvalidAction` (400) on JSON.
 
 Only the *failure* is stable, and that is all
-[compatibility-policy.md](compatibility-policy.md) promises — an `unimplemented`
+[compatibility-policy.md](compatibility-policy.md) promises: an `unimplemented`
 operation never fabricates a success. The specific code and status are not
 guaranteed across 1.x; normalizing them would be a minor release.
 
 ## Reading it
 
-**At runtime** — via the admin API, which is off by default. Enable it in
+**At runtime**: via the admin API, which is off by default. Enable it in
 `devcloud.yaml` ([configuration](configuration.md)):
 
 ```yaml
@@ -63,10 +63,10 @@ curl -s 'localhost:4747/devcloud/api/fidelity?service=s3' # per-operation, one s
 }
 ```
 
-The unfiltered response omits `operations` — the full manifest runs to five
+The unfiltered response omits `operations`; the full manifest runs to five
 figures.
 
-**In Go** — [`internal/generated/fidelity`](../internal/generated/fidelity/manifest_gen.go):
+**In Go**: [`internal/generated/fidelity`](../internal/generated/fidelity/manifest_gen.go):
 
 ```go
 tier, ok := fidelity.Lookup("s3", "PutObject") // TierHandVerified, true
@@ -89,9 +89,9 @@ an operation name, so they declare their operations explicitly in `pathRoutedOps
 (`internal/codegen/scan_handverified.go`).
 
 The universe is *model ∪ hand-verified*. A provider may serve an operation its
-model does not declare — `bedrock` serves `InvokeModel`, which AWS models under
+model does not declare: `bedrock` serves `InvokeModel`, which AWS models under
 bedrock-runtime, and `dynamodbstreams` dispatches 22 operations against a
-4-operation model — and hiding those would understate what DevCloud does. So a
+4-operation model, and hiding those would understate what DevCloud does. So a
 `hand-verified` entry is a statement about **DevCloud**, not about AWS: it can
 name an operation your SDK has never heard of.
 
@@ -103,7 +103,7 @@ whole package would file both as operations.
 
 ## Limits
 
-- **11 services have no in-tree Smithy model** — `account`, `cloudcontrol`,
+- **11 services have no in-tree Smithy model**: `account`, `cloudcontrol`,
   `codeconnections`, `dms`, `identitystore`, `mediaconvert`, `pipes`, `s3tables`,
   `scheduler`, `serverlessrepo`, `verifiedpermissions`. Their `modelBacked` flag
   is `false` and the manifest lists only what DevCloud serves; the unimplemented
@@ -111,8 +111,8 @@ whole package would file both as operations.
 - **`hand-verified` means "the provider dispatches this operation"**, not "this
   matches AWS byte for byte". Depth varies; `make test-compat` is the stronger
   signal for the services it covers.
-- **A tier share needs its denominator named.** `hand-verified` is 37.5% of the
-  operations inside the [serving target](coverage.md#the-target) and 24.4% of
+- **A tier share needs its denominator named.** `hand-verified` is 37.6% of the
+  operations inside the [serving target](coverage.md#the-target) and 24.5% of
   every operation DevCloud knows about, because the second figure includes the
   long tail that is registered for routing alone. Both are published in
   [coverage.md](coverage.md), and neither is the share "of DevCloud".
@@ -121,13 +121,13 @@ whole package would file both as operations.
 
 ## Getting an operation promoted
 
-Promotion to `hand-verified` happens **on request, with a use case** —
+Promotion to `hand-verified` happens **on request, with a use case**:
 [open a feature request](https://github.com/skyoo2003/devcloud/issues/new?template=feature_request.yml)
 naming the service, the operation, and what you are trying to run locally. Check
 the tier first with the endpoint above so the request is concrete.
 
 Requests beat guesswork. The unpromoted operations are overwhelmingly operational
-surface — DynamoDB backups and global tables, KMS custom key stores and rotation,
+surface: DynamoDB backups and global tables, KMS custom key stores and rotation,
 CloudWatch Insight Rules and Metric Streams, ECR pull-through cache. A local
 inner loop does not call them, while the ones it does call (S3, SQS, Lambda, IAM,
 STS in full) are already `hand-verified`. So v1.0 ships the long tail *declared
@@ -141,7 +141,7 @@ when:
 - any operation carries a tier outside the closed set,
 - any registered service is missing from the manifest,
 - any CRUD-registered operation is missing or marked `unimplemented`,
-- any service resolves zero `hand-verified` operations — the signal that a new
+- any service resolves zero `hand-verified` operations, which signals that a new
   path-routing provider needs a `pathRoutedOps` entry,
 - any `auto-crud` operation is one the engine will not actually serve
   (`TestAutoCRUDIsServedOverJSON`).

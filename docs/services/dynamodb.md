@@ -11,7 +11,7 @@ M (Map), and the SS / NS / BS sets.
 
 ## Supported APIs
 
-These 29 operations are `hand-verified` — implemented by the provider, not by
+These 29 operations are `hand-verified`, implemented by the provider, not by
 the [CRUD engine](../crud-engine.md). Everything else DynamoDB models is served
 at a lower tier or not at all; [fidelity-manifest.md](../fidelity-manifest.md)
 is the per-operation answer.
@@ -32,7 +32,7 @@ is the per-operation answer.
 | TagResource / UntagResource / ListTagsOfResource | Manage table tags |
 
 Writes to a table created with `StreamEnabled` are published to the
-`dynamodbstreams` service, which is what makes DynamoDB Streams → Lambda event
+`dynamodbstreams` service, which is what makes DynamoDB Streams -> Lambda event
 source mappings fire.
 
 ## boto3 Examples
@@ -131,7 +131,7 @@ aws --endpoint-url http://localhost:4747 dynamodb get-item \
   `LastEvaluatedKey` and no `ConsumedCapacity`, so `Query`/`Scan` return the
   whole matching set in one page and code that loops on the cursor sees one
   iteration.
-- **PartiQL subset only** — `ExecuteStatement`, `ExecuteTransaction` and `BatchExecuteStatement` support single-table `SELECT`, `INSERT`, `UPDATE`, and `DELETE`. `WHERE` clauses are limited to simple equality (`=`). No nested paths, subqueries, or arithmetic.
+- **PartiQL subset only**: `ExecuteStatement`, `ExecuteTransaction` and `BatchExecuteStatement` support single-table `SELECT`, `INSERT`, `UPDATE`, and `DELETE`. `WHERE` clauses are limited to simple equality (`=`). No nested paths, subqueries, or arithmetic.
 - **Backups and global tables answer from the CRUD engine.** `CreateBackup`, `CreateGlobalTable`, `DescribeContinuousBackups` and their neighbours return stored, plausible shapes with no behaviour behind them. However, `ExportTableToPointInTime`, `ImportTable`, `RestoreTableFromBackup`, and `RestoreTableToPointInTime` are fully handled by the provider (cloning tables and items in SQLite).
 - **No Kinesis active replication.** `EnableKinesisStreamingDestination` and `DisableKinesisStreamingDestination` persist configuration, but write events are not actively replicated to Kinesis streams.
 - No provisioned-throughput accounting or throttling; `BillingMode` is recorded,

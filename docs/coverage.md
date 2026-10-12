@@ -6,8 +6,8 @@ alone.
 
 | Number | What it means | Today |
 |---|---|---|
-| **Registered** | The gateway routes the service, so the call reaches DevCloud instead of real AWS. | **437** |
-| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer. | **437** |
+| **Registered** | The gateway routes the service, so the call reaches DevCloud instead of real AWS. | **441** |
+| **Serving ≥1 operation** | At least one operation returns a real, store-backed answer. | **441** |
 | **Registered-only** | Routed, but every operation declines with a clean AWS error. | **0** |
 | **Compatibility-tested** | A boto3 test exercises the service in CI and passes. | **427** |
 
@@ -16,30 +16,30 @@ denominators, because [routing and depth are two targets](#the-target):
 
 | Tier | Serving target | All registered |
 |---|---|---|
-| `hand-verified` | 4,668 | 4,699 |
-| `auto-crud` | 7,529 | 14,082 |
+| `hand-verified` | 4,700 | 4,731 |
+| `auto-crud` | 7,530 | 14,083 |
 | `unimplemented` | 267 | 477 |
-| **total known** | **12,464** | **19,258** |
-| **hand-verified share** | **37.5%** | **24.4%** |
+| **total known** | **12,497** | **19,291** |
+| **hand-verified share** | **37.6%** | **24.5%** |
 
 The **serving target** column is the depth promise: every registered service
 except the 226 the [demand study](demand.md) found nobody building. The **all
 registered** column adds those 226 back, and with them 6,794 operations that
-exist so an SDK call cannot leave for a billable account — not because DevCloud
+exist so an SDK call cannot leave for a billable account, not because DevCloud
 promises to serve them well.
 
 So the two shares answer different questions, and reading the right-hand one as
 a fidelity regression is the mistake this split exists to prevent. Registering
 226 more services did not make any operation less faithful; it enlarged a
-denominator. Of those operations, 31 are `hand-verified` — the eight
-hand-written providers for the services the engine cannot classify — and that is
+denominator. Of those operations, 31 are `hand-verified`: the eight
+hand-written providers for the services the engine cannot classify, and that is
 the whole intended depth of the long tail. Promotion out of it happens
 [on request, with a use case](fidelity-manifest.md#getting-an-operation-promoted).
 
-> **Two targets, not one: routing is 437 of 437, depth is 211.** Every service
-> AWS publishes is registered, so no call can leave for a billable account — that
+> **Two targets, not one: routing is 441 of 441, depth is 215.** Every service
+> AWS publishes is registered, so no call can leave for a billable account; that
 > is a safety property and it admits no smaller number. Depth is the separate,
-> smaller promise, and the evidence still puts it at 211. See
+> smaller promise, and the evidence still puts it at 215. See
 > [The target](#the-target).
 
 Every figure on this page is asserted against the binary by
@@ -64,7 +64,7 @@ the parser does not read.
 | `rest-xml` | 4 | HTTP method + path |
 | `ec2Query` | 1 | the `Action` form field (`ec2`) |
 | `rpcv2Cbor` | 1 | the path / RPC-v2 routing (`partnercentralrevenuemeasurement`) |
-| no in-tree model | 11 | n/a — hand-written providers |
+| no in-tree model | 11 | n/a (hand-written providers) |
 
 **The operation is not CRUD-shaped.** `GetThing`, `ListThings` and `CreateThing`
 map onto a generic store. `ExecuteStatement`, `InvokeEndpoint` and
@@ -82,7 +82,7 @@ supported, bringing the entire registered AWS fleet to serving $\ge 1$ operation
 Registering a service the engine cannot serve is deliberate. The alternative is
 worse: an *unregistered* service is not routed, so the SDK call leaves the
 machine and bills a real AWS account. A registered-only service answers locally,
-in AWS's own error vocabulary. What it must never do is fabricate a success —
+in AWS's own error vocabulary. What it must never do is fabricate a success:
 `test/compatibility/test_service_smoke.py::test_registered_only_service_declines_cleanly`
 is the check that keeps that true.
 
@@ -95,7 +95,7 @@ manifest records this per service as `EngineWired`.
 
 `test/compatibility/test_service_smoke.py` parametrises over the generated
 service list rather than a hand-written one, so a service cannot be registered
-and quietly go untested — which is what 31 of them were until this was measured.
+and quietly go untested, which is what 31 of them were until this was measured.
 
 Four are excluded, and they are not a backlog. In every one it is botocore, not
 DevCloud, that stops the request, so no answer DevCloud could give would change
@@ -118,26 +118,26 @@ adding a fifth is a deliberate edit that moves this figure with it.
 
 A runtime or control-plane split-out signs with its parent's name, so `sagemaker`
 is claimed by eight services at once. Where exactly one claimant carries the name
-as its own service ID, that service wins and the rest are borrowers — see
+as its own service ID, that service wins and the rest are borrowers; see
 `codegen.BuildAliases`. Where none does, the request is handed to the group and
 answered by the sibling whose route table models its method and path.
 
 All four Lex clients sign as `lex` and none is named `lex`, so: `GET /bots` is
-`lex-models`, `POST /bots` is `lexv2-models`, `/bot/…/session` is `lex-runtime`,
-`/bots/…/botAliases/…/sessions/…` is `lexv2-runtime`. One route is claimed by two
-siblings — `DeleteBot` at `DELETE /bots/{id}` — and it is refused rather than
+`lex-models`, `POST /bots` is `lexv2-models`, `/bot/.../session` is `lex-runtime`,
+`/bots/.../botAliases/.../sessions/...` is `lexv2-runtime`. One route is claimed by two
+siblings (`DeleteBot` at `DELETE /bots/{id}`), and it is refused rather than
 guessed: deleting the wrong bot is worse than an honest error.
 
 Three data planes are separated the same way without holding a single
 CRUD-classifiable operation: `payment-cryptography-data`, `cloudsearch-domain`
 and `kinesis-video-webrtc-storage` declare their own route tables through
 `crud.RegisterRoutes`, so route matching tells them apart from the neighbour
-whose signing name they borrow. No override names a winner — the model does.
+whose signing name they borrow. No override names a winner; the model does.
 
 ## What counts as a service
 
 Upstream publishes 431 model files, and DevCloud counts **model files**, one
-registered service each — because that is what an SDK client selects.
+registered service each, because that is what an SDK client selects.
 `boto3.client("sagemaker-runtime")` is a different client with a different API
 from `boto3.client("sagemaker")`. The split-outs are real choices a caller makes,
 not packaging artefacts.
@@ -147,20 +147,20 @@ not packaging artefacts.
 DevCloud publishes **two** targets. They answer different questions, and reading
 one as the other is the mistake this page exists to prevent.
 
-- **Routing — every service AWS publishes, and it is met.** A registered service
+- **Routing: every service AWS publishes, and it is met.** A registered service
   is answered at `localhost:4747`; an unregistered one is not routed, so the SDK
   call leaves the machine and bills a real AWS account. That is a safety
   property, not a capability claim, and the only number that satisfies it is all
   of them.
-- **Serving depth — 211 services, decided 2026-09-05, and it is met.** Depth is
+- **Serving depth: 215 services, decided 2026-09-05, and it is met.** Depth is
   what costs, so it follows evidence of demand rather than the shape of AWS's
   catalogue. The study below is that evidence, and it is unchanged.
 
 | Axis | Services | Governed by |
 |---|---|---|
-| **Routing target** | **437 / 437 — met** | leak-zero; every published model is registered |
-| **Serving target** | **211 — met** | the demand study below, sampled 2026-09-05 |
-| Registered and engine-served, outside the serving target | 226 | no depth promise — see the [CRUD engine](crud-engine.md) |
+| **Routing target** | **441 / 441 - met** | leak-zero; every published model is registered |
+| **Serving target** | **215 - met** | the demand study below, sampled 2026-09-05 |
+| Registered and engine-served, outside the serving target | 226 | no depth promise; see the [CRUD engine](crud-engine.md) |
 
 ### How the depth target was set
 
@@ -171,15 +171,15 @@ against three independent projects that each only add a service when someone
 asks. It did not hold.
 
 **Registering all 431 later did not overturn that decision.** What the study
-refused was the *cost* — hand-building 283 services on the assumption someone
+refused was the *cost*: hand-building 283 services on the assumption someone
 wanted them. The codegen scaffold removed that cost: registering the remaining
 226 became a flag on `make codegen`, not a programme of work, and the services it
 reached are served by the generic [CRUD engine](crud-engine.md) at engine
 fidelity. So routing was taken because it turned out to be nearly free, and the
 depth target stayed where the evidence put it, because it was never a count of
-registrations — it is where DevCloud promises to be worth trusting.
+registrations; it is where DevCloud promises to be worth trusting.
 
-**The rule was fixed before the numbers were seen** — four outcomes written down
+**The rule was fixed before the numbers were seen**: four outcomes written down
 in advance, including one for "the method itself failed", specifically so the
 result could not be argued into whichever answer was most convenient. Full
 evidence in [demand.md](demand.md); re-derive with
@@ -198,7 +198,7 @@ The rule kept the 100% depth target only if ≥60% of `M` had support ≥2, and
 narrowed to a demand set if ≥100 did. 57 cleared neither bar, so the
 pre-registered consequence applied: **the 100% depth claim is dropped and the
 published depth target becomes the demand set.** All 57 are registered and serve
-at least one operation — `rds-data`, the strongest-signal service in the set, is
+at least one operation: `rds-data`, the strongest-signal service in the set, is
 now served by a SQLite-backed query engine (Phase 1E) rather than the generic
 CRUD engine.
 
@@ -238,16 +238,16 @@ curl -s localhost:4747/devcloud/api/unrouted | jq .
 
 Paste that into a [service request](https://github.com/skyoo2003/devcloud/issues/new?template=service_request.yml).
 One report outranks all three proxies, because it is demand rather than a
-stand-in for it — and it is what moves a service from the 226 into the target.
+stand-in for it, and it is what moves a service from the 226 into the target.
 
 Two ceilings, so the number is not read as more than it is:
 
 1. **It is a floor, not a census.** `gateway.DetectProtocol` classifies a request
-   it cannot identify as `("rest-xml", "s3")`, and S3 is registered — so an
+   it cannot identify as `("rest-xml", "s3")`, and S3 is registered, so an
    unrecognisable request is routed to S3 rather than counted as a miss. The case
    that matters is caught: a real SDK or CLI call to an unregistered service
    signs with that service's own name and misses the registry. Verified with
-   boto3 — `boto3.client("appflow")` is recorded as `appflow`.
+   boto3: `boto3.client("appflow")` is recorded as `appflow`.
 2. **A non-zero `droppedServiceIds` means the list is incomplete.** Service IDs
    come from caller-controlled headers, so the collector caps how many distinct
    ones it holds and reports both the cap and what it dropped, rather than
@@ -264,12 +264,12 @@ Apple Silicon, `CGO_ENABLED=0`, measured at each step of the roadmap:
 |---|---|---|---|---|
 | Binary | 30.8 MiB | 31.3 MiB | 33.1 MiB | **36.8 MiB** |
 | Peak RSS (`/usr/bin/time -l`) | 57.3 MiB | 57.7 MiB | 43.7 MiB | **51.2 MiB** |
-| Service startup | — | — | 49 ms for all 205 | **42 ms for all 431** |
+| Service startup | - | - | 49 ms for all 205 | **42 ms for all 431** |
 
 The single-binary, zero-config property holds at 431 with room to spare. Startup
 does not scale meaningfully with service count: registration is a map insert per
 service in `init()`, and the generated type definitions are mostly
-dead-code-eliminated by the linker, which is why 58 more services cost 1.8 MiB —
+dead-code-eliminated by the linker, which is why 58 more services cost 1.8 MiB,
 and why 226 more, nearly quadrupling the fleet, cost 3.7 MiB rather than the
 7 MiB a linear reading of that figure predicts.
 
@@ -278,7 +278,7 @@ Two ceilings on the startup reading:
 1. **It is timed from the first `service initialized` line to `DevCloud ready`**,
    so it covers bringing every service up, not the `init()` registration alone.
    That is the number an operator waits for.
-2. **A first run costs about three times as much** — 118 to 148 ms across four
+2. **A first run costs about three times as much**: 118 to 148 ms across four
    measurements, against 42 ms once the data directories exist, because each of
    the 431 services creates its own on the way up. The cold path is the one to
    watch, and it is the one `cmd/devcloud/budget_test.go` reproduces.
@@ -286,7 +286,7 @@ Two ceilings on the startup reading:
 **Startup is measured, not gated, and that is a deliberate retreat.** The gate
 was written as a wall-clock ceiling and CI disproved it. The same path that takes
 141 ms here took 2.048 s on a GitHub arm64 runner, and 1.414 s on the same runner
-type one commit later — so the shared runner is roughly ten times slower *and*
+type one commit later, so the shared runner is roughly ten times slower *and*
 swings 45% between runs on identical code. The regression worth catching is
 smaller than that swing: a provider that starts opening a file or a database per
 service at startup costs 1.2x to 2x, because that is what 431 extra file opens
@@ -307,12 +307,12 @@ That is how the figures above are re-taken per release.
 
 The binary size *is* gated, because size does not vary with how busy a runner is.
 CI fails the build past **45 MiB** and measures 35 MiB on arm64, 37 MiB on amd64
-— close enough to the 36.8 MiB above that the platform barely registers, so the
+(close enough to the 36.8 MiB above that the platform barely registers), so the
 remaining 8 MiB is genuine slack rather than a correction for anything. It is a
 decision; if it starts failing, find what grew before raising it.
 
 The RSS readings were taken on different days and are not a controlled
-comparison. Read them as "memory is not the constraint" rather than as a saving —
+comparison. Read them as "memory is not the constraint" rather than as a saving;
 what they agree on is the shape: memory is dominated by the runtime and the
 store, not by how many services are registered.
 
@@ -347,12 +347,12 @@ Reducing that cost rather than restating it is tracked separately.
 
 What the sample does settle is the *shape* of the work. None of the 93 was
 documentation-only, so no sync can be waved through on the assumption that AWS
-only reworded things. Thirty-two services gained operations — `ec2` alone gained
-46 — which moves the manifest and makes the published-figure gate fail on
+only reworded things. Thirty-two services gained operations (`ec2` alone gained
+46), which moves the manifest and makes the published-figure gate fail on
 purpose. That failure is still what triggers the review; what it no longer costs
 is the arithmetic. The sync re-derives every figure on this page and commits the
 result into its own pull request, and the body states which ones moved. What a
-person still owes is the judgement — whether those operations should have moved —
+person still owes is the judgement: whether those operations should have moved,
 and any sentence a number cannot carry. Re-derive by hand with
 `DEVCLOUD_UPDATE_DOCS=1 go test ./cmd/devcloud/ -run TestUpdatePublishedFigures`,
 and read which operations moved with `python3 scripts/model_churn.py --upstream`.
@@ -368,7 +368,7 @@ make test-compat         # the compatibility-tested number, over all 431 service
 
 Every figure comes from `internal/generated/fidelity/manifest_gen.go` and nothing
 else, so it cannot drift from what the binary serves. It cannot drift from *this
-page* either — nine tests compare the two, in both directions:
+page* either: nine tests compare the two, in both directions:
 
 | Test | Gates |
 |---|---|

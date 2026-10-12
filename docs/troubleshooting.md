@@ -16,11 +16,11 @@ server:
   port: 4100
 ```
 
-Or map a different host port: `docker run -p 4100:4747 …`.
+Or map a different host port: `docker run -p 4100:4747 ...`.
 
 **Server starts but clients get `connection refused`**
-Check it is actually listening — any request works, DevCloud has no health
-endpoint:
+Check it is actually listening (any request works, DevCloud has no health
+endpoint):
 
 ```bash
 curl -i http://localhost:4747/
@@ -48,11 +48,11 @@ client has dummy but **non-empty** credentials (`aws_access_key_id="test"`,
 
 **`NoSuchBucket` / `ResourceNotFoundException` after restart**
 SQS is in-memory and loses state. S3, DynamoDB, Lambda and IAM persist only if
-`data_dir` points somewhere durable — under Docker, a mounted volume. See
+`data_dir` points somewhere durable (under Docker, a mounted volume). See
 [configuration.md](configuration.md#data-directories).
 
 **`InvalidAction`, `NotImplemented` or `UnsupportedOperation`**
-That operation is not served. Check its tier — enable `admin.enabled: true`, then:
+That operation is not served. Check its tier by enabling `admin.enabled: true`, then:
 
 ```bash
 curl -s 'localhost:4747/devcloud/api/fidelity?service=s3'
@@ -65,7 +65,7 @@ success ([fidelity-manifest.md](fidelity-manifest.md)). To ask for it, open a
 **The call reached real AWS instead of DevCloud**
 The service is not registered, so nothing routed it. Confirm with
 `GET /devcloud/api/unrouted` and file a
-[service request](https://github.com/skyoo2003/devcloud/issues/new?template=service_request.yml) —
+[service request](https://github.com/skyoo2003/devcloud/issues/new?template=service_request.yml);
 see [coverage.md](coverage.md#service-not-supported).
 
 **Terraform apply succeeds but the next plan shows drift**
@@ -76,7 +76,7 @@ AWS provider together, or file a bug with the exact resource and attributes.
 ## Lambda
 
 **Invoke returns `ServiceException` (503)**
-Check that Docker CLI can reach its daemon and that the Python 3.12 or Node 22
+Check that Container CLI (Docker/Podman/nerdctl) can reach its daemon and that the Python 3.12 or Node 22
 image is available. See [Lambda setup](services/lambda.md#execution-setup).
 
 **Invoke returns HTTP 200 but my handler failed**
@@ -97,7 +97,7 @@ admin:
 ```
 
 Restart afterwards. The routes are `services`, `services/{id}/resources`, `logs`,
-`fidelity` and `unrouted` — there is no `health` route, and no bundled UI (the web
+`fidelity` and `unrouted`: there is no `health` route, and no bundled UI (the web
 dashboard is a separate repository).
 
 ## Still stuck?

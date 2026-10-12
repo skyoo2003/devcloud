@@ -2,10 +2,10 @@
 package lambda
 
 import (
-	"bytes"
 	"context"
 	"fmt"
-	"os/exec"
+
+	"github.com/skyoo2003/devcloud/internal/shared/workload"
 )
 
 func runtimeImage(runtime string) (string, error) {
@@ -19,17 +19,5 @@ func runtimeImage(runtime string) (string, error) {
 	}
 }
 func runDocker(ctx context.Context, input []byte, args ...string) ([]byte, error) {
-	cmd := exec.CommandContext(ctx, "docker", args...)
-	cmd.Stdin = bytes.NewReader(input)
-	var stdout, stderr bytes.Buffer
-	cmd.Stdout = &stdout
-	cmd.Stderr = &stderr
-	if err := cmd.Run(); err != nil {
-		return nil, fmt.Errorf("%w: %s", err, stderr.String())
-	}
-	if len(args) > 0 && args[0] == "logs" {
-		// Docker forwards the container's stderr separately from stdout.
-		stdout.Write(stderr.Bytes())
-	}
-	return stdout.Bytes(), nil
+	return workload.DefaultContainerRunner()(ctx, input, args...)
 }

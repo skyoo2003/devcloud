@@ -1,54 +1,47 @@
 # Configuration
 
-**Configuration is optional.** With no flags, `devcloud` enables every registered
-service on port 4747 and stores data under `./data/<service>/`. The defaults are
-compiled into the binary from
-[`internal/config/default.yaml`](https://github.com/skyoo2003/devcloud/blob/main/internal/config/default.yaml).
+Configuration is optional. With no flags, DevCloud enables every registered service on port 4747 and stores state under `./data/<service>/`. Defaults are compiled into the binary from `internal/config/default.yaml`.
 
-Config is resolved in this order, and **environment beats YAML beats embedded
-default**:
+Configuration precedence follows this order: **environment variables override YAML, which overrides embedded defaults**:
 
-1. `--config <path>` — explicit; the file must exist
-2. `./devcloud.yaml` in the working directory — auto-detected
+1. `--config <path>`: explicit configuration file path
+2. `./devcloud.yaml` in the working directory: auto-detected if present
 3. Embedded defaults
 
-## Environment variables
+## Environment Variables
 
 | Variable | Overrides | Description |
 |----------|-----------|-------------|
-| `DEVCLOUD_PORT` | `server.port` | HTTP server port |
+| `DEVCLOUD_PORT` | `server.port` | HTTP server listening port (default: 4747) |
 | `DEVCLOUD_SERVICES` | `services.*.enabled` | Comma-separated service list, or a tier shortcut |
-| `DEVCLOUD_DATA_DIR` | `services.*.data_dir` | Base data directory for all services |
+| `DEVCLOUD_DATA_DIR` | `services.*.data_dir` | Base data directory for persistent services |
+| `CONTAINER_RUNTIME` | workload engine | OCI container executable (`podman`, `docker`, `nerdctl`) |
+| `WASM_RUNTIME` | workload engine | WebAssembly runner executable (`wasmtime`, `wasmer`, `wazero`) |
+| `DEVCLOUD_LAMBDA_NETWORK` | lambda runtime | Container network for invoked Lambda handlers |
 
 ### `DEVCLOUD_SERVICES`
 
-When set, it names the running set outright: **only** the listed services start,
-regardless of their `enabled` setting, and a service the `services` block omits
-entirely still starts if you name it here (the block still supplies its
-`data_dir`). When unset, each service uses its YAML `enabled` value. An unknown
-`tierN` token is treated as a literal service name and logged as a warning.
+When set, it specifies the running set: only the listed services start, regardless of YAML `enabled` settings. If unset, each service uses its YAML `enabled` value.
 
 | Token | Expands to |
 |-------|------------|
-| `tier1` | Big 6 + core integration: s3, sqs, dynamodb, iam, sts, lambda, sns, kms, secretsmanager, ssm, cloudwatchlogs, cloudwatch, eventbridge, ec2, ecs, ecr, route53, acm |
-| `tier2` | cognito, elasticloadbalancingv2, ebs, efs, states, apigateway, apigatewayv2, kinesis, firehose, ses, sesv2, rds, cloudformation |
-| `tier3` | elasticache, cloudfront, wafv2, glue, athena, organizations, cloudtrail, eks, autoscaling, appsync, emr, batch |
-| `all` | Disables the env-var filter — the `services` block decides |
+| `tier1` | Core services: s3, sqs, dynamodb, iam, sts, lambda, sns, kms, secretsmanager, ssm, cloudwatchlogs, cloudwatch, eventbridge, ec2, ecs, ecr, route53, acm |
+| `tier2` | Extended services: cognito, elasticloadbalancingv2, ebs, efs, states, apigateway, apigatewayv2, kinesis, firehose, ses, sesv2, rds, cloudformation |
+| `tier3` | Analytics and platform: elasticache, cloudfront, wafv2, glue, athena, organizations, cloudtrail, eks, autoscaling, appsync, emr, batch |
+| `all` | Disables the env-var filter: the `services` block decides |
 
-The exact lists live in [`internal/config/config.go`](https://github.com/skyoo2003/devcloud/blob/main/internal/config/config.go).
+Examples:
 
 ```bash
-DEVCLOUD_SERVICES=s3,sqs ./dist/devcloud              # only S3 and SQS
-DEVCLOUD_SERVICES=tier1 ./dist/devcloud               # all Tier 1
+DEVCLOUD_SERVICES=s3,sqs ./dist/devcloud
+DEVCLOUD_SERVICES=tier1 ./dist/devcloud
 DEVCLOUD_SERVICES=tier1,kinesis,firehose ./dist/devcloud
 docker run -p 4747:4747 -e DEVCLOUD_SERVICES=tier1 ghcr.io/skyoo2003/devcloud:latest
 ```
 
 ### `DEVCLOUD_DATA_DIR`
 
-Every service uses `<DEVCLOUD_DATA_DIR>/<service>`, and per-service `data_dir`
-values in YAML are ignored. Useful for CI jobs needing ephemeral per-run
-directories, or for relocating state without editing `devcloud.yaml`.
+Every persistent service places its database and assets under `<DEVCLOUD_DATA_DIR>/<service>`. This is useful in CI pipelines requiring isolated ephemeral storage directories.
 
 ```bash
 DEVCLOUD_DATA_DIR=/tmp/devcloud-local ./dist/devcloud
@@ -66,14 +59,13 @@ DEVCLOUD_PORT=8080 ./dist/devcloud
 docker run -p 8080:8080 -e DEVCLOUD_PORT=8080 ghcr.io/skyoo2003/devcloud:latest
 ```
 
-## Configuration file
+## Configuration File
 
 ```yaml
 server:
   port: 4747
 
-# Optional: listing services restricts startup to exactly this set.
-# Omit the whole block to run every registered service.
+# Optional: Top-level services block (AWS)
 services:
   s3:
     enabled: true
@@ -82,6 +74,41 @@ services:
     enabled: true
   dynamodb:
     enabled: true
+
+# Multi-provider namespaces
+providers:
+  aws:
+    services:
+      s3:
+        enabled: true
+        data_dir: ./data/s3
+  azure:
+    services:
+      blob:
+        enabled: true
+        data_dir: ./data/blob
+      azurequeue:
+        enabled: true
+        data_dir: ./data/azurequeue
+      azuretable:
+        enabled: true
+        data_dir: ./data/azuretable
+      cosmosdb:
+        enabled: true
+        data_dir: ./data/cosmos
+      azurekeyvault:
+        enabled: true
+      azureappconfig:
+        enabled: true
+  gcp:
+    services:
+      gcs:
+        enabled: true
+        data_dir: ./data/gcp/gcs
+      gcpsecrets:
+        enabled: true
+      gcppubsub:
+        enabled: true
 
 admin:
   enabled: false
@@ -94,81 +121,44 @@ logging:
 | Key | Default | Description |
 |-----|---------|-------------|
 | `server.port` | `4747` | HTTP server port |
-| `services.<name>.enabled` | `false` | **Required per entry.** Listing a service is not enough — `enabled: true` still has to be set. |
+| `services.<name>.enabled` | `false` | Required per entry when the `services` block is explicitly present. |
 | `services.<name>.data_dir` | `./data/<name>` | Data directory for persistent storage |
-| `storage.data_dir` | `./data` | Directory holding DevCloud-wide local state, including generic AWS resources |
-| `admin.enabled` | `false` | Serve the admin REST API at `/devcloud/api/*` |
-| `logging.level` | `info` | `debug`, `info`, `warn`, `error` |
-| `logging.format` | `text` | `text` or `json` |
+| `storage.data_dir` | `./data` | Directory holding shared DevCloud state and generic CRUD database |
+| `admin.enabled` | `false` | Serves the admin REST API at `/devcloud/api/*` |
+| `logging.level` | `info` | Logging verbosity: `debug`, `info`, `warn`, `error` |
+| `logging.format` | `text` | Log output formatting: `text` or `json` |
 
-The `services` block is **optional and authoritative**: omit it and every
-registered service starts; list any service and *only* the services you list
-start. `services: {}` lists nothing, so nothing starts — a block is a block even
-when empty.
+The `services` block is optional: omit it to start all registered services automatically.
 
-> The `dashboard` key was renamed to `admin`. `dashboard.enabled` is still
-> honoured for one release with a deprecation warning; migrate to `admin.enabled`.
+## Provider Namespacing
 
-> There is no `auth` key: SigV4 signature validation is not implemented and any
-> credentials are accepted.
+DevCloud supports multi-provider configurations under the `providers` map:
 
-> A service entry takes **only** `enabled` and `data_dir` — that is the whole of
-> [`config.ServiceConfig`](https://github.com/skyoo2003/devcloud/blob/main/internal/config/config.go).
-> Per-service tuning keys do not exist, and because parsing is non-strict an
-> invented one (`services.lambda.warm_containers`) is dropped without a word
-> rather than rejected. If a knob is not in the table above, writing it does
-> nothing.
+- `providers.aws.services`: AWS services. If top-level `services` is also specified, `providers.aws.services` takes precedence.
+- `providers.azure.services`: Azure services (`blob`, `azurequeue`, `azuretable`, `cosmosdb`, `azurekeyvault`, `azureappconfig`).
+- `providers.gcp.services`: GCP services (`gcs`, `gcpsecrets`, `gcppubsub`).
 
-## Provider namespacing
+Data directories for providers are isolated under their respective paths to prevent naming collisions.
 
-DevCloud serves AWS today and is prepared to serve more ([roadmap](roadmap.md)),
-so service configuration can be written under an explicit provider:
+## Data Directories
 
-```yaml
-providers:
-  aws:
-    services:
-      s3:
-        enabled: true
-        data_dir: ./data/s3
-```
+Generic resource fallback persists state in SQLite at `<storage.data_dir>/devcloud.db` (default: `./data/devcloud.db`).
 
-`providers.aws.services` and the top-level `services` block are **the same
-block** — one under its forward-compatible name, one under its historical one.
-
-- Write either. The top-level block is not deprecated.
-- If both are present, `providers.aws.services` wins and a warning names the
-  ignored block. Do not write both.
-- A block for a provider this build does not serve (`providers.azure`) parses
-  without error and logs a warning — so a config written for a later DevCloud
-  still loads, and a typo like `providers.awss` announces itself.
-- `DEVCLOUD_SERVICES` and `DEVCLOUD_DATA_DIR` are AWS-scoped. There is no syntax
-  for naming another provider's services, so they cannot silently disable one.
-- AWS data directories stay flat (`<base>/<id>`). A future provider nests under
-  its own name (`<base>/<provider>/<id>`) so two CSPs offering a same-named
-  service cannot collide.
-
-## Data directories
-
-DevCloud's generic resource fallback persists in SQLite at
-`<storage.data_dir>/devcloud.db`. By default this is `./data/devcloud.db`; an
-explicit `DEVCLOUD_DATA_DIR` overrides it together with all service directories.
-Use `devcloud --reset-data` before startup, or (with `admin.enabled: true`)
-`DELETE /devcloud/api/data`, to remove **all** local DevCloud data.
+To perform a full reset of all local state, run `devcloud --reset-data` before starting the server, or send `DELETE /devcloud/api/data` while the admin API is enabled.
 
 | Service | Default `data_dir` | Backend | Contents |
 |---------|-------------------|---------|----------|
-| S3 | `./data/s3` | Filesystem + SQLite | Object files, `metadata.db` |
-| DynamoDB | `./data/dynamodb` | SQLite | `dynamodb.db` (tables, items, TTL config, tags) |
-| IAM | `./data/iam` | SQLite | `iam.db` (users, roles, keys) |
-| STS | `./data/sts` | Shared with IAM | Uses IAM's database |
-| Lambda | `./data/lambda` | SQLite + Filesystem | `lambda.db`, `code/` |
-| SQS | — | In-memory | No persistence |
+| S3 | `./data/s3` | Filesystem + SQLite | Object payloads, `metadata.db` |
+| DynamoDB | `./data/dynamodb` | SQLite | `dynamodb.db` (tables, items, TTL, tags) |
+| IAM | `./data/iam` | SQLite | `iam.db` (users, roles, access keys) |
+| STS | `./data/sts` | Shared with IAM | Stored in IAM database |
+| Lambda | `./data/lambda` | SQLite + Filesystem | `lambda.db`, code archives |
+| SQS | none | In-memory | Queue state and message buffers |
+| Azure Blob | `./data/blob` | Filesystem + SQLite | Container metadata, block blobs |
+| Azure Table | `./data/azuretable` | SQLite | OData tables and entity records |
+| Azure Cosmos | `./data/cosmos` | SQLite | Databases, collections, documents |
+| GCS | `./data/gcp/gcs` | Filesystem + SQLite | Bucket metadata, object payloads |
 
-## Lambda Docker networking
+## Workload and Container Networking
 
-`DEVCLOUD_LAMBDA_NETWORK` selects the Docker network for function containers.
-It is an optional process environment variable, not a YAML service option.
-Pass the DevCloud endpoint to handlers using `Environment.Variables`; see
-[Lambda execution setup](services/lambda.md#execution-setup) for native and
-container networking and socket access. Docker is required only for execution.
+`DEVCLOUD_LAMBDA_NETWORK` selects the container network for Lambda functions. Pass the DevCloud endpoint to handlers via function environment variables. See [Lambda execution setup](services/lambda.md#workload-execution-engine) for networking options.

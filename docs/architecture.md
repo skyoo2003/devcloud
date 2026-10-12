@@ -1,12 +1,11 @@
 # Architecture
 
-DevCloud is a single Go binary that serves cloud provider APIs locally. It targets
-**AWS today**; the seams that let a second CSP join are described at the bottom.
+DevCloud is a single Go binary that serves cloud provider APIs locally. It supports AWS, Azure, and Google Cloud Platform behind a single unified endpoint on port 4747.
 
 ## Request Flow
 
 ```
-Client (boto3 / AWS CLI / Terraform / CDK)
+Client (AWS SDK, Azure SDK, Google Cloud SDK, Terraform, CDK, CLI)
   │
   ▼
 API Gateway (port 4747)
@@ -15,28 +14,43 @@ API Gateway (port 4747)
   │   ├─ ErrorRecovery (panic recovery)
   │   ├─ BodyLimit (request size limiting)
   │   ├─ CORS (cross-origin handling)
-  │   ├─ RequestID (X-Amz-Request-Id)
+  │   ├─ RequestID (request correlation IDs)
   │   ├─ RequestLogger (structured logging)
-  │   ├─ Identity (auth.Adapter → claimed identity on the request context)
+  │   ├─ Identity (auth.Adapter -> claimed identity on request context)
   │   └─ LogCollector (admin API live logs)
   │
-  ├─ Route: /devcloud/api/* → Admin API
+  ├─ Route: /devcloud/api/* -> Admin API
+  ├─ Route: /devcloud/identity/* -> Federated Identity Issuer (OIDC / JWKS / STS)
   │
   ▼
-Protocol Detector
+Protocol & Provider Detector
   │
-  ├─ X-Amz-Target header present      → JSON protocol
-  ├─ x-www-form-urlencoded + Action=  → Query protocol
-  ├─ SigV4 credential scope           → REST-JSON (signing name picks the service)
-  └─ Default                          → REST-XML (S3)
+  ├─ GCP Detector (/storage/v1/, /v1/projects/*, Google headers)
+  │   ├─ /storage/v1/*, /upload/storage/v1/*   -> Google Cloud Storage (gcs)
+  │   ├─ /v1/projects/*/secrets*               -> GCP Secret Manager (gcpsecrets)
+  │   └─ /v1/projects/*/topics*, subscriptions -> GCP Cloud Pub/Sub (gcppubsub)
+  │
+  ├─ Azure Detector (x-ms-* headers, SharedKey auth, /devstoreaccount1, /secrets, /kv)
+  │   ├─ /devstoreaccount1, blob headers       -> Azure Blob Storage (blob)
+  │   ├─ /devstoreaccount1/queue, comp=messages-> Azure Queue Storage (azurequeue)
+  │   ├─ /devstoreaccount1/Tables, OData JSON  -> Azure Table Storage (azuretable)
+  │   ├─ /dbs, x-ms-documentdb-* headers       -> Azure Cosmos DB (cosmosdb)
+  │   ├─ /secrets, /keys, vault.azure.net      -> Azure Key Vault (azurekeyvault)
+  │   └─ /kv, azconfig.io                      -> Azure App Configuration (azureappconfig)
+  │
+  └─ AWS Detector
+      ├─ X-Amz-Target header present           -> JSON protocol (DynamoDB, ECS, Kinesis)
+      ├─ x-www-form-urlencoded + Action=       -> Query protocol (IAM, STS, SNS, RDS, EC2)
+      ├─ SigV4 credential scope                -> REST-JSON (Lambda, ACM, API Gateway)
+      └─ Default                               -> REST-XML (S3)
   │
   ▼
-Service Router → Plugin Registry → ServicePlugin.HandleRequest()
+Service Router -> Plugin Registry -> ServicePlugin.HandleRequest()
   │
-  ├─ returns plugin.ErrUnhandledOp → generic CRUD engine (docs/crud-engine.md)
+  ├─ returns plugin.ErrUnhandledOp -> generic CRUD engine (docs/crud-engine.md)
   │
   ▼
-Storage Backend → Response Serializer → HTTP Response
+Storage Backend & Workload Engine -> Response Serializer -> HTTP Response
 ```
 
 ## Plugin System
@@ -55,152 +69,122 @@ type ServicePlugin interface {
 }
 ```
 
-Plugins register themselves in the `Registry` at startup; the gateway routes to
-one by protocol detection and service identification. The per-method contract,
-config keys, error convention and v1.x stability guarantee are in
-[plugin-api.md](plugin-api.md).
+Plugins register themselves in the `Registry` at startup. The gateway routes requests by protocol detection and service identification. The per-method contract, configuration keys, error conventions, and stability guarantees are documented in [plugin-api.md](plugin-api.md).
 
 ### Protocols
 
 | Protocol | Request format | Response | Example services |
 |----------|----------------|----------|------------------|
-| REST-XML | HTTP path/headers | XML | S3, Route53, CloudFront |
-| REST-JSON | JSON body, REST path | JSON | Lambda, ACM, API Gateway |
+| REST-XML | HTTP path/headers | XML | S3, Route53, CloudFront, Azure Blob, Azure Queue |
+| REST-JSON | JSON body, REST path | JSON | Lambda, GCS, GCP Secrets, GCP Pub/Sub, Azure Cosmos, Key Vault, App Config |
 | JSON 1.0 | JSON body, `X-Amz-Target` | JSON | DynamoDB, SQS, Kinesis |
-| JSON 1.1 | JSON body, `X-Amz-Target` | JSON | ECS, Batch, CW Logs, SFN |
+| JSON 1.1 | JSON body, `X-Amz-Target` | JSON | ECS, Batch, CloudWatch Logs, Step Functions |
 | Query | Form-encoded body with `Action=` | XML | IAM, STS, SNS, RDS, EC2 |
+| EC2 Query | Form-encoded body with `Action=` | XML (`<requestId>`) | EC2 |
+| RPC-v2 CBOR | Binary CBOR payload | CBOR | Partner Central Revenue Measurement |
 
-SQS speaks both Query and JSON; the protocol is detected per request.
+## Universal Workload Runtime
+
+Serverless function invocations (such as AWS Lambda) execute through the workload abstraction in `internal/shared/workload`:
+
+- **ContainerRunner (OCI)**: Discovers and invokes standard OCI container runtimes (`podman`, `docker`, or `nerdctl`). The runtime engine can be set explicitly via `CONTAINER_RUNTIME`.
+- **WASMRunner (WebAssembly)**: Executes `.wasm` binaries directly using standalone or embedded WebAssembly runtimes (`wasmtime`, `wasmer`, `wazero`), enabling zero-daemon serverless execution.
+- **ProcessRunner (Host Process Sandbox)**: Executes handlers directly in isolated temporary directories for lightweight local environments without container engines.
 
 ## Authentication
 
-DevCloud reads credentials and never verifies them. `internal/auth` holds one
-`Adapter` per provider — `SigV4` for AWS — which parses the credential scope off
-the `Authorization` header or a presigned URL and reports the access key, region,
-signing name and session token the caller *claimed*. `IdentityMiddleware` puts the
-result on the request context for `auth.FromContext`, and the protocol detector
-uses the same parse to route by signing name, so routing and identity cannot
-disagree.
+DevCloud inspects incoming credentials without rejecting calls for signature mismatches:
 
-Signature validation is deliberately absent: a local server that rejected calls
-whose signature did not match would break every SDK pointed at it with
-placeholder credentials. See
-[compatibility-policy.md](compatibility-policy.md#not-guaranteed).
+- **AWS**: `internal/auth/SigV4` extracts access keys, regions, signing names, and session tokens from the `Authorization` header or presigned URLs.
+- **Azure**: `internal/auth/AzureSharedKey` parses account names, SharedKey signatures, and Bearer tokens for Azure services.
+- **GCP**: `internal/auth/GCPAuth` accepts Google OAuth2 Bearer tokens (`Bearer ya29...`) and mock service account headers.
+- **Federated Identity**: `internal/services/iam` provides a built-in OIDC discovery issuer, JWKS endpoint, and STS token exchange (`AssumeRoleWithWebIdentity`) for cross-cloud credential minting.
+
+Signature validation is omitted so local test suites can run with placeholder credentials without failures.
 
 ## Code Generation
 
-Go code is generated from API models, so tracking upstream API changes costs
-little manual work. AWS Smithy is the only format read today; a second one is an
-added file, not a rewrite.
+Go code is generated from API models to keep pace with upstream cloud changes:
 
 ```
-api/smithy/*.json  (AWS Smithy model files)
-       │
-       ▼
-  ModelSource (internal/codegen/source.go)
-  Each source detects and parses its own format. SmithySource is the
-  first; OpenAPI and Protobuf join by implementing the interface and
-  appending to DefaultSources. tools/codegen names no format.
-       │
-       ▼
-  IR — *ir.Model (internal/codegen/ir)
-  Provider-neutral: service id, protocol, operations, shapes.
-  Everything downstream reads only this.
-       │
-       ▼
-  Generator (internal/codegen/generator.go) — Go templates produce:
-       ├─ types.go          — request/response structs
-       ├─ router.go         — method+URI → operation routing (REST services)
-       ├─ errors.go         — service-specific error types
-       └─ base_provider.go  — stub implementation (NotImplementedError)
-       │
-       ▼
-  internal/generated/{service}/  (DO NOT EDIT)
+api/smithy/*.json (AWS Smithy)  api/models/*.json (OpenAPI)
+       │                              │
+       └──────────────┬───────────────┘
+                      ▼
+        ModelSource (internal/codegen/source.go)
+                      │
+                      ▼
+        IR (internal/codegen/ir)
+        Provider-neutral representation: service ID, protocol, operations, shapes.
+                      │
+                      ▼
+        Generator (internal/codegen/generator.go)
+             ├─ types.go         (request/response structs)
+             ├─ router.go        (method + URI routing)
+             ├─ errors.go        (service error catalogues)
+             └─ base_provider.go (stub interfaces)
+                      │
+                      ▼
+        internal/generated/{service}/ (DO NOT EDIT)
 ```
 
-There is no generated serializer: providers receive the raw `*http.Request` and
-parse it themselves, so only `router.go` is consumed today — by the REST services
-that need `MatchOperation`.
+Generated code is updated with:
 
 ```bash
-make codegen      # all services
-make codegen-s3   # one service — fast loop while editing templates
+make codegen      # all registered services
+make codegen-s3   # single service during template development
 ```
-
-The models under `api/smithy/` are committed on purpose. The download URL
-tracks `aws-sdk-go-v2` *main*, so the vendored copies are the pin that makes
-`make codegen` reproducible and offline. A [weekly workflow](../.github/workflows/smithy-sync.yml)
-passes `--refresh`, regenerates, and opens a PR — which is what makes an upstream
-API change show up as a reviewable model diff next to the regenerated code. How to
-review one: [contributing.md](contributing.md#reviewing-the-weekly-model-sync).
 
 ## Admin API
 
-`internal/admin/` serves a REST API at `/devcloud/api/` — service status, resource
-listing, fidelity tiers, unrouted calls, and recent request logs (a circular
-buffer of the last 1000). Disabled by default (`admin.enabled: false`). The web
-dashboard UI that consumes it is a separate repository; this server serves no UI.
+`internal/admin/` serves an opt-in REST API at `/devcloud/api/` for service health, resource inventories, fidelity tiers, unrouted calls, and recent request logs. It is disabled by default (`admin.enabled: false`).
 
 ## Startup Flow
 
-1. Load config from `devcloud.yaml` (or `--config`), applying `DEVCLOUD_PORT`, `DEVCLOUD_SERVICES`, `DEVCLOUD_DATA_DIR`
-2. Initialize the structured logger (slog) and the plugin registry
-3. Register service factories, then initialize services in dependency order (IAM before STS — STS receives the IAM store via plugin config options)
-4. Set up the event bus, log collector and admin API
-5. Build the gateway with its middleware chain and service router, and listen
-6. On SIGINT/SIGTERM, shut down gracefully with a 15s budget
+1. Load configuration from `devcloud.yaml` (or `--config`), applying `DEVCLOUD_PORT`, `DEVCLOUD_SERVICES`, and `DEVCLOUD_DATA_DIR`.
+2. Initialize structured logging (slog) and the plugin registry.
+3. Register service factories and initialize services in dependency order (IAM precedes STS; STS receives the IAM store).
+4. Set up the event bus, log collector, and admin API.
+5. Initialize the gateway with middleware chains and the multi-cloud service router.
+6. On SIGINT or SIGTERM, shut down gracefully within a 15-second budget.
 
 ## Directory Structure
 
 ```
 devcloud/
 ├── cmd/
-│   └── devcloud/           # Server entry point
+│   └── devcloud/           # Server entry point and imports
 ├── tools/
-│   └── codegen/            # Smithy code generator CLI
+│   └── codegen/            # Smithy and OpenAPI code generator CLI
 ├── internal/
-│   ├── gateway/            # HTTP server, middleware, protocol detection, routing
-│   ├── plugin/             # ServicePlugin interface, Registry, ProviderScoped
-│   ├── auth/               # Per-provider credential adapters (SigV4 today)
-│   ├── codegen/            # ModelSource implementations, generators, templates
-│   │   └── ir/             # Provider-neutral intermediate representation
-│   ├── config/             # YAML loading, provider namespacing, env overrides
+│   ├── gateway/            # Multi-cloud HTTP router, protocol detection, middleware
+│   ├── plugin/             # ServicePlugin interfaces and Registry
+│   ├── auth/               # Provider credential adapters (AWS SigV4, Azure, GCP)
+│   ├── codegen/            # Model sources, generators, and templates
+│   ├── config/             # YAML loading, provider namespaces, environment overrides
 │   ├── generated/          # Auto-generated code (DO NOT EDIT)
-│   ├── services/           # Service implementations
-│   ├── shared/             # CRUD engine, HTTP routing, response helpers
+│   ├── services/           # Service implementations (AWS, Azure, GCP, Identity)
+│   ├── shared/             # CRUD engine, HTTP router, and workload execution engine
+│   │   └── workload/       # Pluggable OCI, WASM, and Process workload drivers
 │   ├── admin/              # Admin REST API
-│   └── storage/            # Shared storage abstractions
-├── api/smithy/             # AWS Smithy JSON model files
-├── build/package/          # Container build and release packaging files
-├── deployments/            # Docker Compose deployment configuration
-├── test/compatibility/     # Python/boto3 compatibility tests
-└── docs/
+│   └── storage/            # Shared storage backends
+├── api/
+│   ├── smithy/             # AWS Smithy JSON models
+│   └── models/             # OpenAPI models for Azure and GCP services
+├── build/package/          # Packaging and container builds
+├── test/compatibility/     # Automated Python SDK and CLI compatibility tests
+└── docs/                   # Documentation
 ```
 
-## Multi-CSP seams
+## Multi-CSP Architecture Seams
 
-The long-term direction is to serve multiple CSPs behind one local runtime. Phase
-2 of the [roadmap](roadmap.md) made each place a second provider would have
-touched an *addition* rather than an edit:
+The runtime supports multiple cloud providers behind a single engine:
 
 | Seam | Package | How a provider joins |
 |---|---|---|
-| Model → code | [`internal/codegen/ir`](../internal/codegen/ir/ir.go), [`source.go`](../internal/codegen/source.go) | Implement `ModelSource`, append it to `DefaultSources` |
-| Configuration | [`internal/config`](../internal/config/config.go) | `providers.<name>.services.*`; add the name to `knownProviders` |
-| Service contract | [`internal/plugin`](../internal/plugin/plugin.go) | Implement the optional `ProviderScoped` on the plugin |
-| Credentials | [`internal/auth`](../internal/auth/auth.go) | Implement `Adapter`, append it to `Adapters` |
-
-The plugin system, protocol detector and storage abstractions stay CSP-agnostic
-by convention rather than enforcement — `ProtocolType` is an open string type,
-not an enum, for exactly this reason.
-
-Phase 3 established the first non-AWS pilot (**Azure Blob Storage**) exercising all
-four seams: OpenAPI models in `api/models/` parsed via `OpenAPISource`, namespaced
-configuration under `providers.azure.services.blob`, `ProviderScoped` plugin registration,
-and `AzureSharedKey` authentication.
-
-Phase 4 expanded multi-CSP breadth to **Google Cloud Platform** (`providers.gcp.services.gcs`)
-with OAuth2 Bearer token authentication (`GCPAuth`), expanded **Azure Storage & Database**
-capabilities (Queue Storage `azurequeue`, Table Storage `azuretable`, and Cosmos DB `cosmosdb`),
-and introduced the **Federated Identity Playground** (`internal/services/iam`) providing local
-OIDC discovery/JWKS/token issuance and cross-CSP token exchanges (AWS STS, Azure AD, and GCP STS).
+| Model to code | `internal/codegen/ir`, `source.go` | Implement `ModelSource`, register in `DefaultSources` |
+| Configuration | `internal/config` | Namespace under `providers.<csp>.services.*` |
+| Service contract | `internal/plugin` | Implement `ServicePlugin` and optional `ProviderScoped` |
+| Credentials | `internal/auth` | Implement `Adapter` and register in credential adapters |
+| Routing | `internal/gateway/protocol.go` | Register protocol and prefix rules on port 4747 |
+| Workload | `internal/shared/workload` | Select OCI container, WebAssembly, or process driver |

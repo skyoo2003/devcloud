@@ -2,7 +2,7 @@
 
 ## Overview
 
-DevCloud SQS provides in-memory message queues. Queues are stored in memory with thread-safe access (sync.RWMutex). Data is **not persisted** — all queues and messages are lost on server restart.
+DevCloud SQS provides in-memory message queues. Queues are stored in memory with thread-safe access (sync.RWMutex). Data is **not persisted**: all queues and messages are lost on server restart.
 
 SQS supports dual protocol: legacy Query protocol (form-encoded with XML responses) and modern JSON 1.0 protocol (used by boto3 1.42+). The protocol is auto-detected based on the Content-Type header.
 
@@ -25,7 +25,7 @@ All 23 SQS operations are handled over the JSON 1.0 protocol.
 | TagQueue / UntagQueue / ListQueueTags | Manage queue tags |
 | ListDeadLetterSourceQueues | List queues that use a queue as their dead-letter target |
 | StartMessageMoveTask / ListMessageMoveTasks / CancelMessageMoveTask | Redrive messages out of a dead-letter queue |
-| AddPermission / RemovePermission | Accepted (no-op — permissions are not enforced) |
+| AddPermission / RemovePermission | Accepted (no-op; permissions are not enforced) |
 
 ## boto3 Examples
 
@@ -82,7 +82,7 @@ aws --endpoint-url http://localhost:4747 sqs receive-message \
 
 ## Known Limitations
 
-- In-memory only — no persistence across restarts
+- In-memory only: no persistence across restarts
 - Dead-letter redrive (message move tasks) runs synchronously: tasks complete immediately,
   so there is no `RUNNING` status and `MaxNumberOfMessagesPerSecond` is not throttled
 - `AddPermission`/`RemovePermission` are accepted but not enforced (no access-policy checks)
@@ -90,4 +90,4 @@ aws --endpoint-url http://localhost:4747 sqs receive-message \
   `SetQueueAttributes`/`GetQueueAttributes` but not enforced: `SendMessage` ignores `DelaySeconds`
   and `ReceiveMessage` honors only its per-request `VisibilityTimeout` (default 30s)
 - No message retention/expiry enforcement
-- No long polling (`WaitTimeSeconds` is not honored — receives return immediately)
+- No long polling (`WaitTimeSeconds` is not honored: receives return immediately)

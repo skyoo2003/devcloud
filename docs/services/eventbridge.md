@@ -8,7 +8,7 @@ account is `000000000000`.
 
 ## Supported APIs
 
-These 45 operations are `hand-verified` — implemented by the provider, not by the CRUD engine.
+These 45 operations are `hand-verified`, implemented by the provider, not by the CRUD engine.
 
 | Operation | Description |
 |-----------|-------------|
@@ -31,7 +31,7 @@ These 45 operations are `hand-verified` — implemented by the provider, not by 
 `aws.partner/<partner>/<source>`, for example `aws.partner/devcloud/orders`.
 The Account parameter must name the local account. `DescribePartnerEventSource`,
 `DescribeEventSource`, and the source/account list APIs read the same stored row.
-Source timestamps are SDK datetimes. Lists support prefixes, Limit 1–100 and
+Source timestamps are SDK datetimes. Lists support prefixes, Limit 1-100 and
 NextToken; a token belongs to its original list operation and filters.
 
 Create a bus with matching Name and EventSourceName to bind the source and make
@@ -39,7 +39,7 @@ it ACTIVE. `DeactivateEventSource` changes it to PENDING; `ActivateEventSource`
 restores ACTIVE on a bound source. Repeated transitions succeed. Rules and targets
 remain stored through either transition.
 
-`PutPartnerEvents` accepts 1–20 entries. Each entry requires Source, DetailType and
+`PutPartnerEvents` accepts 1-20 entries. Each entry requires Source, DetailType and
 a JSON Detail string. An ACTIVE bound source sends matching events through the
 existing local target delivery path. PENDING or missing sources fail individually;
 the response keeps the original entry order and reports FailedEntryCount. EventId

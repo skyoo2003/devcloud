@@ -485,6 +485,10 @@ func isAzureRequest(r *http.Request) bool {
 	if strings.HasPrefix(r.URL.Path, "/devstoreaccount1") {
 		return true
 	}
+	if strings.Contains(r.Host, "vault.azure.net") || strings.Contains(r.Host, "azconfig.io") ||
+		strings.HasPrefix(r.URL.Path, "/secrets") || strings.HasPrefix(r.URL.Path, "/kv") {
+		return true
+	}
 	authz := r.Header.Get("Authorization")
 	if strings.HasPrefix(authz, "SharedKey ") || strings.HasPrefix(authz, "SharedKeyLite ") ||
 		strings.HasPrefix(authz, "type=master") {
@@ -519,6 +523,15 @@ func detectAzureService(r *http.Request) (string, string) {
 		return "rest-xml", "azurequeue"
 	}
 
+	if strings.HasPrefix(trimmed, "secrets") || strings.HasPrefix(trimmed, "keys") ||
+		strings.Contains(r.Host, "vault.azure.net") {
+		return "rest-json", "azurekeyvault"
+	}
+
+	if strings.HasPrefix(trimmed, "kv") || strings.Contains(r.Host, "azconfig.io") {
+		return "rest-json", "azureappconfig"
+	}
+
 	return "rest-xml", "blob"
 }
 
@@ -532,6 +545,9 @@ func isGCPRequest(r *http.Request) bool {
 	if strings.HasPrefix(r.URL.Path, "/storage/v1/") || strings.HasPrefix(r.URL.Path, "/upload/storage/v1/") {
 		return true
 	}
+	if strings.HasPrefix(r.URL.Path, "/v1/projects/") || strings.HasPrefix(r.URL.Path, "/v1beta1/projects/") {
+		return true
+	}
 	if r.Header.Get("x-goog-api-client") != "" || r.Header.Get("x-goog-project-id") != "" {
 		return true
 	}
@@ -543,8 +559,15 @@ func isGCPRequest(r *http.Request) bool {
 }
 
 func detectGCPService(r *http.Request) (string, string) {
-	if strings.HasPrefix(r.URL.Path, "/storage/v1/") || strings.HasPrefix(r.URL.Path, "/upload/storage/v1/") {
+	path := r.URL.Path
+	if strings.HasPrefix(path, "/storage/v1/") || strings.HasPrefix(path, "/upload/storage/v1/") {
 		return "rest-json", "gcs"
+	}
+	if strings.Contains(path, "/secrets") {
+		return "rest-json", "gcpsecrets"
+	}
+	if strings.Contains(path, "/topics") || strings.Contains(path, "/subscriptions") {
+		return "rest-json", "gcppubsub"
 	}
 	return "rest-json", "gcs"
 }

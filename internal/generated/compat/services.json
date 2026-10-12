@@ -1430,6 +1430,30 @@
       "UpdateScalingPlan"
     ]
   },
+  "azureappconfig": {
+    "protocol": "rest-json",
+    "servedOps": [
+      "DeleteKeyValue",
+      "GetKeyValue",
+      "ListKeyValues",
+      "SetKeyValue"
+    ]
+  },
+  "azurekeyvault": {
+    "protocol": "rest-json",
+    "servedOps": [
+      "CreateKey",
+      "DeleteKey",
+      "DeleteSecret",
+      "GetKey",
+      "GetSecret",
+      "GetSecretVersion",
+      "GetSecretVersions",
+      "ListKeys",
+      "ListSecrets",
+      "SetSecret"
+    ]
+  },
   "azurequeue": {
     "protocol": "rest-xml",
     "servedOps": [
@@ -8827,6 +8851,35 @@
       "UntagResource",
       "UpdateApplication",
       "UpdateStreamGroup"
+    ]
+  },
+  "gcppubsub": {
+    "protocol": "rest-json",
+    "servedOps": [
+      "Acknowledge",
+      "CreateSubscription",
+      "CreateTopic",
+      "DeleteSubscription",
+      "DeleteTopic",
+      "GetSubscription",
+      "GetTopic",
+      "ListSubscriptions",
+      "ListTopics",
+      "Publish",
+      "Pull"
+    ]
+  },
+  "gcpsecrets": {
+    "protocol": "rest-json",
+    "servedOps": [
+      "AccessSecretVersion",
+      "AddSecretVersion",
+      "CreateSecret",
+      "DeleteSecret",
+      "DestroySecretVersion",
+      "GetSecret",
+      "ListSecretVersions",
+      "ListSecrets"
     ]
   },
   "gcs": {

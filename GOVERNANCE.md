@@ -9,7 +9,7 @@ DevCloud is a small, volunteer-driven open-source project. This document describ
 - **Best-effort response.** No SLA; see [SUPPORT.md](SUPPORT.md) for expectations.
 
 This is appropriate at the project's current size. It is a statement about who decides, not about
-API stability — what a release promises is [docs/compatibility-policy.md](docs/compatibility-policy.md).
+API stability: what a release promises is [docs/compatibility-policy.md](docs/compatibility-policy.md).
 
 ## How decisions are made
 
@@ -24,7 +24,7 @@ API stability — what a release promises is [docs/compatibility-policy.md](docs
 
 ## How to influence direction
 
-- **Open issues.** Features, bugs, questions — all go through [Issues](https://github.com/skyoo2003/devcloud/issues) or [Discussions](https://github.com/skyoo2003/devcloud/discussions).
+- **Open issues.** Features, bugs, questions: all go through [Issues](https://github.com/skyoo2003/devcloud/issues) or [Discussions](https://github.com/skyoo2003/devcloud/discussions).
 - **React to existing issues** to surface priority.
 - **Submit PRs.** Working code speaks loudest. See [CONTRIBUTING.md](CONTRIBUTING.md).
 - **Discuss architecture early.** For non-trivial changes, open a design issue before writing code.
@@ -33,9 +33,9 @@ API stability — what a release promises is [docs/compatibility-policy.md](docs
 
 As DevCloud grows, the governance model will evolve. Likely milestones:
 
-- **2+ active maintainers** — introduce a lightweight maintainer charter (who can merge what, conflict resolution).
-- **First external contributor with sustained commits** — document maintainer eligibility criteria.
-- **Foundation consideration** — if the project reaches the scale where vendor-neutral governance matters, a formal foundation model will be evaluated.
+- **2+ active maintainers**: introduce a lightweight maintainer charter (who can merge what, conflict resolution).
+- **First external contributor with sustained commits**: document maintainer eligibility criteria.
+- **Foundation consideration**: if the project reaches the scale where vendor-neutral governance matters, a formal foundation model will be evaluated.
 
 Until then, this one-page document is the full governance.
 
