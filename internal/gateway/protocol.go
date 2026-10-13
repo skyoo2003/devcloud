@@ -485,8 +485,7 @@ func isAzureRequest(r *http.Request) bool {
 	if strings.HasPrefix(r.URL.Path, "/devstoreaccount1") {
 		return true
 	}
-	if strings.Contains(r.Host, "vault.azure.net") || strings.Contains(r.Host, "azconfig.io") ||
-		strings.HasPrefix(r.URL.Path, "/secrets") || strings.HasPrefix(r.URL.Path, "/kv") {
+	if azureVaultService(r) != "" {
 		return true
 	}
 	authz := r.Header.Get("Authorization")
@@ -497,7 +496,36 @@ func isAzureRequest(r *http.Request) bool {
 	return false
 }
 
+// azureVaultService recognises Key Vault and App Configuration. The host names
+// the service outright; without it, a bare "/secrets", "/keys" or "/kv" prefix
+// would also capture S3 buckets and blob containers named that way, so the
+// path only counts alongside api-version, which both SDKs always send and S3
+// and Azure Storage never do.
+func azureVaultService(r *http.Request) string {
+	if strings.Contains(r.Host, "vault.azure.net") {
+		return "azurekeyvault"
+	}
+	if strings.Contains(r.Host, "azconfig.io") {
+		return "azureappconfig"
+	}
+	if !r.URL.Query().Has("api-version") {
+		return ""
+	}
+	switch seg, _, _ := strings.Cut(strings.TrimPrefix(r.URL.Path, "/"), "/"); seg {
+	case "secrets", "keys":
+		return "azurekeyvault"
+	case "kv":
+		return "azureappconfig"
+	}
+	return ""
+}
+
 func detectAzureService(r *http.Request) (string, string) {
+	// Before the storage heuristics below: "messages" anywhere in the path
+	// means Queue to them, and a secret or key named that way is not a queue.
+	if svc := azureVaultService(r); svc != "" {
+		return "rest-json", svc
+	}
 	path := r.URL.Path
 	trimmed := strings.TrimPrefix(path, "/devstoreaccount1")
 	trimmed = strings.TrimPrefix(trimmed, "/")
@@ -521,15 +549,6 @@ func detectAzureService(r *http.Request) (string, string) {
 		strings.HasPrefix(trimmed, "queue?") ||
 		r.URL.Query().Get("comp") == "messages" {
 		return "rest-xml", "azurequeue"
-	}
-
-	if strings.HasPrefix(trimmed, "secrets") || strings.HasPrefix(trimmed, "keys") ||
-		strings.Contains(r.Host, "vault.azure.net") {
-		return "rest-json", "azurekeyvault"
-	}
-
-	if strings.HasPrefix(trimmed, "kv") || strings.Contains(r.Host, "azconfig.io") {
-		return "rest-json", "azureappconfig"
 	}
 
 	return "rest-xml", "blob"
@@ -563,11 +582,16 @@ func detectGCPService(r *http.Request) (string, string) {
 	if strings.HasPrefix(path, "/storage/v1/") || strings.HasPrefix(path, "/upload/storage/v1/") {
 		return "rest-json", "gcs"
 	}
-	if strings.Contains(path, "/secrets") {
-		return "rest-json", "gcpsecrets"
-	}
-	if strings.Contains(path, "/topics") || strings.Contains(path, "/subscriptions") {
-		return "rest-json", "gcppubsub"
+	// /{version}/projects/{project}/{collection}/...: match the collection
+	// segment, not a substring, so a project or topic named "secrets-..." stays
+	// where it belongs.
+	if parts := strings.SplitN(strings.TrimPrefix(path, "/"), "/", 5); len(parts) >= 4 && parts[1] == "projects" {
+		switch parts[3] {
+		case "secrets":
+			return "rest-json", "gcpsecrets"
+		case "topics", "subscriptions":
+			return "rest-json", "gcppubsub"
+		}
 	}
 	return "rest-json", "gcs"
 }

@@ -35,7 +35,7 @@ func (p *Provider) Shutdown(ctx context.Context) error {
 }
 
 func (p *Provider) ListResources(ctx context.Context) ([]plugin.Resource, error) {
-	secs, err := p.store.ListSecrets("default")
+	secs, err := p.store.ListSecrets("")
 	if err != nil {
 		return nil, err
 	}
@@ -69,16 +69,18 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 	case "SetSecret":
 		name := params["secret-name"]
 		var payload struct {
-			Value       string            `json:"value"`
+			Value       *string           `json:"value"`
 			ContentType string            `json:"contentType"`
 			Tags        map[string]string `json:"tags"`
 		}
+		// A missing value is a 400, as in Key Vault, rather than a stored
+		// empty secret: the SDK's auth-challenge probe sends this PUT bodyless.
 		bodyBytes, err := io.ReadAll(req.Body)
-		if err == nil && len(bodyBytes) > 0 {
-			_ = json.Unmarshal(bodyBytes, &payload)
+		if err != nil || json.Unmarshal(bodyBytes, &payload) != nil || payload.Value == nil {
+			return azureErrorResponse(http.StatusBadRequest, "BadParameter", "The request body must be JSON with a 'value' property.")
 		}
 
-		sec, err := p.store.SetSecret(vault, name, payload.Value, payload.ContentType, payload.Tags)
+		sec, err := p.store.SetSecret(vault, name, *payload.Value, payload.ContentType, payload.Tags)
 		if err != nil {
 			return azureErrorResponse(http.StatusInternalServerError, "InternalError", err.Error())
 		}
@@ -102,6 +104,9 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 		name := params["secret-name"]
 		versions, err := p.store.GetSecretVersions(vault, name)
 		if err != nil {
+			if errors.Is(err, ErrSecretNotFound) {
+				return azureErrorResponse(http.StatusNotFound, "SecretNotFound", fmt.Sprintf("A secret with (name/id) %s was not found in this key vault.", name))
+			}
 			return azureErrorResponse(http.StatusInternalServerError, "InternalError", err.Error())
 		}
 		body, _ := json.Marshal(map[string]any{"value": versions})

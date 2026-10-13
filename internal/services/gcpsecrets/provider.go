@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"regexp"
 	"strings"
 
 	generated "github.com/skyoo2003/devcloud/internal/generated/gcpsecrets"
@@ -18,9 +19,13 @@ import (
 
 type Provider struct {
 	generated.BaseProvider
-	dataDir string
-	store   *Store
+	store *Store
 }
+
+// secretIDPattern is Secret Manager's own rule. Anything wider can be created
+// but never reached again: matchSecretRoute splits on ':' and reads the
+// escaped URI, so a ':' or a percent-encoded character orphans the secret.
+var secretIDPattern = regexp.MustCompile(`^[A-Za-z0-9_-]{1,255}$`)
 
 func (p *Provider) ServiceID() string             { return "gcpsecrets" }
 func (p *Provider) ServiceName() string           { return "Google Cloud Secret Manager" }
@@ -28,11 +33,7 @@ func (p *Provider) Protocol() plugin.ProtocolType { return plugin.ProtocolRESTJS
 func (p *Provider) Provider() string              { return "gcp" }
 
 func (p *Provider) Init(cfg plugin.PluginConfig) error {
-	p.dataDir = cfg.DataDir
-	if p.dataDir == "" {
-		p.dataDir = "./data/gcp-secrets"
-	}
-	p.store = NewStore(p.dataDir)
+	p.store = NewStore()
 	return nil
 }
 
@@ -64,11 +65,7 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 
 	switch op {
 	case "ListSecrets":
-		project := params["project"]
-		if project == "" {
-			project = extractProjectFromPath(req.URL.Path)
-		}
-		secs, err := p.store.ListSecrets(project)
+		secs, err := p.store.ListSecrets(params["project"])
 		if err != nil {
 			return gcpErrorResponse(http.StatusInternalServerError, "InternalError", err.Error())
 		}
@@ -85,12 +82,9 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 
 	case "CreateSecret":
 		project := params["project"]
-		secretId := params["secretId"]
-		if secretId == "" {
-			secretId = req.URL.Query().Get("secretId")
-		}
-		if project == "" {
-			project = extractProjectFromPath(req.URL.Path)
+		secretId := req.URL.Query().Get("secretId")
+		if !secretIDPattern.MatchString(secretId) {
+			return gcpErrorResponse(http.StatusBadRequest, "InvalidArgument", "secretId must be 1-255 letters, digits, '_' or '-'.")
 		}
 
 		var payload struct {
@@ -210,6 +204,22 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 			ContentType: "application/json",
 		}, nil
 
+	case "GetSecretVersion":
+		v, err := p.store.GetSecretVersion(params["project"], params["secret"], params["version"])
+		if err != nil {
+			if errors.Is(err, ErrSecretNotFound) || errors.Is(err, ErrVersionNotFound) {
+				return gcpErrorResponse(http.StatusNotFound, "NotFound", "Secret or version not found.")
+			}
+			return gcpErrorResponse(http.StatusInternalServerError, "InternalError", err.Error())
+		}
+		body, _ := json.Marshal(v)
+		return &plugin.Response{
+			StatusCode:  http.StatusOK,
+			Headers:     map[string]string{"Content-Type": "application/json"},
+			Body:        body,
+			ContentType: "application/json",
+		}, nil
+
 	case "AccessSecretVersion":
 		project := params["project"]
 		secret := params["secret"]
@@ -263,14 +273,6 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 	}
 
 	return nil, plugin.ErrUnhandledOp
-}
-
-func extractProjectFromPath(path string) string {
-	parts := strings.Split(strings.Trim(path, "/"), "/")
-	if len(parts) >= 3 && parts[0] == "v1" && parts[1] == "projects" {
-		return parts[2]
-	}
-	return "default"
 }
 
 func gcpErrorResponse(status int, reason, message string) (*plugin.Response, error) {

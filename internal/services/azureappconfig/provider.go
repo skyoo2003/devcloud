@@ -35,7 +35,7 @@ func (p *Provider) Shutdown(ctx context.Context) error {
 }
 
 func (p *Provider) ListResources(ctx context.Context) ([]plugin.Resource, error) {
-	items, err := p.store.ListKeyValues("default", "", "")
+	items, err := p.store.ListKeyValues("", "", "")
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +52,6 @@ func (p *Provider) ListResources(ctx context.Context) ([]plugin.Resource, error)
 
 func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Request) (*plugin.Response, error) {
 	storeName := extractStoreName(req)
-	path := req.URL.Path
 
 	var queryLabel *string
 	q := req.URL.Query()
@@ -64,7 +63,9 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 		queryLabel = &lbl
 	}
 
-	matchedOp, params := matchAppConfigRoute(req.Method, path)
+	// Escaped, so matchAppConfigRoute decodes the key exactly once: a key
+	// holding a literal "%41" would otherwise come back as "A".
+	matchedOp, params := matchAppConfigRoute(req.Method, req.URL.EscapedPath())
 	if matchedOp != "" {
 		op = matchedOp
 	}
@@ -76,9 +77,6 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 		items, err := p.store.ListKeyValues(storeName, keyFilter, labelFilter)
 		if err != nil {
 			return appConfigErrorResponse(http.StatusInternalServerError, "InternalError", err.Error())
-		}
-		if items == nil {
-			items = []*KeyValue{}
 		}
 		body, _ := json.Marshal(map[string]any{"items": items})
 		return &plugin.Response{

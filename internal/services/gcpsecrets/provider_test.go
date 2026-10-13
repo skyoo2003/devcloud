@@ -95,9 +95,22 @@ func TestGCPSecrets_Lifecycle(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resp.StatusCode)
 
+	// 7b. Get Version metadata still works and reports the destroy
+	req = httptest.NewRequest("GET", "/v1/projects/my-proj/secrets/db-password/versions/1", nil)
+	resp, err = p.HandleRequest(ctx, "", req)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusOK, resp.StatusCode)
+	assert.Contains(t, string(resp.Body), `"state":"DESTROYED"`)
+
 	// 8. Access Destroyed Version -> 400
 	req = httptest.NewRequest("GET", "/v1/projects/my-proj/secrets/db-password/versions/1:access", nil)
 	resp, err = p.HandleRequest(ctx, "AccessSecretVersion", req)
+	require.NoError(t, err)
+	assert.Equal(t, http.StatusBadRequest, resp.StatusCode)
+
+	// 8b. "latest" still names the destroyed version: it does not fall back
+	req = httptest.NewRequest("GET", "/v1/projects/my-proj/secrets/db-password/versions/latest:access", nil)
+	resp, err = p.HandleRequest(ctx, "", req)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusBadRequest, resp.StatusCode)
 
@@ -116,4 +129,15 @@ func TestGCPSecrets_Lifecycle(t *testing.T) {
 
 func fmtPayload(data string) string {
 	return `{"payload":{"data":"` + data + `"}}`
+}
+
+func TestGCPSecrets_CreateRejectsUnreachableSecretIDs(t *testing.T) {
+	p := &Provider{}
+	require.NoError(t, p.Init(plugin.PluginConfig{}))
+	for _, id := range []string{"", "a/b", "a:b", "a%20b"} {
+		req := httptest.NewRequest("POST", "/v1/projects/p/secrets?secretId="+id, nil)
+		resp, err := p.HandleRequest(context.Background(), "", req)
+		require.NoError(t, err)
+		assert.Equal(t, http.StatusBadRequest, resp.StatusCode, id)
+	}
 }

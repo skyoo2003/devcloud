@@ -169,6 +169,9 @@ func (s *Store) CreateSubscription(project, subId, topicFullName string, ackDead
 	if _, exists := s.subscriptions[key]; exists {
 		return nil, ErrSubAlreadyExists
 	}
+	if _, exists := s.topics[topicFullName]; !exists {
+		return nil, ErrTopicNotFound
+	}
 
 	if ackDeadline <= 0 {
 		ackDeadline = 10
@@ -236,6 +239,19 @@ func (s *Store) Pull(project, subId string, maxMessages int) ([]*ReceivedMessage
 	sub.mu.Lock()
 	defer sub.mu.Unlock()
 
+	// Redeliver whatever outlived its ack deadline unacknowledged: Pub/Sub is
+	// at-least-once, and without this a worker that crashes before acking
+	// loses the message and unackedMessages grows forever.
+	now := time.Now()
+	deadline := time.Duration(sub.AckDeadlineSeconds) * time.Second
+	for ackID, rec := range sub.unackedMessages {
+		if now.Sub(rec.DeliveryTime) >= deadline {
+			delete(sub.unackedMessages, ackID)
+			msg := rec.Message
+			sub.pendingQueue = append(sub.pendingQueue, &msg)
+		}
+	}
+
 	if maxMessages <= 0 {
 		maxMessages = 1
 	}
@@ -250,7 +266,7 @@ func (s *Store) Pull(project, subId string, maxMessages int) ([]*ReceivedMessage
 		rec := &ReceivedMessage{
 			AckID:        ackID,
 			Message:      *msg,
-			DeliveryTime: time.Now(),
+			DeliveryTime: now,
 		}
 		sub.unackedMessages[ackID] = rec
 		received = append(received, rec)
