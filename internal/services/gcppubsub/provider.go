@@ -174,6 +174,9 @@ func (p *Provider) HandleRequest(ctx context.Context, op string, req *http.Reque
 			if errors.Is(err, ErrSubAlreadyExists) {
 				return gcpErrorResponse(http.StatusConflict, "AlreadyExists", fmt.Sprintf("Subscription [%s] already exists.", subscription))
 			}
+			if errors.Is(err, ErrTopicNotFound) {
+				return gcpErrorResponse(http.StatusNotFound, "NotFound", fmt.Sprintf("Topic [%s] not found.", payload.Topic))
+			}
 			return gcpErrorResponse(http.StatusInternalServerError, "InternalError", err.Error())
 		}
 		body, _ := json.Marshal(sub)

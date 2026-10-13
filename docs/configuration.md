@@ -75,13 +75,9 @@ services:
   dynamodb:
     enabled: true
 
-# Multi-provider namespaces
+# Multi-provider namespaces. providers.aws.services is the same block as the
+# top-level services above; set only one, or the top-level one is ignored.
 providers:
-  aws:
-    services:
-      s3:
-        enabled: true
-        data_dir: ./data/s3
   azure:
     services:
       blob:

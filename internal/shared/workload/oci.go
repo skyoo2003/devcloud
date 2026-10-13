@@ -25,8 +25,9 @@ func (d *OCIDriver) resolveCLI() string {
 	if envCLI := os.Getenv("CONTAINER_RUNTIME"); envCLI != "" {
 		return envCLI
 	}
-	// Try standard container engines: podman, docker, nerdctl
-	for _, candidate := range []string{"podman", "docker", "nerdctl"} {
+	// Docker first: it is what Lambda has always used, and a host with both
+	// installed keeps its images and DEVCLOUD_LAMBDA_NETWORK in Docker.
+	for _, candidate := range []string{"docker", "podman", "nerdctl"} {
 		if path, err := exec.LookPath(candidate); err == nil && path != "" {
 			return candidate
 		}
@@ -57,7 +58,13 @@ func (d *OCIDriver) Run(ctx context.Context, input []byte, args ...string) ([]by
 	cmd.Stderr = &stderr
 
 	if err := cmd.Run(); err != nil {
-		return nil, fmt.Errorf("%s %v failed: %w: %s", cli, args, err, stderr.String())
+		// Only the subcommand: the full argv carries `--env K=V` for every
+		// function variable, and this error reaches the Lambda API response.
+		sub := ""
+		if len(args) > 0 {
+			sub = args[0]
+		}
+		return nil, fmt.Errorf("%s %s failed: %w: %s", cli, sub, err, stderr.String())
 	}
 
 	if len(args) > 0 && args[0] == "logs" {

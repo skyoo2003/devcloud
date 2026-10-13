@@ -273,6 +273,31 @@ func TestDetectProtocol_AzureBlob(t *testing.T) {
 		assert.Equal(t, "rest-json", proto)
 		assert.Equal(t, "azurekeyvault", service)
 	})
+
+	t.Run("keyvault secret named like a queue path stays keyvault", func(t *testing.T) {
+		req := httptest.NewRequest("GET", "/secrets/messages-key?api-version=7.4", nil)
+		req.Host = "myvault.vault.azure.net"
+		_, service := DetectProtocol(req)
+		assert.Equal(t, "azurekeyvault", service)
+	})
+
+	t.Run("vault paths without the vault host route on api-version", func(t *testing.T) {
+		_, service := DetectProtocol(httptest.NewRequest("GET", "/secrets/messages?api-version=7.4", nil))
+		assert.Equal(t, "azurekeyvault", service)
+		_, service = DetectProtocol(httptest.NewRequest("GET", "/kv/k?api-version=1.0", nil))
+		assert.Equal(t, "azureappconfig", service)
+	})
+
+	t.Run("S3 bucket and blob container named secrets/kv are not vault calls", func(t *testing.T) {
+		for _, path := range []string{"/secrets-bucket", "/kvstore/obj", "/secrets/obj"} {
+			_, service := DetectProtocol(httptest.NewRequest("PUT", path, nil))
+			assert.Equal(t, "s3", service, path)
+		}
+		req := httptest.NewRequest("PUT", "/devstoreaccount1/secrets/blob.txt", nil)
+		req.Header.Set("x-ms-version", "2023-11-03")
+		_, service := DetectProtocol(req)
+		assert.Equal(t, "blob", service)
+	})
 }
 
 func TestDetectProtocol_GCP(t *testing.T) {
@@ -302,6 +327,12 @@ func TestDetectProtocol_GCP(t *testing.T) {
 		req := httptest.NewRequest("GET", "/v1/projects/my-proj/topics", nil)
 		proto, service := DetectProtocol(req)
 		assert.Equal(t, "rest-json", proto)
+		assert.Equal(t, "gcppubsub", service)
+	})
+
+	t.Run("GCP PubSub in a project named secrets-*", func(t *testing.T) {
+		req := httptest.NewRequest("POST", "/v1/projects/secrets-prod/topics/t:publish", nil)
+		_, service := DetectProtocol(req)
 		assert.Equal(t, "gcppubsub", service)
 	})
 

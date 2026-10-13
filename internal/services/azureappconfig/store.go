@@ -126,24 +126,30 @@ func (s *Store) ListKeyValues(store, keyFilter, labelFilter string) ([]*KeyValue
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
-	storeMap, ok := s.items[store]
-	if !ok {
-		return []*KeyValue{}, nil
-	}
-
-	var results []*KeyValue
-	for _, kv := range storeMap {
-		if !matchFilter(kv.Key, keyFilter) {
+	// An empty store name lists every store, for ListResources.
+	results := []*KeyValue{}
+	for name, storeMap := range s.items {
+		if store != "" && name != store {
 			continue
 		}
-		kvLabel := ""
-		if kv.Label != nil {
-			kvLabel = *kv.Label
+		for _, kv := range storeMap {
+			if !matchFilter(kv.Key, keyFilter) {
+				continue
+			}
+			kvLabel := ""
+			if kv.Label != nil {
+				kvLabel = *kv.Label
+			}
+			// label=%00 (decoded to NUL) selects key-values with no label.
+			if labelFilter == "\x00" {
+				if kvLabel != "" {
+					continue
+				}
+			} else if !matchFilter(kvLabel, labelFilter) {
+				continue
+			}
+			results = append(results, kv)
 		}
-		if labelFilter != "" && labelFilter != "*" && !matchFilter(kvLabel, labelFilter) {
-			continue
-		}
-		results = append(results, kv)
 	}
 	return results, nil
 }

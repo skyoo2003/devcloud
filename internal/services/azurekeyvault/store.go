@@ -16,12 +16,6 @@ var (
 	ErrKeyNotFound    = errors.New("KeyNotFound")
 )
 
-type SecretAttributes struct {
-	Enabled int64 `json:"enabled,omitempty"` // 1 or 0 in boolean terms, or bool in JSON
-	Created int64 `json:"created,omitempty"`
-	Updated int64 `json:"updated,omitempty"`
-}
-
 type SecretBundle struct {
 	ID          string            `json:"id"`
 	Value       string            `json:"value,omitempty"`
@@ -130,18 +124,20 @@ func (s *Store) ListSecrets(vault string) ([]*SecretItem, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
-	vaultSecrets, ok := s.secrets[vault]
-	if !ok {
-		return []*SecretItem{}, nil
-	}
-
-	var items []*SecretItem
-	for _, sec := range vaultSecrets {
-		items = append(items, &SecretItem{
-			ID:         sec.ID,
-			Attributes: sec.Attributes,
-			Tags:       sec.Tags,
-		})
+	// Never nil: the SDK pager iterates "value" and fails on null. An empty
+	// vault name lists every vault, for ListResources.
+	items := []*SecretItem{}
+	for name, vaultSecrets := range s.secrets {
+		if vault != "" && name != vault {
+			continue
+		}
+		for _, sec := range vaultSecrets {
+			items = append(items, &SecretItem{
+				ID:         sec.ID,
+				Attributes: sec.Attributes,
+				Tags:       sec.Tags,
+			})
+		}
 	}
 	return items, nil
 }
@@ -156,7 +152,7 @@ func (s *Store) GetSecretVersions(vault, name string) ([]*SecretItem, error) {
 		return nil, ErrSecretNotFound
 	}
 
-	var items []*SecretItem
+	items := make([]*SecretItem, 0, len(history))
 	for _, sec := range history {
 		items = append(items, &SecretItem{
 			ID:         sec.ID,
@@ -235,12 +231,8 @@ func (s *Store) ListKeys(vault string) ([]*KeyItem, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
-	vaultKeys, ok := s.keys[vault]
-	if !ok {
-		return []*KeyItem{}, nil
-	}
-
-	var items []*KeyItem
+	vaultKeys := s.keys[vault]
+	items := make([]*KeyItem, 0, len(vaultKeys))
 	for _, k := range vaultKeys {
 		items = append(items, &KeyItem{
 			Kid:        k.Key.Kid,

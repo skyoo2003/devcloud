@@ -139,7 +139,7 @@ func (p *LambdaProvider) HandleRequest(_ context.Context, _ string, req *http.Re
 	}
 
 	// Route: event source mappings /2015-03-31/event-source-mappings[/{uuid}]
-	if strings.HasPrefix(path, lambdaESMPrefix) {
+	if path == lambdaESMPrefix || strings.HasPrefix(path, lambdaESMPrefix+"/") {
 		rest := strings.TrimPrefix(path, lambdaESMPrefix)
 		rest = strings.TrimPrefix(rest, "/")
 		switch {
@@ -225,7 +225,7 @@ func (p *LambdaProvider) HandleRequest(_ context.Context, _ string, req *http.Re
 		}
 	}
 
-	if strings.HasPrefix(path, lambdaAPIPrefix) {
+	if path == lambdaAPIPrefix || strings.HasPrefix(path, lambdaAPIPrefix+"/") {
 		sub := strings.TrimPrefix(path, lambdaAPIPrefix)
 		sub = strings.TrimPrefix(sub, "/")
 

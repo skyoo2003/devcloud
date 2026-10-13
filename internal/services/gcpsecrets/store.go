@@ -5,8 +5,6 @@ package gcpsecrets
 import (
 	"errors"
 	"fmt"
-	"os"
-	"path/filepath"
 	"strconv"
 	"sync"
 	"time"
@@ -35,20 +33,14 @@ type Secret struct {
 	NextVersion int                    `json:"-"`
 }
 
+// Store is in-memory; nothing is written under the service data dir.
 type Store struct {
 	mu      sync.RWMutex
-	baseDir string
 	secrets map[string]*Secret // key: "projects/{project}/secrets/{secretId}"
 }
 
-func NewStore(baseDir string) *Store {
-	abs, err := filepath.Abs(baseDir)
-	if err != nil {
-		abs = filepath.Clean(baseDir)
-	}
-	_ = os.MkdirAll(abs, 0755)
+func NewStore() *Store {
 	return &Store{
-		baseDir: abs,
 		secrets: make(map[string]*Secret),
 	}
 }
@@ -135,7 +127,8 @@ func (s *Store) AddSecretVersion(project, secretId string, payload []byte) (*Sec
 		Payload:    payload,
 	}
 	sec.Versions[vNum] = v
-	return v, nil
+	cp := *v
+	return &cp, nil
 }
 
 func (s *Store) ListSecretVersions(project, secretId string) ([]*SecretVersion, error) {
@@ -151,18 +144,31 @@ func (s *Store) ListSecretVersions(project, secretId string) ([]*SecretVersion, 
 	var list []*SecretVersion
 	for i := 1; i < sec.NextVersion; i++ {
 		if v, ok := sec.Versions[i]; ok {
-			list = append(list, v)
+			cp := *v // copied under the lock, as in GetSecretVersion
+			list = append(list, &cp)
 		}
 	}
 	return list, nil
 }
 
+// GetSecretVersion returns a copy taken under the lock: DestroySecretVersion
+// mutates the stored version, and callers read and marshal it unlocked. Every
+// method handing out a *SecretVersion does the same.
 func (s *Store) GetSecretVersion(project, secretId, versionId string) (*SecretVersion, error) {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 
-	key := s.secretKey(project, secretId)
-	sec, exists := s.secrets[key]
+	v, err := s.lookupVersion(project, secretId, versionId)
+	if err != nil {
+		return nil, err
+	}
+	cp := *v
+	return &cp, nil
+}
+
+// lookupVersion expects s.mu held.
+func (s *Store) lookupVersion(project, secretId, versionId string) (*SecretVersion, error) {
+	sec, exists := s.secrets[s.secretKey(project, secretId)]
 	if !exists {
 		return nil, ErrSecretNotFound
 	}
@@ -194,40 +200,27 @@ func (s *Store) DestroySecretVersion(project, secretId, versionId string) (*Secr
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
-	key := s.secretKey(project, secretId)
-	sec, exists := s.secrets[key]
-	if !exists {
-		return nil, ErrSecretNotFound
-	}
-
-	vNum, err := s.resolveVersionNumber(sec, versionId)
+	v, err := s.lookupVersion(project, secretId, versionId)
 	if err != nil {
 		return nil, err
-	}
-
-	v, exists := sec.Versions[vNum]
-	if !exists {
-		return nil, ErrVersionNotFound
 	}
 
 	v.State = "DESTROYED"
 	v.DestroyTime = time.Now().UTC().Format(time.RFC3339)
 	v.Payload = nil
-	return v, nil
+	cp := *v
+	return &cp, nil
 }
 
 func (s *Store) resolveVersionNumber(sec *Secret, versionId string) (int, error) {
+	// "latest" is the most recently created version whatever its state, as in
+	// Secret Manager: once it is destroyed, access fails rather than quietly
+	// serving the older value it replaced.
 	if versionId == "latest" {
-		highest := -1
-		for num, v := range sec.Versions {
-			if v.State == "ENABLED" && num > highest {
-				highest = num
-			}
-		}
-		if highest == -1 {
+		if sec.NextVersion <= 1 {
 			return 0, ErrVersionNotFound
 		}
-		return highest, nil
+		return sec.NextVersion - 1, nil
 	}
 
 	vNum, err := strconv.Atoi(versionId)

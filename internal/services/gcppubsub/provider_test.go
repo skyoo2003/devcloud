@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/skyoo2003/devcloud/internal/plugin"
 	"github.com/stretchr/testify/assert"
@@ -120,4 +121,31 @@ func TestGCPPubSub_Lifecycle(t *testing.T) {
 	resp, err = p.HandleRequest(ctx, "DeleteTopic", req)
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, resp.StatusCode)
+}
+
+func TestGCPPubSub_RedeliversAfterAckDeadline(t *testing.T) {
+	s := NewStore()
+	_, err := s.CreateTopic("p", "t", nil)
+	require.NoError(t, err)
+	_, err = s.CreateSubscription("p", "orphan", "projects/p/topics/missing", 0, nil)
+	require.ErrorIs(t, err, ErrTopicNotFound)
+	_, err = s.CreateSubscription("p", "s", "projects/p/topics/t", 10, nil)
+	require.NoError(t, err)
+	_, err = s.Publish("p", "t", []PubsubMessage{{Data: "aGk="}})
+	require.NoError(t, err)
+
+	first, err := s.Pull("p", "s", 10)
+	require.NoError(t, err)
+	require.Len(t, first, 1)
+
+	none, err := s.Pull("p", "s", 10)
+	require.NoError(t, err)
+	assert.Empty(t, none, "still within the ack deadline")
+
+	first[0].DeliveryTime = first[0].DeliveryTime.Add(-11 * time.Second)
+	again, err := s.Pull("p", "s", 10)
+	require.NoError(t, err)
+	require.Len(t, again, 1)
+	assert.Equal(t, first[0].Message.MessageID, again[0].Message.MessageID)
+	assert.NotEqual(t, first[0].AckID, again[0].AckID)
 }
