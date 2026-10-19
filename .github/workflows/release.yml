@@ -136,7 +136,7 @@ jobs:
       # six archives, a Homebrew formula and four container tags whose binary
       # exited at startup, while these 775 tests passed against a different
       # binary that was never shipped. The gate now compiles what ships.
-      uses: goreleaser/goreleaser-action@f06c13b6b1a9625abc9e6e439d9c05a8f2190e94  # goreleaser-action v7
+      uses: goreleaser/goreleaser-action@a4f02ab5355a589de60d917a659ce617ed19b3de  # goreleaser-action v7
       with:
         distribution: goreleaser
         version: "~> v2"
@@ -262,7 +262,7 @@ jobs:
         owner: ${{ env.HOMEBREW_TAP_OWNER }}
         repositories: ${{ env.HOMEBREW_TAP_REPO }}
     - name: Execute GoReleaser
-      uses: goreleaser/goreleaser-action@f06c13b6b1a9625abc9e6e439d9c05a8f2190e94  # goreleaser-action v7
+      uses: goreleaser/goreleaser-action@a4f02ab5355a589de60d917a659ce617ed19b3de  # goreleaser-action v7
       with:
         distribution: goreleaser
         version: "~> v2"
